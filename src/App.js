@@ -4,6 +4,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './Pages/ScrollToTop';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Navbar />
       <Outlet />
       <Footer />
+      <SpeedInsights/>
 
 
     </>
