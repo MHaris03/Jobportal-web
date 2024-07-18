@@ -26,7 +26,7 @@ const SignUp = ({ setsignupOpen, setLoginOpen }) => {
 
     const handleSignUp = async () => {
         try {
-            const response = await fetch('http://localhost:3001/signup', {
+            const response = await fetch('https://jobportal-server-uxgw.onrender.com/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

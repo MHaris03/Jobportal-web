@@ -13,7 +13,7 @@ const Jobloction = () => {
     useEffect(() => {
         const CompanyDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/location-jobs/${jobLocation}`);
+                const response = await fetch(`https://jobportal-server-uxgw.onrender.com/location-jobs/${jobLocation}`);
 
                 if (response.ok) {
                     const jobData = await response.json();

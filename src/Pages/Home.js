@@ -17,7 +17,7 @@ const Home = () => {
 
   useEffect(() => {
     setIsloading(true);
-    fetch("http://localhost:3001/all-jobs")
+    fetch("https://jobportal-server-uxgw.onrender.com/all-jobs")
       .then(res => res.json())
       .then(data => {
         //console.log(data)
@@ -119,53 +119,53 @@ const Home = () => {
 
   return (
     <div>
-    {/* Pass query and handleInputChange as props to the Banner component */}
-    <Banner
-      query={query}
-      handleInputChange={handleInputChange}
-      handleLocationChange={handleLocationChange}
-      handleCategories={handleCategories}
-    />
-    {/* Main Content  */}
-    <div className="bg-[#FAFAFA] grid grid-cols-1 md:grid-cols-4 gap-4 lg:gap-8 lg:px-6 px-4 py-8 lg:py-12">
-      {/* Left Side  */}
-      <div className="bg-white p-4 rounded md:col-span-1">
-        <Sidebar handleChange={handleChange} handleClick={handleClick} />
+      {/* Pass query and handleInputChange as props to the Banner component */}
+      <Banner
+        query={query}
+        handleInputChange={handleInputChange}
+        handleLocationChange={handleLocationChange}
+        handleCategories={handleCategories}
+      />
+      {/* Main Content  */}
+      <div className="bg-[#FAFAFA] grid grid-cols-1 md:grid-cols-4 gap-4 lg:gap-8 lg:px-6 px-4 py-8 lg:py-12">
+        {/* Left Side  */}
+        <div className="bg-white p-4 rounded md:col-span-1">
+          <Sidebar handleChange={handleChange} handleClick={handleClick} />
+        </div>
+        {/* Job Cards   */}
+        <div className="bg-white p-4 rounded-sm md:col-span-2">
+          {isLoading ? (
+            <div className="flex justify-center items-center">
+              <img src="/images/loader.gif" alt="Loading..." style={{ height: "100px" }} />
+            </div>
+          ) : result.length > 0 ? (
+            <Jobs result={result} />
+          ) : (
+            <>
+              <h3 className="text-lg font-bold mb-2">{result?.length} Jobs</h3>
+              <p className="flex justify-center font-bold">No Data Found!</p>
+            </>
+          )}
+          {/* Pagination */}
+          {result.length > 0 && (
+            <div className="flex justify-end space-x-6 mt-4">
+              <button onClick={prevPage} disabled={currentPage === 1} className="cursor-pointer">
+                <MdArrowBackIos size={20} />
+              </button>
+              <span className="mx-2">Page {currentPage} of {Math.ceil(filteredItems.length / itemsPerPage)}</span>
+              <button onClick={nextPage} disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)} className="cursor-pointer">
+                <MdArrowForwardIos size={20} />
+              </button>
+            </div>
+          )}
+        </div>
+        {/* Right Side  */}
+        <div className="bg-white p-4 rounded md:col-span-1">
+          <Newsletter />
+        </div>
       </div>
-      {/* Job Cards   */}
-      <div className="bg-white p-4 rounded-sm md:col-span-2">
-        {isLoading ? (
-          <div className="flex justify-center items-center">
-            <img src="/images/loader.gif" alt="Loading..." style={{ height: "100px" }} />
-          </div>
-        ) : result.length > 0 ? (
-          <Jobs result={result} />
-        ) : (
-          <>
-            <h3 className="text-lg font-bold mb-2">{result?.length} Jobs</h3>
-            <p className="flex justify-center font-bold">No Data Found!</p>
-          </>
-        )}
-        {/* Pagination */}
-        {result.length > 0 && (
-          <div className="flex justify-end space-x-6 mt-4">
-            <button onClick={prevPage} disabled={currentPage === 1} className="cursor-pointer">
-              <MdArrowBackIos size={20} />
-            </button>
-            <span className="mx-2">Page {currentPage} of {Math.ceil(filteredItems.length / itemsPerPage)}</span>
-            <button onClick={nextPage} disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)} className="cursor-pointer">
-              <MdArrowForwardIos size={20} />
-            </button>
-          </div>
-        )}
-      </div>
-      {/* Right Side  */}
-      <div className="bg-white p-4 rounded md:col-span-1">
-        <Newsletter />
-      </div>
+      <Arrow />
     </div>
-    <Arrow />
-  </div>
   );
 };
 

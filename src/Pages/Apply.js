@@ -34,7 +34,7 @@ const Apply = ({ setIsApplyOpen, companyInfo }) => {
         form.append('companyname', companyInfo?.companyName);
         form.append('companyjob', companyInfo?.jobTitle);
         try {
-            const response = await fetch('http://localhost:3001/apply', {
+            const response = await fetch('https://jobportal-server-uxgw.onrender.com/apply', {
                 method: 'POST',
                 body: form,
                 headers: {

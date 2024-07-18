@@ -26,7 +26,7 @@ const Updatejob = () => {
     data.skills =  selectedOptions.map(option => option.value);
     data._id = id;
     data.userId = userId;
-    fetch("http://localhost:3001/post-job", {
+    fetch("https://jobportal-server-uxgw.onrender.com/post-job", {
       method: "POST",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(data)

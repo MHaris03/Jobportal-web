@@ -21,7 +21,7 @@ const UserProfile = () => {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:3001/user-info/${loggedInUserEmail}`);
+      const response = await fetch(`https://jobportal-server-uxgw.onrender.com/user-info/${loggedInUserEmail}`);
       if (!response.ok) {
         throw new Error('Failed to fetch user info');
       }
