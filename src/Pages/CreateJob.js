@@ -57,7 +57,7 @@ const CreateJob = () => {
     
     setIsLoading(true);
     try {
-      const response = await fetch('https://jobportal-server-uxgw.onrender.com/post-job', {
+      const response = await fetch('http://localhost:3003/post-job', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data }),
@@ -109,7 +109,7 @@ const CreateJob = () => {
   ];
 
   return (
-    <div className="max-w-screen-2xl container mx-auto x1:px-24 px-8">
+    <div className="max-w-screen-2xl container mx-auto x1:px-24 px-8 mt-28 mb-10">
       <Toaster />
       <div className="bg-[#FAFAFA] py-10 px-4 lg:px-16">
         <h1 className='container text-sky-500 font-sans text-2xl text-bold mb-4'>Post a New Job</h1>

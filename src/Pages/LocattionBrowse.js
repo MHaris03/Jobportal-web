@@ -8,7 +8,7 @@ const LocationBrowse = () => {
 
 
     useEffect(() => {
-        fetch("https://jobportal-server-uxgw.onrender.com/all-jobs")
+        fetch("http://localhost:3003/all-jobs")
             .then(response => response?.json())
             .then(data => {
                 setJobsData(data);
@@ -26,7 +26,7 @@ const LocationBrowse = () => {
     };
     if (loading) {
         return (
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center mt-28">
                 <img src="/images/loader.gif" alt="Loading..." style={{ height: "100px" }} />
             </div>
         );

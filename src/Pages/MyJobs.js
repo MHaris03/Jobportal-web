@@ -8,7 +8,6 @@ import Arrow from "../components/Arrow"
 export const MyJobs = () => {
     const [jobs, setJobs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [searchText, setSearchText] = useState("");
     const [Userid, setUserid] = useState("");
     // set current page
     const [currentPage, setcurrentPage] = useState(1);
@@ -24,7 +23,7 @@ export const MyJobs = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const response = await fetch('https://jobportal-server-uxgw.onrender.com/all-jobs');
+                const response = await fetch('http://localhost:3003/all-jobs');
                 if (!response.ok) {
                     throw new Error('Failed to fetch jobs');
                 }
@@ -61,12 +60,6 @@ export const MyJobs = () => {
         }
     }
 
-    const handleSearch = () => {
-        const filter = jobs.filter((job) => job.jobTitle.toLowerCase().includes(searchText.toLowerCase()));
-        setJobs(filter);
-        setIsLoading(false);
-    }
-
     const handleDelete = (id) => {
         // Show confirmation dialog
         Swal.fire({
@@ -81,7 +74,7 @@ export const MyJobs = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 // If user confirms deletion, send delete request
-                fetch(`https://jobportal-server-uxgw.onrender.com/job/${id}`, {
+                fetch(`http://localhost:3003/job/${id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())
@@ -181,7 +174,9 @@ export const MyJobs = () => {
                                                         ${job?.minPrice} - ${job?.maxPrice}
                                                     </td>
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <Link to={`/edit-job/${job?._id}`}>Edit</Link>
+                                                        <Link to={`/edit-job/${job?._id}`}>
+                                                            <button className='bg-sky-500 py-2 px-6 text-white rounded-sm'>Edit</button>
+                                                        </Link>
                                                     </td>
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                         <button onClick={() => handleDelete(job?._id)} className='bg-red-700 py-2 px-6 text-white rounded-sm'>Delete</button>

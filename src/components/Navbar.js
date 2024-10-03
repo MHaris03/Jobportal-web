@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import { FaBarsStaggered, FaXmark } from "react-icons/fa6";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { FaBars } from "react-icons/fa6";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import Login from "./Login";
 import SignUp from "./Signup";
 import Swal from 'sweetalert2';
+import { FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,10 +31,6 @@ const Navbar = () => {
   };
 
   const handleSelectProfile = () => {
-    closeDropdown();
-  };
-
-  const handleSelectSettings = () => {
     closeDropdown();
   };
 
@@ -67,6 +64,7 @@ const Navbar = () => {
         localStorage.removeItem('userName');
         localStorage.removeItem('userEmail');
         localStorage.removeItem('userToken');
+        localStorage.removeItem('UserId');
         setUserName(null);
 
         Swal.fire({
@@ -88,16 +86,26 @@ const Navbar = () => {
     { path: "/browsejobs", title: "Browse Jobs" },
     // { path: "/cvbuilder", title: "Build Your CV" },
   ];
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMenuOpen(false);
+      }
+    };
 
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   return (
-    <header className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
+    <header className="fixed top-0 z-50 shadow-md bg-white max-w-screen-2xl container mx-auto xl:px-24 px-4">
+      {/* <header className="fixed top-0 w-full z-50 bg-white shadow-md max-w-screen-2xl container mx-auto xl:px-24 px-4"> */}
       <nav className="flex justify-between items-center py-6">
         <Link to="/" className="flex items-center gap-2 text-2xl text-black">
           <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
             <circle cx="12.0143" cy="12.5143" r="12.0143" fill="#3575E2" fillOpacity="0.4" />
             <circle cx="16.9857" cy="17.4857" r="12.0143" fill="#3575E2" />
           </svg>
-          <span>WE HIRE</span>
+          <span>Aidifys</span>
         </Link>
 
         {/* Nav items for large devices */}
@@ -107,7 +115,9 @@ const Navbar = () => {
               <NavLink
                 to={path}
                 className={({ isActive }) =>
-                  isActive ? "active border-b-2 border-blue p-1" : "hover:border-b-2 hover:border-blue transition duration-300 p-1"
+                  isActive
+                    ? "active border-b-2 border-blue p-1"
+                    : "hover:border-b-2 hover:border-blue transition duration-300 p-1"
                 }
               >
                 {title}
@@ -120,66 +130,218 @@ const Navbar = () => {
         <div className="text-base text-primary font-medium space-x-5 hidden lg:block">
           {userName ? (
             <div className="relative inline-block">
-              <button onClick={toggleDropdown} className="flex items-center py-2 px-5 border rounded">
+              <button
+                onClick={toggleDropdown}
+                className="flex items-center py-2 px-5 border rounded"
+              >
                 {userName}
-                <IoMdArrowDropdown size={20} />
+                {dropdownVisible ? (
+                  <IoMdArrowDropup size={20} className="ml-2" />
+                ) : (
+                  <IoMdArrowDropdown size={20} className="ml-2" />
+                )}
               </button>
+
               {dropdownVisible && (
-                <div className="absolute bg-white border rounded mt-2 py-2 w-40 z-30">
-                  <Link to="/userprofile" onClick={handleSelectProfile} className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Show Profile</Link>
-                  <Link to="/" onClick={handleSelectSettings} className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Show Settings</Link>
+                <div className="absolute bg-white border rounded mt-1 py-2 w-40 z-30 justify-center text-center flex flex-col">
+                  <NavLink
+                    to="/userprofile"
+                    onClick={handleSelectProfile}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-blue border-b-2 border-blue p-1"
+                        : "hover:border-b-2 hover:border-blue transition duration-300 p-1"
+                    }
+                  >
+                    Show Profile
+                  </NavLink>
+                  <NavLink
+                    to="/user-applied-jobs"
+                    onClick={handleSelectProfile}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-blue border-b-2 border-blue p-1 mt-1"
+                        : "hover:border-b-2 hover:border-blue transition duration-300 p-1"
+                    }
+                  >
+                    Applied Jobs
+                  </NavLink>
+                  {/* Add more links here if needed */}
                 </div>
               )}
             </div>
           ) : (
-            <button onClick={handleLoginModal} className="py-2 px-5 border rounded">Log In</button>
+            <button onClick={handleLoginModal} className="py-2 px-5 border rounded">
+              Log In
+            </button>
           )}
           {userName ? (
-            <button onClick={handleLogout} className="py-2 px-5 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900">Logout</button>
+            <button
+              onClick={handleLogout}
+              className="py-2 px-5 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900"
+            >
+              Logout
+            </button>
           ) : (
-            <button onClick={handleSignupModal} className="py-2 px-5 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900">Sign Up</button>
+            <button
+              onClick={handleSignupModal}
+              className="py-2 px-5 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900"
+            >
+              Sign Up
+            </button>
           )}
         </div>
 
-        {/* Mobile menu */}
-        <div className="md:hidden block">
-          <button onClick={handleMenuToggler}>
-            {isMenuOpen ? <FaXmark className="w-5 h-5 text-primary" /> : <FaBarsStaggered className="w-5 h-5 text-primary" />}
+        {/* Mobile menu toggle button */}
+        <div className="md:hidden">
+          <button
+            onClick={handleMenuToggler}
+            className="text-primary focus:outline-none"
+            aria-label="Toggle Menu"
+            aria-expanded={isMenuOpen}
+          >
+            {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
           </button>
         </div>
       </nav>
 
       {/* Nav items for mobile */}
-      <div className={`px-4 bg-white py-5 rounded-sm ${isMenuOpen ? "" : "hidden"}`}>
-        <ul>
-          {navItems.map(({ path, title }) => (
-            <li key={path} className="text-base text-black first:texti-white py-1">
-              <NavLink
-                to={path}
-                className={({ isActive }) => (isActive ? "active border-b-2 border-blue-500" : "hover:border-b-2 hover:border-blue-500 transition duration-300")}
-                onClick={handlePathClick}
-              >
-                {title}
-              </NavLink>
-            </li>
-          ))}
-          {userName ? (
-            <button className="py-2 px-5 border rounded">{userName}</button>
-          ) : (
-            <button onClick={handleLoginModal} className="py-2 px-5 border rounded">Log In</button>
-          )}
-          {userName ? (
-            <button onClick={handleLogout} className="py-2 px-5 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900">Logout</button>
-          ) : (
-            <button onClick={handleSignupModal} className="py-2 px-5 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900">Sign Up</button>
-          )}
-        </ul>
+      <div
+        className={`fixed inset-0 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          } transition-transform duration-200 ease-in-out bg-white z-30 md:hidden`}
+      >
+        {/* Overlay to close the menu when clicking outside */}
+        {isMenuOpen && (
+          <div
+            className="absolute inset-0  opacity-50"
+            onClick={() => setIsMenuOpen(false)}
+            aria-hidden="true"
+          ></div>
+        )}
+
+        {/* Mobile Menu Content */}
+        <div className="relative flex flex-col h-full bg-white p-4">
+          {/* Mobile Menu Header */}
+          <div className="flex items-center justify-between mb-8">
+            <Link to="/" onClick={handlePathClick} className="flex items-center gap-2 text-2xl text-black">
+              <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
+                <circle cx="12.0143" cy="12.5143" r="12.0143" fill="#3575E2" fillOpacity="0.4" />
+                <circle cx="16.9857" cy="17.4857" r="12.0143" fill="#3575E2" />
+              </svg>
+              <span>Aidifys</span>
+            </Link>
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="text-red-700 focus:outline-none"
+              aria-label="Close Menu"
+            >
+              <FaTimes className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Mobile Menu Items */}
+          <ul className="flex flex-col space-y-4">
+            {navItems.map(({ path, title }) => (
+              <li key={path}>
+                <NavLink
+                  to={path}
+                  onClick={handlePathClick}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "active border-b-2 border-blue "
+                      : "hover:border-b-2 hover:border-blue transition duration-300"
+                  }
+                >
+                  {title}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+          {/* User Authentication Buttons */}
+          <div className="w-40">
+            {userName ? (
+              <div className="flex flex-col space-y-4">
+                <div className="mt-4 space-y-4 flex flex-col w-28">
+                  {/* Show Profile Link */}
+                  <NavLink
+                    to="/userprofile"
+                    onClick={() => {
+                      handleSelectProfile();
+                      handlePathClick();
+                    }}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-blue border-b-2 border-blue transition-colors duration-300"
+                        : "text-gray-900 border-b-2 border-transparent hover:border-blue transition-colors duration-300"
+                    }
+                  >
+                    Show Profile
+                  </NavLink>
+                  <NavLink
+                    to="/user-applied-jobs"
+                    onClick={() => {
+                      handleSelectProfile();
+                      handlePathClick();
+                    }}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-blue border-b-2 border-blue transition-colors duration-300"
+                        : "text-gray-900 border-b-2 border-transparent hover:border-blue transition-colors duration-300"
+                    }
+                  >
+                    Applied Jobs
+                  </NavLink>
+                </div>
+                {/* Logout Button */}
+                <button
+                  onClick={handleLogout}
+                  className="py-2 px-4 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900 transition-colors duration-300 w-full"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-col space-y-2">
+                {/* Log In Button */}
+                <button
+                  onClick={handleLoginModal}
+                  className="py-2 px-4 border rounded hover:bg-gray-100 focus:outline-none w-full"
+                >
+                  Log In
+                </button>
+
+                {/* Sign Up Button */}
+                <button
+                  onClick={handleSignupModal}
+                  className="py-2 px-4 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900 transition-colors duration-300 w-full"
+                >
+                  Sign Up
+                </button>
+              </div>
+            )}
+          </div>
+
+        </div>
       </div>
 
       {/* Login Modal */}
-      {isLoginOpen && <Login setLoginOpen={setIsLoginOpen} setsignupOpen={setSignupOpen} setUserName={setUserName} />}
-      {SignupOpen && <SignUp setsignupOpen={setSignupOpen} setLoginOpen={setIsLoginOpen} setUserName={setUserName} />}
+      {isLoginOpen && (
+        <Login
+          setLoginOpen={setIsLoginOpen}
+          setsignupOpen={setSignupOpen}
+          setUserName={setUserName}
+        />
+      )}
+      {SignupOpen && (
+        <SignUp
+          setsignupOpen={setSignupOpen}
+          setLoginOpen={setIsLoginOpen}
+          setUserName={setUserName}
+        />
+      )}
     </header>
+
   );
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { TERipple } from "tw-elements-react";
 import { RiFacebookCircleLine, RiInstagramLine, RiLinkedinLine } from "react-icons/ri";
 
 
@@ -21,7 +20,7 @@ export default function App() {
                 <path
                   d="M12.378 1.602a.75.75 0 00-.756 0L3 6.632l9 5.25 9-5.25-8.622-5.03zM21.75 7.93l-9 5.25v9l8.628-5.032a.75.75 0 00.372-.648V7.93zM11.25 22.18v-9l-9-5.25v8.57a.75.75 0 00.372.648l8.628 5.033z" />
               </svg>
-              <Link to={`/`}>WEHIRE.COM</Link>
+              <Link to={`/`}>Aidifys.com</Link>
             </h6>
             <p>
               Job Portal is not just another job board. It is a platform created by the professionals for the professionals to connect the right talent with the right opportunity for their career and professional growth.
@@ -32,21 +31,18 @@ export default function App() {
               className="text-white mb-4 flex justify-center font-semibold uppercase md:justify-start ">
               Quick Links
             </h6>
-            <p className="mb-4">
-              <a className="text-white  dark:text-neutral-200"
-              > <Link to={`/browsejobs`}>Browse Jobs</Link> </a>
+            <p className="mb-4 text-white  dark:text-neutral-200">
+              <Link to={`/browsejobs`}>Browse Jobs</Link>
             </p>
-            <p className="mb-4">
-              <a className="text-white  dark:text-neutral-200"
-              ><Link to={`/my-job`}>My Jobs</Link></a>
+            <p className="mb-4 text-white  dark:text-neutral-200">
+              <Link to={`/my-job`}>My Jobs</Link>
             </p>
             {/* <p className="mb-4">
               <a className="text-white  dark:text-neutral-200"
               ><Link to={`/cvbuilder`}>Build Your CV</Link></a>
             </p> */}
-            <p>
-              <a className="text-white  dark:text-neutral-200"
-              ><Link to={`/post-job`}>Post a Job!</Link></a>
+            <p className='text-white  dark:text-neutral-200'>
+              <Link to={`/post-job`}>Post a Job!</Link>
             </p>
           </div>
           <div className="text-white ">
@@ -54,13 +50,11 @@ export default function App() {
               className="text-white mb-4 flex justify-center font-semibold uppercase md:justify-start">
               Company
             </h6>
-            <p className="mb-4">
-              <a className="text-white  dark:text-neutral-200"
-              ><Link to={`/companyinfo`}>Company Information</Link></a>
+            <p className="mb-4 text-white  dark:text-neutral-200">
+              <Link to={`/companyinfo`}>Company Information</Link>
             </p>
-            <p className="mb-4">
-              <a className="text-white  dark:text-neutral-200"
-              ><Link to={`/contact`}>Contact Us</Link></a>
+            <p className="mb-4 text-white  dark:text-neutral-200">
+              <Link to={`/contact`}>Contact Us</Link>
             </p>
           </div>
           <div>
@@ -92,7 +86,7 @@ export default function App() {
                 <path
                   d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
               </svg>
-              info@wehire.com
+              Aidifys.com@gmail.com
             </p>
             <p className="text-white mb-4 flex items-center justify-center md:justify-start">
               <svg
@@ -123,7 +117,7 @@ export default function App() {
           </div>
         </div>
       </div>
-      <div className="">
+      {/* <div className="">
         <div className="flex justify-center w-full">
           <TERipple rippleColor="light" style={{ marginRight: '10px', cursor:'pointer' }}>
             <RiFacebookCircleLine size={25} color='white' />
@@ -137,10 +131,10 @@ export default function App() {
             <RiLinkedinLine size={25} color='white' />
           </TERipple>
         </div>
-      </div>
+      </div> */}
       <div
         className="p-4 text-center bg-black ">
-        <p className='text-white'>©2024 Jobportal.com All right reserved.</p>
+        <p className='text-white'>©2024 Aidifys.com All Right Reserved.</p>
       </div>
     </footer>
   );

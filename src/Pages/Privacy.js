@@ -10,7 +10,7 @@ const Privacy = () => {
 
    <h3 className='flex container px-20 font-bold'>Privacy</h3>
 
-   <p className='flex container px-20 mb-4'>We Hire! (“we,” “us,” or “our”) is committed to protecting the privacy of its users. This Privacy Policy explains how we collect, use, and disclose information through our job board website located at https://www.wehire.me (the “Site”).</p>
+   <p className='flex container px-20 mb-4'>Aidifys! (“we,” “us,” or “our”) is committed to protecting the privacy of its users. This Privacy Policy explains how we collect, use, and disclose information through our job board website located at https://www.wehire.me (the “Site”).</p>
 
    <p className='flex container px-20 mb-4 '>By using the Site, you agree to be bound by the terms of this Privacy Policy. If you do not agree to the terms of this Privacy Policy, please do not use the Site.</p>
    
@@ -27,7 +27,7 @@ const Privacy = () => {
  <h4 className='flex container px-20 font-bold'>Data Security:</h4>
 <p className='px-20 mb-4'>We take reasonable measures to protect the security of your information. However, no data transmission over the internet or any wireless network can be guaranteed to be 100% secure. As a result, while we strive to protect your information, we cannot guarantee or warrant the security of any information you transmit to us, and you do so at your own risk.</p>
  <h4 className='flex container px-20 font-bold'>Data Retention:</h4>
-<p className='px-20 mb-4'>We retain your information for as long as your account is active or as necessary to provide you with the Site and its services. If you wish to delete your information, you may do so by contacting us at info@wehire.com</p>
+<p className='px-20 mb-4'>We retain your information for as long as your account is active or as necessary to provide you with the Site and its services. If you wish to delete your information, you may do so by contacting us at Aidifys.com@gmail.com</p>
 
 <h4 className='flex container px-20 font-bold'>Children’s Privacy:</h4>
 <p className='px-20 mb-8'>The Site is not intended for children under the age of 13. We do not knowingly collect personal information from children under the age of 13</p>

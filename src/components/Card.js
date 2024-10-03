@@ -10,18 +10,12 @@ const Card = ({ data }) => {
     image,
     minPrice,
     maxPrice,
-    salarytype,
     jobLocation,
     employementType,
     jobPosting,
     description,
     jobTitle
   } = data;
-
-  const truncateDescription = (description) => {
-    if (!description) return '';
-    return description.split(' ').slice(0, 30).join(' ');
-  };
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -58,7 +52,7 @@ const Card = ({ data }) => {
                 <span className='flex items-center gap-1'><FiDollarSign /> {minPrice}-{maxPrice}</span>
                 <span className='flex items-center gap-1'><FiCalendar /> {jobPosting}</span>
               </div>
-              <p className='text-sm sm:text-base text-primary/70'>{truncateDescription(description)}......</p>
+              <p className='text-sm sm:text-base text-primary/70'>{description?.slice(0, 150)}</p>
             </div>
           </div>
         </Link>

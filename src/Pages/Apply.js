@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import Swal from "sweetalert2";
 
 const Apply = ({ setIsApplyOpen, companyInfo }) => {
     const contentRef = useRef(null);
+    const token = localStorage.getItem('userToken');
     const [formData, setFormData] = useState({
         email: '',
         coverLetter: '',
@@ -33,58 +34,70 @@ const Apply = ({ setIsApplyOpen, companyInfo }) => {
         form.append('companyemail', companyInfo?.postedBy);
         form.append('companyname', companyInfo?.companyName);
         form.append('companyjob', companyInfo?.jobTitle);
+        form.append('jobId', companyInfo?._id);
+
         try {
-            const response = await fetch('https://jobportal-server-uxgw.onrender.com/apply', {
+            const response = await fetch('http://localhost:3003/apply', {
                 method: 'POST',
                 body: form,
                 headers: {
-                    'Accept': 'application/json'
-                }
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
             });
 
+            // Parse the JSON response
+            const result = await response.json();
+
             if (!response.ok) {
-                throw new Error('Failed to submit application.');
+                // Throw an error with the message from the result
+                throw new Error(result.message || 'Failed to submit application.');
             }
 
-            const result = await response.json();
+            console.log("🚀 ~ handleSubmit ~ result:", result);
+
             Swal.fire({
                 icon: 'success',
                 title: 'Application submitted successfully!',
                 timer: 2000,
-                showConfirmButton: false
+                showConfirmButton: false,
             });
+
+            // Reset form data
             setFormData({
                 email: '',
                 coverLetter: '',
                 name: '',
-                cvFile: null
+                cvFile: null,
             });
             setIsApplyOpen(false);
+
         } catch (error) {
             Swal.fire({
                 icon: 'error',
-                title: 'Failed to submit application.',
+                title: error.message || 'Failed to submit application.',
                 timer: 2000,
-                showConfirmButton: false
+                showConfirmButton: false,
             });
         } finally {
-            setIsLoading(false); 
+            setIsLoading(false);
         }
     };
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (contentRef.current && !contentRef.current.contains(event.target)) {
-                setIsApplyOpen(false);
-            }
-        };
 
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [setIsApplyOpen]);
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //         if (contentRef.current && !contentRef.current.contains(event.target)) {
+    //             setIsApplyOpen(false);
+    //         }
+    //     };
+
+    //     document.addEventListener("mousedown", handleClickOutside);
+    //     return () => {
+    //         document.removeEventListener("mousedown", handleClickOutside);
+    //     };
+    // }, [setIsApplyOpen]);
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 mt-20 z-50">
             <div className="relative bg-white p-6 rounded-lg w-full max-w-md" ref={contentRef}>
                 <button className="absolute top-0 right-0 m-3" onClick={close}>
                     <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

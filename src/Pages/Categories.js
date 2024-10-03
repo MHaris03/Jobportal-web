@@ -12,7 +12,7 @@ const Categories = () => {
     useEffect(() => {
         const CompanyDetails = async () => {
             try {
-                const response = await fetch(`https://jobportal-server-uxgw.onrender.com/categories/${category}`);
+                const response = await fetch(`http://localhost:3003/categories/${category}`);
 
                 if (response.ok) {
                     const jobData = await response.json();
@@ -32,7 +32,7 @@ const Categories = () => {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center mt-28">
                 <img src="/images/loader.gif" alt="Loading..." style={{ height: "100px" }} />
             </div>
         );
@@ -56,7 +56,7 @@ const Categories = () => {
             whileInView="visible"
             viewport={{ once: false }}
         >
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-28">
                 <div className="w-[80vw] min-h-[80vh] ">
                     <div>
                         {console.log(jobs)}
@@ -72,7 +72,7 @@ const Categories = () => {
                                     <h4 className='text-primary mb-1'>{job?.category}</h4>
                                     <h4 className='text-primary mb-1'>{job?.companyName}</h4>
                                     <h3 className='text-lg font-semibold mb-2'>{job?.jobTitle}</h3>
-                                    <h6 className='text-lg font-semibold mb-2'>{job?.skills && job?.skills.map(skill => skill.label).join(', ')}</h6>
+                                    <h6 className='text-lg font-semibold mb-2'>{job?.skills && job?.skills.join(', ')}</h6>
                                     <div className='text-primary/70 text-base flex flex-wrap gap-2 mb-2'>
                                         <span className='flex items-center gap-1'><FiMapPin /> {job?.jobLocation}</span>
                                         <span className='flex items-center gap-1'><FiClock /> {job?.employementType}</span>
@@ -80,7 +80,7 @@ const Categories = () => {
                                         <span className='flex items-center gap-1'><FiCalendar /> {job?.jobPosting}</span>
                                     </div>
                                     <p className='text-base text-primary/70 max-h-24 truncate'>
-                                        {job?.description.split(' ').slice(0, 30).join(' ')} ....
+                                        {job?.description?.slice(0, 100)} 
                                     </p>
                                 </div>
                             </Link>

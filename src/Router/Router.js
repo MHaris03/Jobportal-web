@@ -16,6 +16,7 @@ import Companydetails from "../Pages/Companydetails";
 import Categories from "../Pages/Categories";
 import UserProfile from "../Pages/Userprofile";
 import PrivateRouter from "./PrivateRouter"
+import AppliedJobs from "../Pages/AppliedJobs";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
       {
         path: "edit-job/:id",
         element: <Updatejob />,
-        loader: ({ params }) => fetch(`https://jobportal-server-uxgw.onrender.com/all-jobs/${params.id}`)
+        loader: ({ params }) => fetch(`http://localhost:3003/all-jobs/${params.id}`)
       },
       {
         path: "companyinfo",
@@ -76,24 +77,27 @@ const router = createBrowserRouter([
       {
         path: "jobdetails/:id",
         element: <JobDetails />,
-        loader: ({ params }) => fetch(`https://jobportal-server-uxgw.onrender.com/jobdetails/${params.id}`)
+        loader: ({ params }) => fetch(`http://localhost:3003/jobdetails/${params.id}`)
       },
       {
         path: "company-jobs/:companyId",
         element: <Companyjobs />,
-        loader: ({ params }) => fetch(`https://jobportal-server-uxgw.onrender.com/company-jobs/${params.companyId}`)
+        loader: ({ params }) => fetch(`http://localhost:3003/company-jobs/${params.companyId}`)
       },
       {
         path: "location-jobs/:jobLocation",
         element: <Jobloction />,
-        loader: ({ params }) => fetch(`https://jobportal-server-uxgw.onrender.com/location-jobs/${params.jobLocation}`)
+        loader: ({ params }) => fetch(`http://localhost:3003/location-jobs/${params.jobLocation}`)
       },
       {
         path: "categories/:category",
         element: <Categories />,
-        loader: ({ params }) => fetch(`https://jobportal-server-uxgw.onrender.com/categories/${params.category}`)
+        loader: ({ params }) => fetch(`http://localhost:3003/categories/${params.category}`)
+      },
+      {
+        path :"user-applied-jobs",
+        element : <AppliedJobs/>,
       }
-
 
 
 

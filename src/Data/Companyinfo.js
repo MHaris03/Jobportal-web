@@ -5,10 +5,10 @@ export const faqs = [
         questions: [
             {
                 title: "Who are we?",
-                desc: "We Hire is a brand new job portal to help job seekers in the Europe in their job search. Also, it is one of the best platforms for companies and employers in the European region to advertise their job vacancies for free and reach out to millions of job seekers in a fast and efficient way.",
+                desc: "Aidifys is a brand new job portal to help job seekers in the Europe in their job search. Also, it is one of the best platforms for companies and employers in the European region to advertise their job vacancies for free and reach out to millions of job seekers in a fast and efficient way.",
             },
             {
-                title: "How to apply for jobs in European region on wehire.com ?",
+                title: "How to apply for jobs in European region on Aidifys.com ?",
                 desc: "It is very simple and easy. You can apply for jobs on our platform in just few steps. Just create an account on talentedgulf.me or you can login with your Google account, search for your desired job role, upload your resume, and hit apply button. That's it! you have successfully applied for the job.",
             },
             {
@@ -17,7 +17,7 @@ export const faqs = [
             },
             {
                 title: "What does it cost to post an ad?",
-                desc: "It is free to post job ads on We Hire.",
+                desc: "It is free to post job ads on Aidifys.",
             },
             {
                 title: "If I post an ad, will I also get more spam e-mails?",
@@ -39,7 +39,7 @@ export const faqs = [
         questions: [
             {
                 title: "Privacy",
-                desc: "We Hire! (“we,” “us,” or “our”) is committed to protecting the privacy of its users. This Privacy Policy explains how we collect, use, and disclose information through our job board website located at https://www.wehire.me (the “Site”).                ",
+                desc: "Aidifys! (“we,” “us,” or “our”) is committed to protecting the privacy of its users. This Privacy Policy explains how we collect, use, and disclose information through our job board website located at https://www.wehire.me (the “Site”).                ",
             },
             {
                 title: "Information We Collect",
@@ -55,7 +55,7 @@ export const faqs = [
             },
             {
                 title: "Data Retention",
-                desc: "We retain your information for as long as your account is active or as necessary to provide you with the Site and its services. If you wish to delete your information, you may do so by contacting us at info@wehire.com                ",
+                desc: "We retain your information for as long as your account is active or as necessary to provide you with the Site and its services. If you wish to delete your information, you may do so by contacting us at Aidifys.com@gmail.com                ",
             },
             {
                 title: "Children’s Privacy",

@@ -28,7 +28,7 @@ const Companydetails = () => {
   const questionsToDisplay = showAllQuestions ? reorderedQuestions : reorderedQuestions.slice(0, 5);
 
   return (
-    <div className="min-h-[100vh]">
+    <div className="min-h-[100vh] mt-28">
       <div className="px-[5%] md:px-[14%] pt-[5%]">
         <div>
           <h1 className='text-sky-500 font-sans text-2xl text-bold text-center mb-10'>

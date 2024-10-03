@@ -12,7 +12,7 @@ const Companyjobs = () => {
   useEffect(() => {
     const CompanyDetails = async () => {
       try {
-        const response = await fetch(`https://jobportal-server-uxgw.onrender.com/company-jobs/${companyId}`);
+        const response = await fetch(`http://localhost:3003/company-jobs/${companyId}`);
 
         if (response.ok) {
           const jobData = await response.json();
@@ -33,7 +33,7 @@ const Companyjobs = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center mt-28">
         <img src="/images/loader.gif" alt="Loading..." style={{ height: "100px" }} />
       </div>
     );
@@ -58,7 +58,7 @@ const Companyjobs = () => {
       whileInView="visible"
       viewport={{ once: false }}
     >
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-28">
         <div className="w-[80%]">
           <div>
             <h3 className="text-lg font-bold mb-2 ml-6">{jobs?.length} Jobs in {companyId} </h3>
@@ -72,14 +72,14 @@ const Companyjobs = () => {
                 <div>
                   <h4 className='text-primary mb-1'>{job?.companyName}</h4>
                   <h3 className='text-lg font-semibold mb-2'>{job?.jobTitle}</h3>
-                  <h6 className='text-lg font-semibold mb-2'>{job?.skills && job?.skills.map(skill => skill.label).join(', ')}</h6>
+                  <h6 className='text-lg font-semibold mb-2'>{job?.skills && job?.skills.join(', ')}</h6>
                   <div className='text-primary/70 text-base flex flex-wrap gap-2 mb-2'>
                     <span className='flex items-center gap-1'><FiMapPin /> {job?.jobLocation}</span>
                     <span className='flex items-center gap-1'><FiClock /> {job?.employementType}</span>
                     <span className='flex items-center gap-1'><FiDollarSign /> {job?.minPrice}-{job?.maxPrice} {job?.salaryType}</span>
                     <span className='flex items-center gap-1'><FiCalendar /> {job?.jobPosting}</span>
                   </div>
-                  <p className='text-base text-primary/70 max-h-24 '>{job?.description}</p>
+                  <p className='text-base text-primary/70 max-h-24 '>{job?.description?.slice(0, 100)}</p>
                 </div>
               </Link>
             </section>

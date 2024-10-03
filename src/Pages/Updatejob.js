@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CreatableSelect from 'react-select/creatable';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const Updatejob = () => {
@@ -11,6 +12,7 @@ const Updatejob = () => {
   const { jobTitle, companyName, minPrice, maxPrice, salaryType, jobLocation, jobPosting, experienceLevel, image, employmentType
     , description, postedBy, skills } = useLoaderData();
 
+    const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState(null);
   useEffect(() => {
     setSelectedOptions(skills.map(skill => ({ value: skill, label: skill })));
@@ -23,27 +25,38 @@ const Updatejob = () => {
 
   const onSubmit = (data) => {
     const userId = localStorage.getItem('UserId');
-    data.skills =  selectedOptions.map(option => option.value);
-    data._id = id;
+    data.skills = selectedOptions.map(option => option.value);
+    data._id = id; // Ensure 'id' holds the correct job ID
     data.userId = userId;
-    fetch("https://jobportal-server-uxgw.onrender.com/post-job", {
-      method: "POST",
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(data)
-    })
-      .then(res => res.json())
-      .then(result => {
-        console.log(result);
-        if (result.acknowledge === true) {
-          alert("Job Post Succesfully!!!")
 
+    console.log(data?._id,"id is ")
+    console.log("Job ID (id):", id);
+    console.log(data,"data")
+
+    fetch("http://localhost:3003/update-job", 
+      { // Removed the extra slash
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' }, // Fixed content-type casing
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(result => {
+        console.log(result);
+        // Check if the result indicates a successful update
+        if (result.message && result.status === true) {
+            toast.success("Job updated successfully!!!"); // Fixed typo in success message
+            navigate("/my-job")
+        } else {
+            toast.error("Update job failed: " + (result.message || "Unknown error"));
         }
-        reset()
-      })
-      .catch(error => {
+        reset(); // Reset form fields after submission
+    })
+    .catch(error => {
         console.error(error);
-      });
-  };
+        toast.error("Update job failed");
+    });
+};
+
 
   const options = [
     { value: "JavaScript", label: "JavaScript" },
@@ -55,8 +68,9 @@ const Updatejob = () => {
   ];
 
   return (
-    <div className="max-w-screen-2xl container mx-auto x1:px-24 px-8 ">
+    <div className="max-w-screen-2xl container mx-auto x1:px-24 px-8 mt-28 mb-5">
       {/* Form */}
+      <Toaster/>
       <div className="bg-[#FAFAFA] py-10 px-4 lg:px-16">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/*First Row*/}

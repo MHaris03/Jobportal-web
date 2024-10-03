@@ -21,7 +21,7 @@ const UserProfile = () => {
       return;
     }
     try {
-      const response = await fetch(`https://jobportal-server-uxgw.onrender.com/user-info/${loggedInUserEmail}`);
+      const response = await fetch(`http://localhost:3003/user-info/${loggedInUserEmail}`);
       if (!response.ok) {
         throw new Error('Failed to fetch user info');
       }
@@ -41,13 +41,13 @@ const UserProfile = () => {
   }, []);
 
   if (isLoading) {
-    return <div className="flex justify-center items-center">
+    return <div className="flex justify-center items-center mt-28">
       <img src="/images/loader.gif" alt="Loading..." style={{ height: "100px" }} />
     </div>;
   }
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="flex justify-center items-center h-screen bg-gray-100 mt-20">
       <div className="max-w-md w-full mx-auto p-8 bg-white shadow-lg rounded-lg">
         <h1 className="text-3xl font-bold mb-6 text-center text-blue-600">User Information</h1>
         <div className="mb-4">
