@@ -12,7 +12,7 @@ const Companyjobs = () => {
   useEffect(() => {
     const CompanyDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:3003/company-jobs/${companyId}`);
+        const response = await fetch(`https://job-portal-6fci.onrender.com/company-jobs/${companyId}`);
 
         if (response.ok) {
           const jobData = await response.json();

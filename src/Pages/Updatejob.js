@@ -33,7 +33,7 @@ const Updatejob = () => {
     console.log("Job ID (id):", id);
     console.log(data,"data")
 
-    fetch("http://localhost:3003/update-job", 
+    fetch("https://job-portal-6fci.onrender.com/update-job", 
       { // Removed the extra slash
         method: "POST",
         headers: { 'Content-Type': 'application/json' }, // Fixed content-type casing

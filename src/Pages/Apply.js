@@ -37,7 +37,7 @@ const Apply = ({ setIsApplyOpen, companyInfo }) => {
         form.append('jobId', companyInfo?._id);
 
         try {
-            const response = await fetch('http://localhost:3003/apply', {
+            const response = await fetch('https://job-portal-6fci.onrender.com/apply', {
                 method: 'POST',
                 body: form,
                 headers: {

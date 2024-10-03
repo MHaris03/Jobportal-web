@@ -13,7 +13,7 @@ const AppliedJobs = () => {
             try {
                 const token = localStorage.getItem('userToken');
 
-                const response = await fetch(`http://localhost:3003/user-applied-jobs`, {
+                const response = await fetch(`https://job-portal-6fci.onrender.com/user-applied-jobs`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ const AppliedJobs = () => {
             whileInView="visible"
             viewport={{ once: false }}
         >
-            <div className="flex justify-center mt-28 h-auto">
+            <div className="flex justify-center mt-28 h-[100vh]">
                 <div className="w-[80%]">
                     {jobs && jobs.length > 0 ? (
                         jobs.map(job => (

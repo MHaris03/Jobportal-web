@@ -15,7 +15,7 @@ const JobDetails = () => {
     useEffect(() => {
         const fetchJobDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:3003/jobdetails/${id}`);
+                const response = await fetch(`https://job-portal-6fci.onrender.com/jobdetails/${id}`);
                 if (response.ok) {
                     const jobData = await response.json();
                     setJob(jobData);

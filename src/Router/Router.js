@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       {
         path: "edit-job/:id",
         element: <Updatejob />,
-        loader: ({ params }) => fetch(`http://localhost:3003/all-jobs/${params.id}`)
+        loader: ({ params }) => fetch(`https://job-portal-6fci.onrender.com/all-jobs/${params.id}`)
       },
       {
         path: "companyinfo",
@@ -77,22 +77,22 @@ const router = createBrowserRouter([
       {
         path: "jobdetails/:id",
         element: <JobDetails />,
-        loader: ({ params }) => fetch(`http://localhost:3003/jobdetails/${params.id}`)
+        loader: ({ params }) => fetch(`https://job-portal-6fci.onrender.com/jobdetails/${params.id}`)
       },
       {
         path: "company-jobs/:companyId",
         element: <Companyjobs />,
-        loader: ({ params }) => fetch(`http://localhost:3003/company-jobs/${params.companyId}`)
+        loader: ({ params }) => fetch(`https://job-portal-6fci.onrender.com/company-jobs/${params.companyId}`)
       },
       {
         path: "location-jobs/:jobLocation",
         element: <Jobloction />,
-        loader: ({ params }) => fetch(`http://localhost:3003/location-jobs/${params.jobLocation}`)
+        loader: ({ params }) => fetch(`https://job-portal-6fci.onrender.com/location-jobs/${params.jobLocation}`)
       },
       {
         path: "categories/:category",
         element: <Categories />,
-        loader: ({ params }) => fetch(`http://localhost:3003/categories/${params.category}`)
+        loader: ({ params }) => fetch(`https://job-portal-6fci.onrender.com/categories/${params.category}`)
       },
       {
         path :"user-applied-jobs",

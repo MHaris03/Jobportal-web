@@ -26,7 +26,7 @@ const SignUp = ({ setsignupOpen, setLoginOpen }) => {
 
     const handleSignUp = async () => {
         try {
-            const response = await fetch('http://localhost:3003/signup', {
+            const response = await fetch('https://job-portal-6fci.onrender.com/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -22,7 +22,7 @@ const Login = ({ setLoginOpen, setsignupOpen, setUserName }) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3003/login', {
+            const response = await fetch('https://job-portal-6fci.onrender.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

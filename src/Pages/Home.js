@@ -17,7 +17,7 @@ const Home = () => {
 
   useEffect(() => {
     setIsloading(true);
-    fetch("http://localhost:3003/all-jobs")
+    fetch("https://job-portal-6fci.onrender.com/all-jobs")
       .then(res => res.json())
       .then(data => {
         //console.log(data)
