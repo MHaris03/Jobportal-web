@@ -40,7 +40,7 @@ const Contactus = () => {
   };
 
   return (
-    <div className=" mb-10">
+    <div className=" mb-10 mt-20">
       <div className="py-[3%] px-[5%] md:px-[14%] ">
         <h3 className='text-sky-500 font-sans text-2xl text-bold text-center   mb-4 '> Contact US</h3>
         <hr className='mb-2' ></hr>
@@ -98,7 +98,7 @@ const Contactus = () => {
           </div>
         </div>
       </div>
-      <Arrow/>
+      <Arrow />
     </div>
   )
 }

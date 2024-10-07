@@ -107,7 +107,6 @@ const Navbar = () => {
           </svg>
           <span>Aidifys</span>
         </Link>
-
         {/* Nav items for large devices */}
         <ul className="hidden md:flex gap-12" id="navbar">
           {navItems.map(({ path, title }) => (
@@ -116,16 +115,17 @@ const Navbar = () => {
                 to={path}
                 className={({ isActive }) =>
                   isActive
-                    ? "active border-b-2 border-blue p-1"
-                    : "hover:border-b-2 hover:border-blue transition duration-300 p-1"
+                    ? "active relative border-b-2 border-blue p-1"
+                    : "relative group p-1"
                 }
               >
                 {title}
+                {/* Bottom border line with hover animation */}
+                <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               </NavLink>
             </li>
           ))}
         </ul>
-
         {/* Conditional rendering based on user's name */}
         <div className="text-base text-primary font-medium space-x-5 hidden lg:block">
           {userName ? (
@@ -149,22 +149,24 @@ const Navbar = () => {
                     onClick={handleSelectProfile}
                     className={({ isActive }) =>
                       isActive
-                        ? "text-blue border-b-2 border-blue p-1"
-                        : "hover:border-b-2 hover:border-blue transition duration-300 p-1"
+                        ? "active relative border-b-2 border-blue p-1"
+                        : "relative group p-1"
                     }
                   >
                     Show Profile
+                    <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </NavLink>
                   <NavLink
                     to="/user-applied-jobs"
                     onClick={handleSelectProfile}
                     className={({ isActive }) =>
                       isActive
-                        ? "text-blue border-b-2 border-blue p-1 mt-1"
-                        : "hover:border-b-2 hover:border-blue transition duration-300 p-1"
+                        ? "active relative border-b-2 border-blue p-1"
+                        : "relative group p-1"
                     }
                   >
                     Applied Jobs
+                    <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </NavLink>
                   {/* Add more links here if needed */}
                 </div>
@@ -224,11 +226,12 @@ const Navbar = () => {
           {/* Mobile Menu Header */}
           <div className="flex items-center justify-between mb-8">
             <Link to="/" onClick={handlePathClick} className="flex items-center gap-2 text-2xl text-black">
-              <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
+              {/* <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
                 <circle cx="12.0143" cy="12.5143" r="12.0143" fill="#3575E2" fillOpacity="0.4" />
                 <circle cx="16.9857" cy="17.4857" r="12.0143" fill="#3575E2" />
               </svg>
-              <span>Aidifys</span>
+              <span>Aidifys</span> */}
+              <img src="./Aidifyslogo"/>
             </Link>
             <button
               onClick={() => setIsMenuOpen(false)}
@@ -248,11 +251,12 @@ const Navbar = () => {
                   onClick={handlePathClick}
                   className={({ isActive }) =>
                     isActive
-                      ? "active border-b-2 border-blue "
-                      : "hover:border-b-2 hover:border-blue transition duration-300"
+                      ? "active relative border-b-2 border-blue p-1"
+                      : "relative group p-1"
                   }
                 >
                   {title}
+                  <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                 </NavLink>
               </li>
             ))}
@@ -272,11 +276,12 @@ const Navbar = () => {
                     }}
                     className={({ isActive }) =>
                       isActive
-                        ? "text-blue border-b-2 border-blue transition-colors duration-300"
-                        : "text-gray-900 border-b-2 border-transparent hover:border-blue transition-colors duration-300"
+                        ? "active relative border-b-2 border-blue p-1"
+                        : "relative group p-1"
                     }
                   >
                     Show Profile
+                    <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </NavLink>
                   <NavLink
                     to="/user-applied-jobs"
@@ -286,11 +291,12 @@ const Navbar = () => {
                     }}
                     className={({ isActive }) =>
                       isActive
-                        ? "text-blue border-b-2 border-blue transition-colors duration-300"
-                        : "text-gray-900 border-b-2 border-transparent hover:border-blue transition-colors duration-300"
+                        ? "active relative border-b-2 border-blue p-1"
+                        : "relative group p-1"
                     }
                   >
                     Applied Jobs
+                    <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </NavLink>
                 </div>
                 {/* Logout Button */}
