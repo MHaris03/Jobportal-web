@@ -101,11 +101,16 @@ const Navbar = () => {
       {/* <header className="fixed top-0 w-full z-50 bg-white shadow-md max-w-screen-2xl container mx-auto xl:px-24 px-4"> */}
       <nav className="flex justify-between items-center py-6">
         <Link to="/" className="flex items-center gap-2 text-2xl text-black">
-          <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
+          {/* <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
             <circle cx="12.0143" cy="12.5143" r="12.0143" fill="#3575E2" fillOpacity="0.4" />
             <circle cx="16.9857" cy="17.4857" r="12.0143" fill="#3575E2" />
           </svg>
-          <span>Aidifys</span>
+          <span>Aidifys</span> */}
+          <img
+            src="/Aidifyslogo-removebg-preview.png"
+            alt="Aidifys Logo"
+            className="h-auto max-h-12 w-auto max-w-xs object-contain"
+          />
         </Link>
         {/* Nav items for large devices */}
         <ul className="hidden md:flex gap-12" id="navbar">
@@ -231,7 +236,11 @@ const Navbar = () => {
                 <circle cx="16.9857" cy="17.4857" r="12.0143" fill="#3575E2" />
               </svg>
               <span>Aidifys</span> */}
-              <img src="./Aidifyslogo"/>
+              <img
+                src="/Aidifyslogo-removebg-preview.png"
+                alt="Aidifys Logo"
+                className="h-auto max-h-12 w-auto max-w-xs object-contain"
+              />
             </Link>
             <button
               onClick={() => setIsMenuOpen(false)}

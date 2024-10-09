@@ -50,7 +50,7 @@ export default function App() {
             </p>
             <p className="flex items-center justify-center md:justify-start">
               <MdEmail size={20} className='mr-1' />
-              Aidifys.com@gmail.com
+              jobs@aidifys.com
             </p>
             <p className="flex items-center justify-center md:justify-start">
               <FaPhone size={20} className='mr-1' />
@@ -65,10 +65,17 @@ export default function App() {
         <a href="https://facebook.com" className="mx-2 text-white hover:text-blue transition-transform duration-300">
           <RiFacebookCircleLine size={30} />
         </a>
-        <a href="https://instagram.com" className="mx-2 text-white hover:text-blue transition-transform duration-300">
+        <a href="https://www.instagram.com/aidifys.hiring?igsh=MTM3ZjNmbmVtNmR0Yg=="
+          className="mx-2 text-white hover:text-blue transition-transform duration-300"
+          target='blank'
+        >
           <RiInstagramLine size={30} />
         </a>
-        <a href="https://linkedin.com" className="mx-2 text-white hover:text-blue transition-transform duration-300">
+        <a
+          href="https://www.linkedin.com/company/aidifys/"
+          className="mx-2 text-white hover:text-blue transition-transform duration-300"
+          target='blank'
+        >
           <RiLinkedinLine size={30} />
         </a>
       </div>
