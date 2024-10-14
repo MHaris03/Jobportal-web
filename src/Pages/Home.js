@@ -6,6 +6,7 @@ import Sidebar from "../sidebard/Sidebar";
 import Newsletter from "../components/Newsletter";
 import Arrow from "../components/Arrow";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
+import Browse from "./Browse";
 
 const Home = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
@@ -164,6 +165,7 @@ const Home = () => {
           <Newsletter />
         </div>
       </div>
+      <Browse />
       <Arrow />
     </div>
   );

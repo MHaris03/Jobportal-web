@@ -33,7 +33,7 @@ const BrowseJobs = () => {
   }
   return (
     <>
-      <div className='flex flex-col px-10'>
+      <div className='flex flex-col px-10 mt-28'>
         <h2 className='mb-10 text-2xl container text-bold text-sky-500 font-sans'>
           Browse by Categories
         </h2>

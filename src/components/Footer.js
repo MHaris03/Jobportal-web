@@ -28,7 +28,7 @@ export default function App() {
             <ul className="space-y-2">
               <li><Link to={`/browsejobs`} className="hover:text-blue">Browse Jobs</Link></li>
               <li><Link to={`/my-job`} className="hover:text-blue">My Jobs</Link></li>
-              <li><Link to={`/post-job`} className="hover:text-blue">Post a Job!</Link></li>
+              <li><Link to={`/post-job`} className="hover:text-blue">Post Job!</Link></li>
             </ul>
           </div>
 
@@ -48,9 +48,11 @@ export default function App() {
               <ImHome size={20} className='mr-1' />
               North Adam, 83 Jacob Glens, United Kingdom
             </p>
-            <p className="flex items-center justify-center md:justify-start">
-              <MdEmail size={20} className='mr-1' />
-              jobs@aidifys.com
+            <p className="flex items-center justify-center md:justify-start cursor-pointer">
+              <MdEmail size={20} className="mr-1" />
+              <a href="mailto:jobs@aidifys.com">
+                jobs@aidifys.com
+              </a>
             </p>
             <p className="flex items-center justify-center md:justify-start">
               <FaPhone size={20} className='mr-1' />

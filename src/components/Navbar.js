@@ -82,7 +82,7 @@ const Navbar = () => {
   const navItems = [
     { path: "/", title: "Start a Search" },
     ...(userName ? [{ path: "/my-job", title: "My Jobs" }] : []),
-    ...(userName ? [{ path: "/post-job", title: "Post a Job" }] : []),
+    ...(userName ? [{ path: "/post-job", title: "Post Job" }] : []),
     { path: "/browsejobs", title: "Browse Jobs" },
     // { path: "/cvbuilder", title: "Build Your CV" },
   ];
