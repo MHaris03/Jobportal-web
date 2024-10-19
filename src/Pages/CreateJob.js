@@ -57,7 +57,7 @@ const CreateJob = () => {
     
     setIsLoading(true);
     try {
-      const response = await fetch('https://job-portal-6fci.onrender.com/post-job', {
+      const response = await fetch('https://portal-lvi4.onrender.com/post-job', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data }),

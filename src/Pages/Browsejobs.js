@@ -8,7 +8,7 @@ const BrowseJobs = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://job-portal-6fci.onrender.com/all-jobs")
+    fetch("https://portal-lvi4.onrender.com/all-jobs")
       .then(response => response?.json())
       .then(data => {
         setJobsData(data);

@@ -12,7 +12,7 @@ const Categories = () => {
     useEffect(() => {
         const CompanyDetails = async () => {
             try {
-                const response = await fetch(`https://job-portal-6fci.onrender.com/categories/${category}`);
+                const response = await fetch(`https://portal-lvi4.onrender.com/categories/${category}`);
 
                 if (response.ok) {
                     const jobData = await response.json();

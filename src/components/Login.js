@@ -22,7 +22,7 @@ const Login = ({ setLoginOpen, setsignupOpen, setUserName }) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://job-portal-6fci.onrender.com/login', {
+            const response = await fetch('https://portal-lvi4.onrender.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -21,7 +21,7 @@ const UserProfile = () => {
       return;
     }
     try {
-      const response = await fetch(`https://job-portal-6fci.onrender.com/user-info/${loggedInUserEmail}`);
+      const response = await fetch(`https://portal-lvi4.onrender.com/user-info/${loggedInUserEmail}`);
       if (!response.ok) {
         throw new Error('Failed to fetch user info');
       }

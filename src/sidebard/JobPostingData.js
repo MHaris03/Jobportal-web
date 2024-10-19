@@ -25,7 +25,7 @@ const JobPostingData = ({ handleChange }) => {
       <div>
         <label className='sidebar-label-container'>
           <input type="radio" name="test" id="test" value="" onChange={handleChange} />
-          <span className='checkmark'></span> ALL Time
+          <span className='checkmark'></span> ALL Jobs
         </label>
         <InputField
           handleChange={handleChange}

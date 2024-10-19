@@ -13,7 +13,7 @@ const AppliedJobs = () => {
             try {
                 const token = localStorage.getItem('userToken');
 
-                const response = await fetch(`https://job-portal-6fci.onrender.com/user-applied-jobs`, {
+                const response = await fetch(`https://portal-lvi4.onrender.com/user-applied-jobs`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'

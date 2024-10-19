@@ -23,7 +23,7 @@ export const MyJobs = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const response = await fetch('https://job-portal-6fci.onrender.com/all-jobs');
+                const response = await fetch('https://portal-lvi4.onrender.com/all-jobs');
                 if (!response.ok) {
                     throw new Error('Failed to fetch jobs');
                 }
@@ -74,7 +74,7 @@ export const MyJobs = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 // If user confirms deletion, send delete request
-                fetch(`https://job-portal-6fci.onrender.com/job/${id}`, {
+                fetch(`https://portal-lvi4.onrender.com/job/${id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())
