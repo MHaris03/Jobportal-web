@@ -12,7 +12,7 @@ const Updatejob = () => {
   const { jobTitle, companyName, minPrice, maxPrice, salaryType, jobLocation, jobPosting, experienceLevel, image, employmentType
     , description, postedBy, skills } = useLoaderData();
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState(null);
   useEffect(() => {
     setSelectedOptions(skills.map(skill => ({ value: skill, label: skill })));
@@ -26,36 +26,29 @@ const Updatejob = () => {
   const onSubmit = (data) => {
     const userId = localStorage.getItem('UserId');
     data.skills = selectedOptions.map(option => option.value);
-    data._id = id; // Ensure 'id' holds the correct job ID
+    data._id = id;
     data.userId = userId;
-
-    console.log(data?._id,"id is ")
-    console.log("Job ID (id):", id);
-    console.log(data,"data")
-
-    fetch("https://portal-lvi4.onrender.com/update-job", 
+    fetch("https://portal-lvi4.onrender.com/update-job",
       { // Removed the extra slash
         method: "POST",
-        headers: { 'Content-Type': 'application/json' }, // Fixed content-type casing
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(result => {
-        console.log(result);
-        // Check if the result indicates a successful update
+      })
+      .then(res => res.json())
+      .then(result => {
         if (result.message && result.status === true) {
-            toast.success("Job updated successfully!!!"); // Fixed typo in success message
-            navigate("/my-job")
+          toast.success("Job updated successfully!!!");
+          navigate("/my-job")
         } else {
-            toast.error("Update job failed: " + (result.message || "Unknown error"));
+          toast.error("Update job failed: " + (result.message || "Unknown error"));
         }
-        reset(); // Reset form fields after submission
-    })
-    .catch(error => {
+        reset();
+      })
+      .catch(error => {
         console.error(error);
         toast.error("Update job failed");
-    });
-};
+      });
+  };
 
 
   const options = [
@@ -70,7 +63,7 @@ const Updatejob = () => {
   return (
     <div className="max-w-screen-2xl container mx-auto x1:px-24 px-8 mt-28 mb-5">
       {/* Form */}
-      <Toaster/>
+      <Toaster />
       <div className="bg-[#FAFAFA] py-10 px-4 lg:px-16">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/*First Row*/}
@@ -123,10 +116,15 @@ const Updatejob = () => {
             <div className="lg:w-1/2 w-full">
               <label className="block mb-2 text-lg">Experience Level</label>
               <select defaultValue={experienceLevel} {...register("experienceLevel")} className="create-job-input">
-                <option value="">Choose your experience</option>
-                <option value="noExperience">No Experience</option>
+                <option value="">Choose experience</option>
+                <option value="Fresher">Fresher</option>
+                <option value="1-Year">1 Year</option>
+                <option value="2-Years">2 Years</option>
+                <option value="3-Years">3 Years</option>
+                <option value="5-Years">5 Years</option>
+                <option value="Mid-Level">Mid-Level</option>
+                <option value="Highly-Experienced">Highly Experienced</option>
                 <option value="Internship">Internship</option>
-                <option value="Work Remotely">Work Remotely</option>
               </select>
             </div>
           </div>
@@ -135,12 +133,12 @@ const Updatejob = () => {
           <div>
             <label className="block mb-2 text-lg">Required Skill Sets</label>
             <CreatableSelect
-          value={selectedOptions}
-          onChange={(selectedOptions) => setSelectedOptions(selectedOptions)}
-          options={options}
-          isMulti
-          className="create-job-input py-4"
-        />
+              value={selectedOptions}
+              onChange={(selectedOptions) => setSelectedOptions(selectedOptions)}
+              options={options}
+              isMulti
+              className="create-job-input py-4"
+            />
           </div>
           {/* 6th Row*/}
 
@@ -153,32 +151,25 @@ const Updatejob = () => {
             <div className="lg:w-1/2 w-full">
               <label className="block mb-2 text-lg">Employement Type</label>
               <select defaultValue={employmentType} {...register("employmentType")} className="create-job-input">
-                <option value="">Choose your experience</option>
+                <option value="">Choose your employment type</option>
                 <option value="Full-time">Full-time</option>
                 <option value="Part-time">Part-time</option>
                 <option value="Temporary">Temporary</option>
+                <option value="Permanent">Permanent</option>
               </select>
             </div>
           </div>
 
           {/* 7th Row*/}
-
           <div className="w-full"></div>
-
           <label className="block mb-2 text-lg">Job Description</label>
           <textarea className="w-full pl-3 py-1.5 focus:outline-none placeholder:text-gray-700"
             rows={6} defaultValue={description}
             placeholder="As a Product Design Manager at GitLab, you will be responsible for managing a team of up to 5 talented Product Designers.” This approach can allow job seekers to envision themselves in the role so they can decide if it's the right fit for them."
             {...register("description")} />
-
-
-
           {/* Last Row*/}
-
           <div className="w-full ">
-
             <label className="block mb-2 text-lg">Job Posted By</label>
-
             <input type="email" defaultValue={postedBy} placeholder="Your Email" {...register("postedBy")} className="create-job-input" />
           </div>
           <input type="submit" className="block mt-12 bg-blue text-white font-semibold px-10 py-2 rounded-sm cursor-pointer" value="Update Job" />

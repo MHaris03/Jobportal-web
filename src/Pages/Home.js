@@ -19,19 +19,15 @@ const Home = () => {
   useEffect(() => {
     setIsloading(true);
     fetch("https://portal-lvi4.onrender.com/all-jobs")
-      .then(res => res.json())
-      .then(data => {
-        //console.log(data)
-        setJobs(data);
-        setIsloading(false)
-
-      }
-      )
-  }, [])
-
-  //console.log(jobs)
-
-  const [query, setQuery] = useState(""); // Move useState to the Home component
+        .then(res => res.json())
+        .then(data => {
+            // Sort data by postingDate before setting the state
+            data.sort((a, b) => new Date(b.jobPosting) - new Date(a.jobPosting));
+            setJobs(data);
+            setIsloading(false);
+        });
+}, []);
+  const [query, setQuery] = useState(""); 
 
   const handleInputChange = (event) => {
     setQuery(event.target.value);
@@ -83,7 +79,6 @@ const Home = () => {
       setCurrentPage(currentPage - 1)
     }
   }
-  // main funtion 
 
   const filteredData = (jobs, selected, query, selectedLocation) => {
     let filteredJobs = jobs;
