@@ -54,7 +54,7 @@ const CreateJob = () => {
     data.skills = selectedOptions.map(option => option.value);
     data.image = image;
     data.userId = userId;
-    
+
     setIsLoading(true);
     try {
       const response = await fetch('https://portal-lvi4.onrender.com/post-job', {
@@ -160,11 +160,22 @@ const CreateJob = () => {
           </div>
 
           <div className="create-job-flex">
-            <div className="lg:w-1/2 w-full">
+            {/* <div className="lg:w-1/2 w-full">
               <label className="block mb-2 text-lg">Job Posting Date</label>
               <input type="date" {...register('jobPosting', { required: true })} className="create-job-input" />
               {errors.jobPosting && <p className="text-red-500">Job posting date is required</p>}
+            </div> */}
+            <div className="lg:w-1/2 w-full">
+              <label className="block mb-2 text-lg">Job Posting Date</label>
+              <input
+                type="date"
+                {...register('jobPosting', { required: true })}
+                className="create-job-input"
+                defaultValue={new Date().toISOString().split('T')[0]}
+              />
+              {errors.jobPosting && <p className="text-red-500">Job posting date is required</p>}
             </div>
+
             <div className="lg:w-1/2 w-full">
               <label className="block mb-2 text-lg">Experience Level</label>
               <select {...register('experienceLevel', { required: true })} className="create-job-input">
