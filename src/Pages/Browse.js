@@ -65,13 +65,12 @@ const JobBrowseComponent = () => {
     return (
         <div className='flex flex-col justify-center items-center p-5 '>
             <h1 className='items-center text-lg md:text-xl font-bold mb-2 flex gap-2'>
-                Browse SimplyHired
+                Browse AidiyfsHired
             </h1>
             <p className='text-primary/75 text-base md:text-lg text-center mb-4'>
-                Browse SimplyHired for Jobs, view local and national salary information, discover <br />
-                companies, and learn about the job market in a specific city.
+                Browse AidiyfsHired for Jobs, We Can Help You Succeed, discover <br />
+                Browse Thousands Of Jobs From Top Companies.
             </p>
-
             <div onClick={toggleOpen} className='cursor-pointer'>
                 {isOpen ? (
                     <Lottie

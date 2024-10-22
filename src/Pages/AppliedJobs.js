@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiCalendar, FiClock, FiDollarSign, FiMapPin } from "react-icons/fi";
+import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
+import { LiaPoundSignSolid } from "react-icons/lia";
 import Arrow from "../components/Arrow";
 import { motion } from "framer-motion";
 
@@ -82,8 +83,8 @@ const AppliedJobs = () => {
                                         <h4 className='text-primary mb-1'>{job?.companyName}</h4>
                                         <div className='text-primary/70 text-base flex flex-wrap gap-2 mb-2'>
                                             <span className='flex items-center gap-1'><FiMapPin /> {job?.jobLocation}</span>
-                                            <span className='flex items-center gap-1'><FiClock /> {job?.employementType}</span>
-                                            <span className='flex items-center gap-1'><FiDollarSign /> {job?.minPrice}-{job?.maxPrice} {job?.salaryType}</span>
+                                            <span className='flex items-center gap-1'><FiClock /> {job?.employmentType}</span>
+                                            <span className='flex items-center gap-1'><LiaPoundSignSolid /> {job?.minPrice}-{job?.maxPrice} {job?.salaryType}</span>
                                             <span className='flex items-center gap-1'><FiCalendar /> {job?.jobPosting}</span>
                                         </div>
                                         <p className='text-base text-primary/70 max-h-24'>{job?.description?.slice(0, 150)}</p>

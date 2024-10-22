@@ -94,14 +94,14 @@ const Home = () => {
     // Category filtering
     if (selected) {
       // console.log(selected);
-      filteredJobs = filteredJobs.filter(({ jobLocation, maxPrice, experiencedLevel, salaryType, employementType, postingDate, category }) =>
+      filteredJobs = filteredJobs.filter(({ jobLocation, maxPrice, experiencedLevel, salaryType, employmentType, postingDate, category }) =>
         (jobLocation && jobLocation.toLowerCase() === selected.toLowerCase()) ||
         (category && category.toLowerCase() === selected.toLowerCase()) ||
         (maxPrice && parseInt(maxPrice) <= parseInt(selected)) ||
         (postingDate && postingDate >= selected) ||
         (salaryType && salaryType.toLowerCase() === selected.toLowerCase()) ||
         (experiencedLevel && experiencedLevel.toLowerCase() === selected.toLowerCase()) ||
-        (employementType && employementType.toLowerCase() === selected.toLowerCase())
+        (employmentType && employmentType.toLowerCase() === selected.toLowerCase())
       );
       // console.log(filteredJobs);
     }

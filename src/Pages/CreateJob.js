@@ -131,12 +131,12 @@ const CreateJob = () => {
           <div className="create-job-flex">
             <div className="lg:w-1/2 w-full">
               <label className="block mb-2 text-lg">Minimum Salary</label>
-              <input type="text" placeholder="$20k" {...register('minPrice', { required: true })} className="create-job-input" />
+              <input type="text" placeholder="£20k" {...register('minPrice', { required: true })} className="create-job-input" />
               {errors.minPrice && <p className="text-red-500">Minimum salary is required</p>}
             </div>
             <div className="lg:w-1/2 w-full">
               <label className="block mb-2 text-lg">Maximum Salary</label>
-              <input type="text" placeholder="$120k" {...register('maxPrice', { required: true })} className="create-job-input" />
+              <input type="text" placeholder="£120k" {...register('maxPrice', { required: true })} className="create-job-input" />
               {errors.maxPrice && <p className="text-red-500">Maximum salary is required</p>}
             </div>
           </div>
@@ -169,9 +169,14 @@ const CreateJob = () => {
               <label className="block mb-2 text-lg">Experience Level</label>
               <select {...register('experienceLevel', { required: true })} className="create-job-input">
                 <option value="">Choose experience</option>
-                <option value="noExperience">No Experience</option>
+                <option value="Fresher">Fresher</option>
+                <option value="1-Year">1 Year</option>
+                <option value="2-Years">2 Years</option>
+                <option value="3-Years">3 Years</option>
+                <option value="5-Years">5 Years</option>
+                <option value="Mid-Level">Mid-Level</option>
+                <option value="Highly-Experienced">Highly Experienced</option>
                 <option value="Internship">Internship</option>
-                <option value="Work Remotely">Work Remotely</option>
               </select>
               {errors.experienceLevel && <p className="text-red-500">Experience level is required</p>}
             </div>
@@ -228,6 +233,7 @@ const CreateJob = () => {
                 <option value="Full-time">Full-time</option>
                 <option value="Part-time">Part-time</option>
                 <option value="Temporary">Temporary</option>
+                <option value="Permanent">Permanent</option>
               </select>
               {errors.employmentType && <p className="text-red-500">Employment type is required</p>}
             </div>

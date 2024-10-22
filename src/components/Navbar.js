@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { FaBars } from "react-icons/fa6";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import Login from "./Login";
@@ -14,6 +14,7 @@ const Navbar = () => {
   const [userName, setUserName] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const storedUserName = localStorage.getItem('userName');
@@ -46,10 +47,12 @@ const Navbar = () => {
 
   const handleLoginModal = () => {
     setIsLoginOpen(!isLoginOpen);
+    setIsMenuOpen(false);
   };
 
   const handleSignupModal = () => {
     setSignupOpen(!SignupOpen);
+    setIsMenuOpen(false);
   };
 
   const handleLogout = () => {
@@ -73,7 +76,7 @@ const Navbar = () => {
           showConfirmButton: false,
           timer: 1500
         });
-
+        setIsMenuOpen(false);
         navigate('/');
       }
     });
@@ -81,11 +84,35 @@ const Navbar = () => {
 
   const navItems = [
     { path: "/", title: "Start a Search" },
+    { path: "/post-job", title: "Post Job" },
     ...(userName ? [{ path: "/my-job", title: "My Jobs" }] : []),
-    ...(userName ? [{ path: "/post-job", title: "Post Job" }] : []),
     { path: "/browsejobs", title: "Browse Jobs" },
-    // { path: "/cvbuilder", title: "Build Your CV" },
   ];
+  const handlePostJobClick = () => {
+    if (!userName) {
+      Swal.fire({
+        title: 'Please log in or Sign up',
+        text: 'You need to log in or sign up to post a job',
+        icon: 'warning',
+        confirmButtonText: 'Login',
+        showCancelButton: true,
+        cancelButtonText: 'Sign Up',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setIsLoginOpen(true);
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          setSignupOpen(true);
+        }
+      });
+    } else {
+      setIsMenuOpen(false);
+      navigate('/post-job');
+    }
+  };
+
+  const handleNavLinkClick = () => {
+    setIsMenuOpen(false);
+  };
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -101,11 +128,6 @@ const Navbar = () => {
       {/* <header className="fixed top-0 w-full z-50 bg-white shadow-md max-w-screen-2xl container mx-auto xl:px-24 px-4"> */}
       <nav className="flex justify-between items-center py-6">
         <Link to="/" className="flex items-center gap-2 text-2xl text-black">
-          {/* <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
-            <circle cx="12.0143" cy="12.5143" r="12.0143" fill="#3575E2" fillOpacity="0.4" />
-            <circle cx="16.9857" cy="17.4857" r="12.0143" fill="#3575E2" />
-          </svg>
-          <span>Aidifys</span> */}
           <img
             src="/Aidifyslogo-removebg-preview.png"
             alt="Aidifys Logo"
@@ -116,18 +138,27 @@ const Navbar = () => {
         <ul className="hidden md:flex gap-12" id="navbar">
           {navItems.map(({ path, title }) => (
             <li key={path} className="text-base text-primary">
-              <NavLink
-                to={path}
-                className={({ isActive }) =>
-                  isActive
-                    ? "active relative border-b-2 border-blue p-1"
-                    : "relative group p-1"
-                }
-              >
-                {title}
-                {/* Bottom border line with hover animation */}
-                <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-              </NavLink>
+              {path === '/post-job' ? (
+                <button
+                  onClick={() => handlePostJobClick(path)}
+                  className={`relative group p-1 ${location.pathname === '/post-job' ? 'border-b-2 border-blue text-blue' : ''}`}
+                >
+                  {title}
+                  <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                </button>
+              ) : (
+                <NavLink
+                  to={path}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "active relative border-b-2 border-blue p-1 text-primary"
+                      : "relative group p-1"
+                  }
+                >
+                  {title}
+                  <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                </NavLink>
+              )}
             </li>
           ))}
         </ul>
@@ -231,11 +262,6 @@ const Navbar = () => {
           {/* Mobile Menu Header */}
           <div className="flex items-center justify-between mb-8">
             <Link to="/" onClick={handlePathClick} className="flex items-center gap-2 text-2xl text-black">
-              {/* <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
-                <circle cx="12.0143" cy="12.5143" r="12.0143" fill="#3575E2" fillOpacity="0.4" />
-                <circle cx="16.9857" cy="17.4857" r="12.0143" fill="#3575E2" />
-              </svg>
-              <span>Aidifys</span> */}
               <img
                 src="/Aidifyslogo-removebg-preview.png"
                 alt="Aidifys Logo"
@@ -254,19 +280,29 @@ const Navbar = () => {
           {/* Mobile Menu Items */}
           <ul className="flex flex-col space-y-4">
             {navItems.map(({ path, title }) => (
-              <li key={path}>
-                <NavLink
-                  to={path}
-                  onClick={handlePathClick}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "active relative border-b-2 border-blue p-1"
-                      : "relative group p-1"
-                  }
-                >
-                  {title}
-                  <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                </NavLink>
+              <li key={path} className="text-base text-primary">
+                {path === '/post-job' ? (
+                  <button
+                    onClick={() => handlePostJobClick(path)}
+                    className={`relative group p-1 ${location.pathname === '/post-job' ? 'border-b-2 border-blue text-blue' : ''}`}
+                  >
+                    {title}
+                    <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                  </button>
+                ) : (
+                  <NavLink
+                    to={path}
+                    onClick={handleNavLinkClick}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "active relative border-b-2 border-blue p-1 text-primary"
+                        : "relative group p-1"
+                    }
+                  >
+                    {title}
+                    <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                  </NavLink>
+                )}
               </li>
             ))}
           </ul>
@@ -317,7 +353,7 @@ const Navbar = () => {
                 </button>
               </div>
             ) : (
-              <div className="flex flex-col space-y-2">
+              <div className="flex flex-col space-y-2 mt-3">
                 {/* Log In Button */}
                 <button
                   onClick={handleLoginModal}

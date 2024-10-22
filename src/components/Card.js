@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FiCalendar, FiClock, FiDollarSign, FiMapPin } from "react-icons/fi"
+import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi"
+import { LiaPoundSignSolid } from "react-icons/lia";
 import { motion } from "framer-motion";
 
 const Card = ({ data }) => {
@@ -11,7 +12,7 @@ const Card = ({ data }) => {
     minPrice,
     maxPrice,
     jobLocation,
-    employementType,
+    employmentType,
     jobPosting,
     description,
     jobTitle
@@ -45,14 +46,14 @@ const Card = ({ data }) => {
           <div className="flex flex-col justify-between w-full">
             <div>
               <h4 className='text-primary mb-1 text-base sm:text-lg lg:text-xl'>{companyName}</h4>
-              <h3 className='text-lg sm:text-xl lg:text-2xl font-semibold mb-2'>{jobTitle}</h3>
+              <h3 className='text-lg sm:text-xl lg:text-xl font-semibold mb-2'>{jobTitle}</h3>
               <div className='text-primary/70 text-sm sm:text-base flex flex-wrap gap-2 mb-2'>
                 <span className='flex items-center gap-1'><FiMapPin /> {jobLocation}</span>
-                <span className='flex items-center gap-1'><FiClock /> {employementType}</span>
-                <span className='flex items-center gap-1'><FiDollarSign /> {minPrice}-{maxPrice}</span>
+                <span className='flex items-center gap-1'><FiClock /> {employmentType}</span>
+                <span className='flex items-center gap-1'><LiaPoundSignSolid />{minPrice}-{maxPrice}</span>
                 <span className='flex items-center gap-1'><FiCalendar /> {jobPosting}</span>
               </div>
-              <p className='text-sm sm:text-base text-primary/70'>{description?.slice(0, 150)}</p>
+              <p className='text-sm sm:text-base text-primary/70'>{description?.slice(0, 120)}</p>
             </div>
           </div>
         </Link>
