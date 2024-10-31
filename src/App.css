@@ -34,8 +34,8 @@ li {
 /* jobs page */
 
 .card {
-  margin: 20px;
-  border: 2px solid #ededed;
+  margin: 10px;
+  /* border: 2px solid #ededed; */
   /* padding: 20px; */
   cursor: pointer;
 }

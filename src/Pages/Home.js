@@ -14,20 +14,22 @@ const Home = () => {
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [Totaljobs, setTotaljobs] = useState("");
   const itemsPerPage = 10;
 
   useEffect(() => {
     setIsloading(true);
     fetch("https://portal-lvi4.onrender.com/all-jobs")
-        .then(res => res.json())
-        .then(data => {
-            // Sort data by postingDate before setting the state
-            data.sort((a, b) => new Date(b.jobPosting) - new Date(a.jobPosting));
-            setJobs(data);
-            setIsloading(false);
-        });
-}, []);
-  const [query, setQuery] = useState(""); 
+      .then(res => res.json())
+      .then(data => {
+        // Sort data by postingDate before setting the state
+        data.sort((a, b) => new Date(b.jobPosting) - new Date(a.jobPosting));
+        setJobs(data);
+        setTotaljobs(data?.length)
+        setIsloading(false);
+      });
+  }, []);
+  const [query, setQuery] = useState("");
 
   const handleInputChange = (event) => {
     setQuery(event.target.value);
@@ -135,10 +137,10 @@ const Home = () => {
               <img src="/images/loader.gif" alt="Loading..." style={{ height: "100px" }} />
             </div>
           ) : result.length > 0 ? (
-            <Jobs result={result} />
+            <Jobs result={result} Totaljobs={Totaljobs} />
           ) : (
             <>
-              <h3 className="text-lg font-bold mb-2">{result?.length} Jobs</h3>
+              <h3 className="text-lg font-bold mb-2">{result?.length} Jobs filter</h3>
               <p className="flex justify-center font-bold">No Data Found!</p>
             </>
           )}

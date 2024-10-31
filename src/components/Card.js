@@ -32,33 +32,33 @@ const Card = ({ data }) => {
 
   return (
     <motion.div
-      className="flex flex-col w-full cursor-pointer"
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: false }}
-    >
-      <section className='card'>
-        <Link to={`/jobdetails/${_id}`} className='flex flex-col sm:flex-row items-start gap-4 p-1 sm:p-2 lg:p-3'>
-          <div className='w-full h-full sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 flex-shrink-0'>
-            <img src={image} alt={companyName} className="w-full h-full object-cover" />
-          </div>
-          <div className="flex flex-col justify-between w-full">
-            <div>
-              <h4 className='text-primary mb-1 text-base sm:text-lg lg:text-xl'>{companyName}</h4>
-              <h3 className='text-lg sm:text-xl lg:text-xl font-semibold mb-2'>{jobTitle}</h3>
-              <div className='text-primary/70 text-sm sm:text-base flex flex-wrap gap-2 mb-2'>
-                <span className='flex items-center gap-1'><FiMapPin /> {jobLocation}</span>
-                <span className='flex items-center gap-1'><FiClock /> {employmentType}</span>
-                <span className='flex items-center gap-1'><LiaPoundSignSolid />{minPrice}-{maxPrice}</span>
-                <span className='flex items-center gap-1'><FiCalendar /> {jobPosting}</span>
-              </div>
-              <p className='text-sm sm:text-base text-primary/70'>{description?.slice(0, 120)}</p>
+    className="flex flex-col w-full cursor-pointer"
+    variants={cardVariants}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: false }}
+  >
+    <section className="card">
+      <Link to={`/jobdetails/${_id}`} className="flex flex-row sm:flex-row items-start gap-4 p-1 sm:p-2 lg:p-3">
+        <div className="w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 flex-shrink-0">
+          <img src={image} alt={companyName} className="w-full h-full object-cover" />
+        </div>
+        <div className="flex flex-col justify-between w-full">
+          <div>
+            <h4 className="text-primary mb-1 text-base sm:text-sm lg:text-xl">{companyName}</h4>
+            <h3 className="sm:text-sm lg:text-xl font-semibold">{jobTitle}</h3>
+            <div className="text-primary/70 text-sm sm:text-base flex flex-wrap sm:flex-row flex-row gap-1 font-bold">
+              <span className="flex items-center gap-1"><FiMapPin /> {jobLocation}</span>
+              <span className="flex items-center gap-1"><FiClock /> {employmentType}</span>
+              <span className="flex items-center gap-1">£ {minPrice}-{maxPrice}</span>
+              <span className="flex items-center gap-1"><FiCalendar /> {jobPosting}</span>
             </div>
+            <p className="text-sm sm:text-base text-primary/70 hidden sm:block">{description?.slice(0, 120)}</p>
           </div>
-        </Link>
-      </section>
-    </motion.div>
+        </div>
+      </Link>
+    </section>
+  </motion.div>
   );
 };
 
