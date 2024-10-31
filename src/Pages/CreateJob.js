@@ -245,6 +245,9 @@ const CreateJob = () => {
                 <option value="Part-time">Part-time</option>
                 <option value="Temporary">Temporary</option>
                 <option value="Permanent">Permanent</option>
+                <option value="On-Site">On-Site</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Remote ">Remote</option>
               </select>
               {errors.employmentType && <p className="text-red-500">Employment type is required</p>}
             </div>
@@ -255,7 +258,7 @@ const CreateJob = () => {
             <textarea
               className="w-full pl-3 py-1.5 focus:outline-none placeholder:text-gray-700"
               rows={6}
-              placeholder="As a Product Design Manager at GitLab, you will be responsible for managing a team of up to 5 talented Product Designers.” This approach can allow job seekers to envision themselves in the role so they can decide if it's the right fit for them."
+              placeholder="Describe the job responsibilities, requirements, etc."
               {...register('description', { required: true })}
             />
             {errors.description && <p className="text-red-500">Job description is required</p>}

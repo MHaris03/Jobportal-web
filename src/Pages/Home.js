@@ -23,7 +23,7 @@ const Home = () => {
       .then(res => res.json())
       .then(data => {
         // Sort data by postingDate before setting the state
-        data.sort((a, b) => new Date(b.jobPosting) - new Date(a.jobPosting));
+        data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setJobs(data);
         setTotaljobs(data?.length)
         setIsloading(false);
