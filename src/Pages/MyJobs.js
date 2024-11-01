@@ -11,7 +11,7 @@ export const MyJobs = () => {
     const [Userid, setUserid] = useState("");
     // set current page
     const [currentPage, setcurrentPage] = useState(1);
-    const itemsPerPage = 10;
+    const itemsPerPage = 20;
 
     useEffect(() => {
         const UserId = localStorage.getItem('UserId');
@@ -41,24 +41,95 @@ export const MyJobs = () => {
         setIsLoading(true);
         fetchJobs();
     }, [Userid]);
+    const totalPages = Math.ceil(jobs.length / itemsPerPage);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentJobs = jobs.slice(indexOfFirstItem, indexOfLastItem);
 
-    //  pagination 
-    const indexofLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexofLastItem - itemsPerPage;
-    const currentJobs = jobs.slice(indexOfFirstItem, indexofLastItem);
-
-    // next button & previous button
     const nextPage = () => {
-        if (indexofLastItem < jobs.length) {
-            setcurrentPage(currentPage + 1)
+        if (currentPage < totalPages) {
+            setcurrentPage(currentPage + 1);
         }
-    }
+    };
 
     const prevPage = () => {
         if (currentPage > 1) {
-            setcurrentPage(currentPage - 1)
+            setcurrentPage(currentPage - 1);
         }
-    }
+    };
+
+    const goToPage = (pageNumber) => {
+        setcurrentPage(pageNumber);
+    };
+    const renderPageNumbers = () => {
+        let pages = [];
+    
+        if (totalPages <= 10) {
+            // Show all pages if totalPages is 8 or fewer
+            for (let i = 1; i <= totalPages; i++) {
+                pages.push(
+                    <button
+                        key={i}
+                        onClick={() => goToPage(i)}
+                        className={`w-8 h-8 flex items-center justify-center rounded-full ${currentPage === i ? 'bg-blue text-white font-bold' : 'bg-gray-200 text-black'}`}
+                    >
+                        {i}
+                    </button>
+                );
+            }
+        } else {
+            // Always show the first few pages
+            pages.push(
+                ...[1, 2, 3].map((i) => (
+                    <button
+                        key={i}
+                        onClick={() => goToPage(i)}
+                        className={`w-8 h-8 flex items-center justify-center rounded-full ${currentPage === i ? 'bg-blue text-white font-bold' : 'bg-gray-200 text-black'}`}
+                    >
+                        {i}
+                    </button>
+                ))
+            );
+    
+            // Add dots if there's a gap between the initial pages and the current page
+            if (currentPage > 5) {
+                pages.push(<span key="start-dots" className="px-2">...</span>);
+            }
+    
+            // Show pages around the current page
+            for (let i = Math.max(4, currentPage - 2); i <= Math.min(totalPages - 3, currentPage + 2); i++) {
+                pages.push(
+                    <button
+                        key={i}
+                        onClick={() => goToPage(i)}
+                        className={`w-8 h-8 flex items-center justify-center rounded-full ${currentPage === i ? 'bg-blue text-white font-bold' : 'bg-gray-200 text-black'}`}
+                    >
+                        {i}
+                    </button>
+                );
+            }
+    
+            // Add dots if there's a gap between the current page area and the last few pages
+            if (currentPage < totalPages - 4) {
+                pages.push(<span key="end-dots" className="px-2">...</span>);
+            }
+    
+            // Show the last two pages
+            pages.push(
+                ...[totalPages - 1, totalPages].map((i) => (
+                    <button
+                        key={i}
+                        onClick={() => goToPage(i)}
+                        className={`w-8 h-8 flex items-center justify-center rounded-full ${currentPage === i ? 'bg-blue text-white font-bold' : 'bg-gray-200 text-black'}`}
+                    >
+                        {i}
+                    </button>
+                ))
+            );
+        }
+    
+        return pages;
+    };
 
     const handleDelete = (id) => {
         // Show confirmation dialog
@@ -110,7 +181,7 @@ export const MyJobs = () => {
                         <div className="rounded-t mb-0 px-4 py-3 border-0">
                             <div className="flex flex-wrap items-center">
                                 <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                                    <h3 className="font-semibold text-base text-blueGray-700">All Jobs</h3>
+                                    <h3 className="font-semibold text-base text-blueGray-700">All Jobs : {jobs?.length}</h3>
                                 </div>
                                 <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                                     <Link to="/post-job">
@@ -171,7 +242,7 @@ export const MyJobs = () => {
                                                     </td>
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                         <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>
-                                                        ${job?.minPrice} - ${job?.maxPrice}
+                                                        £ {job?.minPrice} - £ {job?.maxPrice}
                                                     </td>
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                         <Link to={`/edit-job/${job?._id}`}>
@@ -191,33 +262,25 @@ export const MyJobs = () => {
                         </div>
                     </div>
                 </div>
-                <footer className="relative pt-8 pb-6 mt-16">
-                    <div className="container mx-auto px-4">
-                        <div className="flex flex-wrap items-center md:justify-between justify-center">
-                            <div className="w-full md:w-6/12 px-4 mx-auto text-center">
-
-                            </div>
-                        </div>
-                    </div>
-                </footer>
                 {/* Pagination */}
-                <div className="flex justify-end text-black space-x-8 mb-8"> {
-                    currentPage > 1 && (
-                        <button className="hover:underline" onClick={prevPage}>
+                <div className="flex justify-end text-black space-x-4 mb-8 items-center">
+                    {currentPage > 1 && (
+                        <button className="" onClick={prevPage}>
                             <MdArrowBackIos size={20} />
                         </button>
-                    )
-                }
-                    {
-                        indexofLastItem < jobs.length && (
-                            <button onClick={nextPage} className="hover:underline">
-                                <MdArrowForwardIos size={20} />
-                            </button>
-                        )
-                    }
+                    )}
+
+                    {renderPageNumbers()}
+
+                    {currentPage < totalPages && (
+                        <button onClick={nextPage} className="">
+                            <MdArrowForwardIos size={20} />
+                        </button>
+                    )}
                 </div>
             </section>
             <Arrow />
         </div>
     );
+
 };

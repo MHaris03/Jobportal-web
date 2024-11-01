@@ -18,6 +18,7 @@ const JobDetails = () => {
                 const response = await fetch(`https://portal-lvi4.onrender.com/jobdetails/${id}`);
                 if (response.ok) {
                     const jobData = await response.json();
+                    console.log(jobData)
                     setJob(jobData);
                 } else {
                     console.error('Error fetching job details:', response.status);
@@ -65,7 +66,10 @@ const JobDetails = () => {
                 </div>
                 <h2 className='text-2xl md:text-3xl font-bold'>Job Details</h2>
                 <hr className="border-gray-300 my-4" />
-                <p className="text-gray-700 mb-4 mt-4" dangerouslySetInnerHTML={{ __html: job?.description.replace(/\n/g, '<br />') }} />
+                <p className='text-gray-700 mb-4 mt-1 '><span className='text-xl font-bold'>Required Skills</span><br />
+                    <span className='font-semibold mt-2'>{job?.skills && job?.skills.join(', ')}</span>
+                </p>
+                <p className="text-gray-700 mb-4" dangerouslySetInnerHTML={{ __html: job?.description.replace(/\n/g, '<br />') }} />
                 <button className="py-2 px-5 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900 self-end" onClick={() => handleApply(job)}>
                     Apply
                 </button>

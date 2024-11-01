@@ -25,6 +25,7 @@ const Home = () => {
         // Sort data by postingDate before setting the state
         data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setJobs(data);
+        // console.log(data[0].superAdminEmail,"admin")
         setTotaljobs(data?.length)
         setIsloading(false);
       });
