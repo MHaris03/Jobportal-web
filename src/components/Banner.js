@@ -44,7 +44,7 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
         <form className="w-full">
           <div className="flex justify-start md:flex-row flex-col w-full md:space-y-0 ">
             {/* Job Title Input */}
-            <div className="relative bg-white flex md:rounded-e-md rounded shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 md:w-1/3 w-full">              <FiMapPin className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
+            <div className="relative bg-white flex md:rounded-e-md rounded shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 md:w-1/3 w-full">
               <FiSearch
                 className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
               <input
@@ -58,7 +58,8 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
               />
             </div>
             {/* City Select */}
-            <div className="relative bg-white flex md:rounded-e-md rounded shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 md:w-1/3 w-full">              <FiMapPin className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
+            <div className="relative bg-white flex md:rounded-e-md rounded shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 md:w-1/3 w-full">
+              <FiMapPin className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
               <select
                 name="city"
                 id="city"
