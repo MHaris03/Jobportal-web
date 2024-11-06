@@ -43,13 +43,18 @@ const BrowseJobs = () => {
         <div className=" bg-gray-100 p-4 rounded-lg">
           {[
             { name: 'Hospitality Jobs', category: 'Hospitality' },
+            { name: 'Healthcare and Nursing', category: 'Healthcare-Nursing' },
+            { name: 'Sales and Marketing', category: 'Sales-Marketing' },
             { name: 'Engineering Jobs', category: 'Engineering' },
             { name: 'Oil & Gas', category: 'OilGas' },
+            { name: 'Creative and Design', category: 'Creative-Design' },
             { name: 'Administration', category: 'Administration' },
             { name: 'IT & Software', category: 'ITSoftware' },
             { name: 'Technology', category: 'Technology' },
             { name: 'Government', category: 'Government' },
-            { name: 'Accounting / Finance', category: 'AccountingFinance' }
+            { name: 'Public Sector', category: 'Public-Sector' },
+            { name: 'Accounting / Finance', category: 'AccountingFinance' },
+            { name: 'Telecommunications', category: 'Telecommunications' }
           ].map(({ name, category }) => (
             <Link to={`/categories/${category}`}>
               <div key={category} className="bg-white py-3 px-3 rounded-lg mt-3 flex justify-between">
@@ -68,13 +73,18 @@ const BrowseJobs = () => {
         <div className=" bg-gray-100 p-4 rounded-lg">
           {[
             { name: ' Construction / Facilities', category: 'ConstructionFacilities' },
+            { name: 'Engineering and Technical', category: 'Engineering-Technical' },
+            { name: 'Hospitality and Catering', category: 'Hospitality-Catering' },
             { name: 'Telecom', category: 'Telecom' },
             { name: 'Design & Multimedia', category: 'DesignMultimedia' },
             { name: 'Human Resource', category: 'HumanResource' },
+            { name: 'Social Care', category: 'Social-Care' },
             { name: 'Consumer', category: 'Consumer' },
             { name: 'Manufacturing', category: 'Manufacturing' },
             { name: 'Retail', category: 'Retail' },
-            { name: ' Distribution/Logistics', category: 'DistributionLogistics' }
+            { name: 'Media and Communications', category: 'Media-Communications' },
+            { name: ' Distribution/Logistics', category: 'DistributionLogistics' },
+            { name: ' Transport and Logistics', category: 'Transport-Logistics' }
           ].map(({ name, category }) => (
             <Link to={`/categories/${category}`}>
               <div key={category} className="bg-white py-3 px-3 rounded-lg mt-3 flex justify-between">
@@ -94,10 +104,15 @@ const BrowseJobs = () => {
           {[
             { name: 'Supply Chain Operations', category: 'SupplyChainOperations' },
             { name: 'Healthcare & Medical', category: 'HealthcareMedical' },
+            { name: 'Construction and Trades', category: 'Construction-Trades' },
+            { name: 'Education and Teaching', category: 'Education-Teaching' },
+            { name: 'Science and Research', category: 'Science-Research' },
+            { name: 'Property Management', category: 'Property-Management' },
             { name: 'Procurement / Sourcing', category: 'ProcurementSourcing' },
             { name: 'Information Technology (IT)', category: 'InformationTechnology' },
             { name: 'Sales/Business Development', category: 'SalesBusinessDevelopment' },
             { name: 'Legal & Professional Services', category: 'LegalProfessionalServices' },
+            { name: 'Legal and Compliance', category: 'Legal-Compliance' },
             { name: 'Life Sciences & Healthcare', category: 'LifeSciencesHealthcare' },
             { name: 'Web Developer', category: 'WebDeveloper' }
           ].map(({ name, category }) => (
@@ -117,7 +132,7 @@ const BrowseJobs = () => {
         </div>
       </div>
       <LocationBrowse />
-      <Arrow/>
+      <Arrow />
     </>
   );
 };
