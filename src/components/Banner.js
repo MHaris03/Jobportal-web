@@ -1,11 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiMapPin, FiSearch } from "react-icons/fi";
 import { TbCategory } from "react-icons/tb";
 import TypewriterText from "../Pages/TypewriterText";
-
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 
 const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocation, handleCategories, selectedCategory }) => {
+  const [isCityOpen, setIsCityOpen] = useState(false);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+
+  const handleCityFocus = () => {
+    setIsCityOpen(true);
+  };
+
+  const handleCityBlur = () => {
+    setIsCityOpen(false);
+  };
+
+  const handleCategoryFocus = () => {
+    setIsCategoryOpen(true);
+  };
+
+  const handleCategoryBlur = () => {
+    setIsCategoryOpen(false);
+  };
+
   return (
     <div className='bg-sky-500 xl:px-24 px-10 py-14 h-[80vh] flex justify-center items-center'
       style={{
@@ -23,26 +42,31 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
         <p className='text-lg text-white hidden sm:block'>We Can Help You Succeed</p>
         <p className='text-lg text-white mb-8 hidden sm:block'>Browse Thousands Of Jobs From Top Companies</p>
         <form className="w-full">
-          <div className='flex justify-start md:flex-row flex-col w-full'>
-            <div className='bg-white flex md:rounded-s-md rounded shawdow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 md:w-1/2 w-full'>
+          <div className="flex justify-start md:flex-row flex-col w-full md:space-y-0 ">
+            {/* Job Title Input */}
+            <div className="relative bg-white flex md:rounded-e-md rounded shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 md:w-1/3 w-full">              <FiMapPin className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
+              <FiSearch
+                className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 name="title"
-                placeholder='Job Title, Skills or Company'
+                placeholder="Job Title, Skills or Company"
                 id="title"
-                className='block flex-1 border-0 bg-transparent py-3 pl-10 text-grey-900 placeholder:text-gray-400 focus=right-0 sm:text-sm sm:leading-6'
+                className="block w-full border-0 outline-none bg-transparent appearance-none py-3 pl-10 text-gray-900 placeholder-gray-400 sm:text-sm sm:leading-6 pr-12"
                 onChange={handleInputChange}
                 value={query}
               />
-              <FiSearch className='absolute mt-4 ml-2 text-gray-400' />
             </div>
-            <div className='bg-white flex md:rounded-s-none rounded shawdow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 md:w-1/3 w-full hover:pointer'>
+            {/* City Select */}
+            <div className="relative bg-white flex md:rounded-e-md rounded shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 md:w-1/3 w-full">              <FiMapPin className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
               <select
                 name="city"
                 id="city"
-                className='block flex-1 border-0 bg-transparent py-3 pl-10 pr-4 text-grey-900 placeholder:text-gray-400 focus=right-0 sm:text-sm sm:leading-6'
+                className="block w-full border-0 outline-none bg-transparent appearance-none py-3 pl-10 text-gray-900 placeholder-gray-400 sm:text-sm sm:leading-6 pr-12"
                 onChange={(event) => handleLocationChange(event.target.value)}
                 value={selectedLocation}
+                onFocus={handleCityFocus}
+                onBlur={handleCityBlur}
               >
                 <option value="">Select a city</option>
                 <option value="">All</option>
@@ -61,19 +85,30 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
                 <option value="Nottingham">Nottingham</option>
                 <option value="Derby">Derby</option>
               </select>
-              <FiMapPin className='absolute mt-4 ml-2 text-gray-400' />
+              <div className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400 pointer-events-none">
+                {isCityOpen ? (
+                  <IoMdArrowDropup size={20} />
+                ) : (
+                  <IoMdArrowDropdown size={20} />
+                )}
+              </div>
             </div>
-            <div className='bg-white flex md:rounded-s-none rounded shawdow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 md:w-1/3 w-full hover:pointer'>
+
+            {/* Category Select */}
+            <div className="relative bg-white flex md:rounded-e-md rounded shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 md:w-1/3 w-full">
+              <TbCategory className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
               <select
                 name="category"
                 id="category"
-                className='block flex-1 border-0 bg-transparent py-3 pl-10 pr-4 text-grey-900 placeholder:text-gray-400 focus=right-0 sm:text-sm sm:leading-6'
+                className="block w-full border-0 outline-none bg-transparent appearance-none py-3 pl-10 text-gray-900 placeholder-gray-400 sm:text-sm sm:leading-6 pr-12"
                 onChange={(event) => handleCategories(event.target.value)}
                 value={selectedCategory}
+                onFocus={handleCategoryFocus}
+                onBlur={handleCategoryBlur}
               >
                 <option value="">Select a Category</option>
                 <option value="">All</option>
-                <option value="InformationTechnology ">Information Technology </option>
+                <option value="InformationTechnology">Information Technology</option>
                 <option value="LifeSciencesHealthcare">Life Sciences & Healthcare</option>
                 <option value="Retail">Retail</option>
                 <option value="AccountingFinance">Accounting / Finance</option>
@@ -88,7 +123,13 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
                 <option value="Government">Government</option>
                 <option value="Engineering Jobs">Engineering Jobs</option>
               </select>
-              <TbCategory className='absolute mt-4 ml-2 text-gray-400' />
+              <div className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400 pointer-events-none">
+                {isCategoryOpen ? (
+                  <IoMdArrowDropup size={20} />
+                ) : (
+                  <IoMdArrowDropdown size={20} />
+                )}
+              </div>
             </div>
           </div>
         </form>

@@ -29,6 +29,7 @@ export const MyJobs = () => {
                 }
                 const data = await response.json();
                 const userJobs = data.filter(job => job?.userId === Userid);
+                console.log("🚀 ~ fetchJobs ~ userJobs:", userJobs)
                 setJobs(userJobs);
                 setIsLoading(false);
             } catch (error) {
@@ -63,7 +64,7 @@ export const MyJobs = () => {
     };
     const renderPageNumbers = () => {
         let pages = [];
-    
+
         if (totalPages <= 10) {
             // Show all pages if totalPages is 8 or fewer
             for (let i = 1; i <= totalPages; i++) {
@@ -90,12 +91,12 @@ export const MyJobs = () => {
                     </button>
                 ))
             );
-    
+
             // Add dots if there's a gap between the initial pages and the current page
             if (currentPage > 5) {
                 pages.push(<span key="start-dots" className="px-2">...</span>);
             }
-    
+
             // Show pages around the current page
             for (let i = Math.max(4, currentPage - 2); i <= Math.min(totalPages - 3, currentPage + 2); i++) {
                 pages.push(
@@ -108,12 +109,12 @@ export const MyJobs = () => {
                     </button>
                 );
             }
-    
+
             // Add dots if there's a gap between the current page area and the last few pages
             if (currentPage < totalPages - 4) {
                 pages.push(<span key="end-dots" className="px-2">...</span>);
             }
-    
+
             // Show the last two pages
             pages.push(
                 ...[totalPages - 1, totalPages].map((i) => (
@@ -127,7 +128,7 @@ export const MyJobs = () => {
                 ))
             );
         }
-    
+
         return pages;
     };
 
@@ -168,6 +169,67 @@ export const MyJobs = () => {
             }
         });
     }
+
+    // const extractPublicIdFromUrl = (url) => {
+    //     // Extract the public_id from the Cloudinary URL
+    //     const parts = url.split('/');
+    //     const fileName = parts[parts.length - 1].split('.')[0]; // "logo512_zo4kdn"
+    //     const folder = parts[parts.length - 2]; // "image"
+    //     return `${folder}/${fileName}`;
+    // };
+
+    // const handleDelete = async (jobId, imageUrl) => {
+    //     // Extract the public_id from the image URL
+    //     const publicId = extractPublicIdFromUrl(imageUrl);
+
+    //     Swal.fire({
+    //         title: 'Are you sure?',
+    //         text: 'This action will delete the job and its associated image!',
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Yes',
+    //         cancelButtonText: 'No'
+    //     }).then(async (result) => {
+    //         if (result.isConfirmed) {
+    //             try {
+    //                 // 1. Delete the job from the server
+    //                 const jobResponse = await fetch(`https://portal-lvi4.onrender.com/job/${jobId}`, {
+    //                     method: 'DELETE',
+    //                 });
+
+    //                 const jobData = await jobResponse.json();
+
+    //                 if (jobData.acknowledged === true) {
+    //                     Swal.fire('Deleted!', 'Job has been deleted.', 'success');
+
+    //                     // 2. Delete the image from Cloudinary if job deletion was successful
+    //                     const imageResponse = await fetch(`https://api.cloudinary.com/v1_1/di8dn3esb/image/destroy`, {
+    //                         method: 'POST',
+    //                         headers: { 'Content-Type': 'application/json' },
+    //                         body: JSON.stringify({ public_id: publicId }),
+    //                     });
+
+    //                     const imageData = await imageResponse.json();
+    //                     if (imageData.result === 'ok') {
+    //                         Swal.fire('Deleted!', 'Job image has been deleted from Cloudinary.', 'success');
+    //                     } else {
+    //                         Swal.fire('Error', 'Failed to delete the image from Cloudinary.', 'error');
+    //                     }
+
+    //                     // 3. Update the job state to remove the deleted job from UI
+    //                     setJobs((prevJobs) => prevJobs.filter((job) => job?._id !== jobId));
+    //                 } else {
+    //                     Swal.fire('Error', 'Failed to delete the job.', 'error');
+    //                 }
+    //             } catch (error) {
+    //                 console.error('Error deleting job or image:', error);
+    //                 Swal.fire('Error', 'An error occurred while deleting.', 'error');
+    //             }
+    //         }
+    //     });
+    // };
 
     return (
         <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
@@ -250,7 +312,7 @@ export const MyJobs = () => {
                                                         </Link>
                                                     </td>
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <button onClick={() => handleDelete(job?._id)} className='bg-red-700 py-2 px-6 text-white rounded-sm'>Delete</button>
+                                                        <button onClick={() => handleDelete(job?._id, job?.image)} className='bg-red-700 py-2 px-6 text-white rounded-sm'>Delete</button>
                                                     </td>
                                                 </tr>
                                             ))

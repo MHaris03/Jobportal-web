@@ -21,11 +21,11 @@ const CreateJob = () => {
 
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'gwfz3cjk');
+    formData.append('upload_preset', 'Aidifys');
 
     setIsLoading(true);
     try {
-      const response = await fetch('https://api.cloudinary.com/v1_1/dfs0l1ady/image/upload', {
+      const response = await fetch('https://api.cloudinary.com/v1_1/di8dn3esb/image/upload', {
         method: 'POST',
         body: formData,
       });
