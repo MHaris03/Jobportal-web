@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
-import { LiaPoundSignSolid } from "react-icons/lia";
-import Arrow from '../components/Arrow';
 import { motion } from "framer-motion";
+import ReactPaginate from 'react-paginate';
+import Arrow from '../components/Arrow';
+import { GrNext, GrPrevious } from "react-icons/gr";
+import { HiDotsHorizontal } from "react-icons/hi";
 
 const Jobloction = () => {
     const { jobLocation } = useParams();
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(0);
+    const jobsPerPage = 10;
 
     useEffect(() => {
         const CompanyDetails = async () => {
@@ -17,7 +21,6 @@ const Jobloction = () => {
 
                 if (response.ok) {
                     const jobData = await response.json();
-                    console.log(jobData);
                     setJobs(jobData);
                 } else {
                     console.error('Error fetching job details:', response.status);
@@ -45,10 +48,7 @@ const Jobloction = () => {
         visible: {
             opacity: 1,
             y: 0,
-            transition: {
-                duration: 0.6,
-                ease: "easeOut"
-            }
+            transition: { duration: 0.6, ease: "easeOut" }
         }
     };
 
@@ -82,6 +82,14 @@ const Jobloction = () => {
         );
     };
 
+    const handlePageChange = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+
+    const offset = currentPage * jobsPerPage;
+    const currentJobs = jobs.slice(offset, offset + jobsPerPage);
+    const pageCount = Math.ceil(jobs?.length / jobsPerPage);
+
     return (
         <motion.div
             className="flex flex-col w-full cursor-pointer"
@@ -93,11 +101,31 @@ const Jobloction = () => {
             <div className="flex justify-center mt-28">
                 <div className="w-[80vw] min-h-[80vh]">
                     <div>
-                        <h3 className="text-lg font-bold mb-2 ml-6">{jobs?.length} Jobs in {jobLocation} </h3>
+                        <h3 className="text-lg font-bold mb-2 ml-6">{jobs?.length} Jobs in {jobLocation}</h3>
                     </div>
-                    {jobs?.map(job => (
+                    {currentJobs.map(job => (
                         <JobCard key={job?._id} job={job} />
                     ))}
+                    <div className='flex justify-end'>
+                        <ReactPaginate
+                            previousLabel={<GrPrevious size={20} />}
+                            nextLabel={<GrNext size={20} />}
+                            breakLabel={<HiDotsHorizontal size={20} />}
+                            breakClassName={"pagination__break"}
+                            pageCount={pageCount}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={2}
+                            onPageChange={handlePageChange}
+                            containerClassName={"pagination"}
+                            pageClassName={"pagination__page"}
+                            pageLinkClassName={"pagination__link"}
+                            previousClassName={"pagination__previous"}
+                            nextClassName={"pagination__next"}
+                            activeLinkClassName={"pagination__link--active"}
+                            disabledClassName={"pagination__link--disabled"}
+                            breakLinkClassName={"pagination__break"}
+                        />
+                    </div>
                 </div>
                 <Arrow />
             </div>

@@ -28,27 +28,29 @@ const Updatejob = () => {
     data.skills = selectedOptions.map(option => option.value);
     data._id = id;
     data.userId = userId;
-    fetch("https://portal-lvi4.onrender.com/update-job",
-      { // Removed the extra slash
+    data.superAdminEmail = "usama.mang0901@gmail.com"; 
+
+    fetch("https://portal-lvi4.onrender.com/update-job", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
-      })
-      .then(res => res.json())
-      .then(result => {
+    })
+    .then(res => res.json())
+    .then(result => {
         if (result.message && result.status === true) {
-          toast.success("Job updated successfully!!!");
-          navigate("/my-job")
+            toast.success("Job updated successfully!!!");
+            navigate("/my-job");
         } else {
-          toast.error("Update job failed: " + (result.message || "Unknown error"));
+            toast.error("Update job failed: " + (result.message || "Unknown error"));
         }
         reset();
-      })
-      .catch(error => {
+    })
+    .catch(error => {
         console.error(error);
         toast.error("Update job failed");
-      });
-  };
+    });
+};
+
 
 
   const options = [

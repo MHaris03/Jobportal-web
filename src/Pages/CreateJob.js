@@ -47,57 +47,52 @@ const CreateJob = () => {
 
   const onSubmit = async (data) => {
     const userId = localStorage.getItem('UserId');
+    const useremail = localStorage.getItem('userEmail');
+    
     if (!image) {
-      toast.error('Image upload is required!');
-      return;
+        toast.error('Image upload is required!');
+        return;
     }
+
     data.skills = selectedOptions.map(option => option.value);
     data.image = image;
     data.userId = userId;
+    data.useremail = useremail;  
 
     setIsLoading(true);
     try {
-      const response = await fetch('https://portal-lvi4.onrender.com/post-job', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      if (result.acknowledge === true) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Job added successfully!',
-          showConfirmButton: false,
-          timer: 1500,
+        const response = await fetch('https://portal-lvi4.onrender.com/post-job', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ data }),  
         });
-        reset();
-        setSelectedOptions([]);
-        setImage(null);
-      } else {
-        Swal.fire({
-          icon: 'success',
-          title: 'Job added successfully!',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        reset();
-        setSelectedOptions([]);
-        setImage(null);
-        navigate('/my-job');
-      }
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        if (result.status === true) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Job added successfully!',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            reset();
+            setSelectedOptions([]);
+            setImage(null);
+            navigate('/my-job');
+        } else {
+            toast.error("Failed to add job: " + (result.message || "Unknown error"));
+        }
     } catch (error) {
-      console.error('Error posting job:', error);
-      toast.error(`Error posting job: ${error.message}`);
+        console.error('Error posting job:', error);
+        toast.error(`Error posting job: ${error.message}`);
     } finally {
-      setIsLoading(false);
-
+        setIsLoading(false);
     }
-  };
+};
 
   const options = [
     { value: 'JavaScript', label: 'JavaScript' },

@@ -35,9 +35,6 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
       }}
     >
       <div className="w-full md:w-[80%] flex flex-col items-center justify-center">
-        {/* <h1 className='text-4xl md:text-6xl font-sans text-white mb-10'>
-          Find Your<span className="text-white"> New Job Today.</span>
-        </h1> */}
         <TypewriterText text="Find Your New Job Today." />
         <p className='text-lg text-white hidden sm:block'>We Can Help You Succeed</p>
         <p className='text-lg text-white mb-8 hidden sm:block'>Browse Thousands Of Jobs From Top Companies</p>

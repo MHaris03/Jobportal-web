@@ -68,6 +68,7 @@ const Navbar = () => {
         localStorage.removeItem('userEmail');
         localStorage.removeItem('userToken');
         localStorage.removeItem('UserId');
+        localStorage.removeItem('likedJobs');
         setUserName(null);
 
         Swal.fire({
@@ -129,7 +130,7 @@ const Navbar = () => {
       <nav className="flex justify-between items-center py-6">
         <Link to="/" className="flex items-center gap-2 text-2xl text-black">
           <img
-            src="/Aidifyslogo-removebg-preview.png"
+            src="/aidifys_Hiring1.jpg"
             alt="Aidifys Logo"
             className="h-auto max-h-12 w-auto max-w-xs object-contain"
           />
@@ -263,7 +264,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between mb-8">
             <Link to="/" onClick={handlePathClick} className="flex items-center gap-2 text-2xl text-black">
               <img
-                src="/Aidifyslogo-removebg-preview.png"
+                src="/aidifys_Hiring1.jpg"
                 alt="Aidifys Logo"
                 className="h-auto max-h-12 w-auto max-w-xs object-contain"
               />

@@ -1,136 +1,59 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import Arrow from "../components/Arrow"
-// import Loader from '../../public/images/loader.gif'; 
+import ReactPaginate from 'react-paginate';
+import { GrNext, GrPrevious } from "react-icons/gr";
+import { HiDotsHorizontal } from "react-icons/hi";
 
 export const MyJobs = () => {
     const [jobs, setJobs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [Userid, setUserid] = useState("");
-    // set current page
-    const [currentPage, setcurrentPage] = useState(1);
+    const [userEmail, setUserEmail] = useState("");
+    const [currentPage, setCurrentPage] = useState(0);
+    
     const itemsPerPage = 20;
 
     useEffect(() => {
-        const UserId = localStorage.getItem('UserId');
-        if (UserId) {
-            setUserid(UserId);
+        const userEmail = localStorage.getItem('userEmail');
+        if (userEmail) {
+            setUserEmail(userEmail);
         }
     }, []);
 
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const response = await fetch('https://portal-lvi4.onrender.com/all-jobs');
+                setIsLoading(true);
+
+                if (!userEmail) return;
+
+                const response = await fetch(`https://portal-lvi4.onrender.com/myJobs/${userEmail}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch jobs');
                 }
                 const data = await response.json();
-                const userJobs = data.filter(job => job?.userId === Userid);
-                console.log("🚀 ~ fetchJobs ~ userJobs:", userJobs)
-                setJobs(userJobs);
-                setIsLoading(false);
+                const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                setJobs(sortedData); 
             } catch (error) {
                 console.error('Error fetching jobs:', error);
+            } finally {
                 setIsLoading(false);
             }
-
         };
 
-        setIsLoading(true);
         fetchJobs();
-    }, [Userid]);
-    const totalPages = Math.ceil(jobs.length / itemsPerPage);
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentJobs = jobs.slice(indexOfFirstItem, indexOfLastItem);
+    }, [userEmail]);
 
-    const nextPage = () => {
-        if (currentPage < totalPages) {
-            setcurrentPage(currentPage + 1);
-        }
+
+    const handlePageChange = ({ selected }) => {
+        setCurrentPage(selected);
     };
 
-    const prevPage = () => {
-        if (currentPage > 1) {
-            setcurrentPage(currentPage - 1);
-        }
-    };
+    const offset = currentPage * itemsPerPage;
+    const currentJobs = jobs.slice(offset, offset + itemsPerPage);
+    const pageCount = Math.ceil(jobs?.length / itemsPerPage);
 
-    const goToPage = (pageNumber) => {
-        setcurrentPage(pageNumber);
-    };
-    const renderPageNumbers = () => {
-        let pages = [];
-
-        if (totalPages <= 10) {
-            // Show all pages if totalPages is 8 or fewer
-            for (let i = 1; i <= totalPages; i++) {
-                pages.push(
-                    <button
-                        key={i}
-                        onClick={() => goToPage(i)}
-                        className={`w-8 h-8 flex items-center justify-center rounded-full ${currentPage === i ? 'bg-blue text-white font-bold' : 'bg-gray-200 text-black'}`}
-                    >
-                        {i}
-                    </button>
-                );
-            }
-        } else {
-            // Always show the first few pages
-            pages.push(
-                ...[1, 2, 3].map((i) => (
-                    <button
-                        key={i}
-                        onClick={() => goToPage(i)}
-                        className={`w-8 h-8 flex items-center justify-center rounded-full ${currentPage === i ? 'bg-blue text-white font-bold' : 'bg-gray-200 text-black'}`}
-                    >
-                        {i}
-                    </button>
-                ))
-            );
-
-            // Add dots if there's a gap between the initial pages and the current page
-            if (currentPage > 5) {
-                pages.push(<span key="start-dots" className="px-2">...</span>);
-            }
-
-            // Show pages around the current page
-            for (let i = Math.max(4, currentPage - 2); i <= Math.min(totalPages - 3, currentPage + 2); i++) {
-                pages.push(
-                    <button
-                        key={i}
-                        onClick={() => goToPage(i)}
-                        className={`w-8 h-8 flex items-center justify-center rounded-full ${currentPage === i ? 'bg-blue text-white font-bold' : 'bg-gray-200 text-black'}`}
-                    >
-                        {i}
-                    </button>
-                );
-            }
-
-            // Add dots if there's a gap between the current page area and the last few pages
-            if (currentPage < totalPages - 4) {
-                pages.push(<span key="end-dots" className="px-2">...</span>);
-            }
-
-            // Show the last two pages
-            pages.push(
-                ...[totalPages - 1, totalPages].map((i) => (
-                    <button
-                        key={i}
-                        onClick={() => goToPage(i)}
-                        className={`w-8 h-8 flex items-center justify-center rounded-full ${currentPage === i ? 'bg-blue text-white font-bold' : 'bg-gray-200 text-black'}`}
-                    >
-                        {i}
-                    </button>
-                ))
-            );
-        }
-
-        return pages;
-    };
 
     const handleDelete = (id) => {
         // Show confirmation dialog
@@ -232,7 +155,7 @@ export const MyJobs = () => {
     // };
 
     return (
-        <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4">
+        <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4 h-[100vh]">
             <div className='my-jobs-container'>
                 <h1 className='text-sky-500 font-sans text-2xl text-bold text-center   mb-10'> All Jobs </h1>
                 <hr className="border-gray-300 my-4" />
@@ -325,20 +248,25 @@ export const MyJobs = () => {
                     </div>
                 </div>
                 {/* Pagination */}
-                <div className="flex justify-end text-black space-x-4 mb-8 items-center">
-                    {currentPage > 1 && (
-                        <button className="" onClick={prevPage}>
-                            <MdArrowBackIos size={20} />
-                        </button>
-                    )}
-
-                    {renderPageNumbers()}
-
-                    {currentPage < totalPages && (
-                        <button onClick={nextPage} className="">
-                            <MdArrowForwardIos size={20} />
-                        </button>
-                    )}
+                <div className='flex justify-end'>
+                    <ReactPaginate
+                        previousLabel={<GrPrevious size={20} />}
+                        nextLabel={<GrNext size={20} />}
+                        breakLabel={<HiDotsHorizontal size={20} />}
+                        breakClassName={"pagination__break"}
+                        pageCount={pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={2}
+                        onPageChange={handlePageChange}
+                        containerClassName={"pagination"}
+                        pageClassName={"pagination__page"}
+                        pageLinkClassName={"pagination__link"}
+                        previousClassName={"pagination__previous"}
+                        nextClassName={"pagination__next"}
+                        activeLinkClassName={"pagination__link--active"}
+                        disabledClassName={"pagination__link--disabled"}
+                        breakLinkClassName={"pagination__break"}
+                    />
                 </div>
             </section>
             <Arrow />

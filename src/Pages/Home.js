@@ -15,14 +15,13 @@ const Home = () => {
   const [isLoading, setIsloading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [Totaljobs, setTotaljobs] = useState("");
-  const itemsPerPage = 10;
+  const itemsPerPage = 15;
 
   useEffect(() => {
     setIsloading(true);
     fetch("https://portal-lvi4.onrender.com/all-jobs")
       .then(res => res.json())
       .then(data => {
-        // Sort data by postingDate before setting the state
         data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setJobs(data);
         // console.log(data[0].superAdminEmail,"admin")

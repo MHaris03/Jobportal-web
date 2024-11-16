@@ -1,4 +1,4 @@
-import React, {  useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Swal from "sweetalert2";
 
 const Apply = ({ setIsApplyOpen, companyInfo }) => {
@@ -24,7 +24,7 @@ const Apply = ({ setIsApplyOpen, companyInfo }) => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsLoading(true); // Start the loader
+        setIsLoading(true);
 
         const form = new FormData();
         form.append('name', formData?.name);
@@ -45,17 +45,10 @@ const Apply = ({ setIsApplyOpen, companyInfo }) => {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-
-            // Parse the JSON response
             const result = await response.json();
-
             if (!response.ok) {
-                // Throw an error with the message from the result
                 throw new Error(result.message || 'Failed to submit application.');
             }
-
-            console.log("🚀 ~ handleSubmit ~ result:", result);
-
             Swal.fire({
                 icon: 'success',
                 title: 'Application submitted successfully!',
@@ -63,7 +56,6 @@ const Apply = ({ setIsApplyOpen, companyInfo }) => {
                 showConfirmButton: false,
             });
 
-            // Reset form data
             setFormData({
                 email: '',
                 coverLetter: '',
@@ -83,19 +75,6 @@ const Apply = ({ setIsApplyOpen, companyInfo }) => {
             setIsLoading(false);
         }
     };
-
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         if (contentRef.current && !contentRef.current.contains(event.target)) {
-    //             setIsApplyOpen(false);
-    //         }
-    //     };
-
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     return () => {
-    //         document.removeEventListener("mousedown", handleClickOutside);
-    //     };
-    // }, [setIsApplyOpen]);
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 mt-20 z-50">
             <div className="relative bg-white p-6 rounded-lg w-full max-w-md" ref={contentRef}>

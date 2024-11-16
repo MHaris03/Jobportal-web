@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Swal from 'sweetalert2';
 
@@ -36,6 +35,7 @@ const Login = ({ setLoginOpen, setsignupOpen, setUserName }) => {
                 localStorage.setItem('userName', data?.name);
                 localStorage.setItem('userToken', data?.token);
                 localStorage.setItem('UserId', data?.userId);
+                localStorage.setItem("likedJobs", JSON.stringify(data.likedJobs));
                 Swal.fire({
                     icon: 'success',
                     title: 'Login successful!',
@@ -92,16 +92,13 @@ const Login = ({ setLoginOpen, setsignupOpen, setUserName }) => {
                     </svg>
                 </button>
 
-                {/* Login Header */}
                 <div className="flex justify-between items-center pr-5 pl-5">
                     <h2 className="text-gray-600 text-lg font-medium">Login</h2>
                 </div>
 
-                {/* Form Content */}
                 <div className="content p-5 flex flex-col justify-center overflow-hidden">
                     <div className="break h-1 bg-gray-300 my-2"></div>
                     <form onSubmit={handleLogin} className="form">
-                        {/* Email Input */}
                         <div className="inputBox">
                             <input
                                 type="email"
@@ -112,8 +109,6 @@ const Login = ({ setLoginOpen, setsignupOpen, setUserName }) => {
                                 className="p-2 w-full border border-gray-300 outline-none my-2"
                             />
                         </div>
-
-                        {/* Password Input with Eye Icon */}
                         <div className="inputBox relative">
                             <input
                                 type={showPassword ? "text" : "password"}
@@ -123,7 +118,6 @@ const Login = ({ setLoginOpen, setsignupOpen, setUserName }) => {
                                 placeholder="Password"
                                 className="p-2 w-full border border-gray-300 outline-none my-2"
                             />
-                            {/* Eye Icon for Password Toggle */}
                             <span
                                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                                 onClick={togglePasswordVisibility}
@@ -131,26 +125,20 @@ const Login = ({ setLoginOpen, setsignupOpen, setUserName }) => {
                                 {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
                             </span>
                         </div>
-
-                        {/* Forgot Password Link */}
                         <div className="links">
                             <a href="#" className="block text-gray-500 text-xs">
                                 Forgot Password?
                             </a>
                         </div>
-
-                        {/* Login Button */}
                         <button
-                            type="submit" // Changed from onClick to type="submit"
+                            type="submit"
                             className="p-2 w-full border border-gray-300 outline-none bg-sky-500 text-white my-2"
                         >
                             Login
                         </button>
-
-                        {/* Signup Section */}
                         <p className="text-gray-500 text-xs">Don&apos;t have an account?</p>
                         <button
-                            type="button" // Added type to prevent form submission
+                            type="button"
                             onClick={open}
                             className="p-2 w-full border border-gray-300 outline-none text-green my-2 hover:bg-sky-500 hover:text-white"
                         >
