@@ -130,7 +130,7 @@ const Navbar = () => {
       <nav className="flex justify-between items-center py-6">
         <Link to="/" className="flex items-center gap-2 text-2xl text-black">
           <img
-            src="/aidifys_Hiring1.jpg"
+            src="/aidifyshir.jpeg"
             alt="Aidifys Logo"
             className="h-auto max-h-12 w-auto max-w-xs object-contain"
           />
@@ -205,6 +205,18 @@ const Navbar = () => {
                     Applied Jobs
                     <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </NavLink>
+                  {/* <NavLink
+                    to="/user-saved-jobs"
+                    onClick={handleSelectProfile}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "active relative border-b-2 border-blue p-1"
+                        : "relative group p-1"
+                    }
+                  >
+                    Saved Jobs
+                    <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                  </NavLink> */}
                   {/* Add more links here if needed */}
                 </div>
               )}
@@ -264,7 +276,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between mb-8">
             <Link to="/" onClick={handlePathClick} className="flex items-center gap-2 text-2xl text-black">
               <img
-                src="/aidifys_Hiring1.jpg"
+                src="/aidifyshir.jpeg"
                 alt="Aidifys Logo"
                 className="h-auto max-h-12 w-auto max-w-xs object-contain"
               />

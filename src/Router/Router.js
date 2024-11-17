@@ -17,6 +17,7 @@ import Categories from "../Pages/Categories";
 import UserProfile from "../Pages/Userprofile";
 import PrivateRouter from "./PrivateRouter"
 import AppliedJobs from "../Pages/AppliedJobs";
+import Savedjob from "../Pages/Savedjob";
 
 const router = createBrowserRouter([
   {
@@ -97,8 +98,11 @@ const router = createBrowserRouter([
       {
         path :"user-applied-jobs",
         element : <AppliedJobs/>,
+      },
+      {
+        path :"user-saved-jobs",
+        element : <Savedjob/>,
       }
-
 
 
     ]

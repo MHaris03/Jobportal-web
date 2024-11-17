@@ -22,19 +22,32 @@ const Card = ({ data }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
-    const likedJobs = JSON.parse(localStorage.getItem("likedJobs")) || [];
-    setIsLiked(likedJobs.includes(_id));
+    try {
+      const likedJobs = localStorage.getItem("likedJobs");
+      const parsedLikedJobs = likedJobs ? JSON.parse(likedJobs) : [];
+
+      if (Array.isArray(parsedLikedJobs)) {
+        setIsLiked(parsedLikedJobs.includes(_id));
+      } else {
+        setIsLiked(false);
+        localStorage.setItem("likedJobs", JSON.stringify([]));
+      }
+    } catch (error) {
+      console.error("Error parsing likedJobs from localStorage:", error);
+      setIsLiked(false);
+      localStorage.setItem("likedJobs", JSON.stringify([]));
+    }
   }, [_id, isLiked]);
 
   const handleLike = async () => {
     const token = localStorage.getItem("userToken");
     const userId = localStorage.getItem("UserId");
-  
+
     if (!userId || !token) {
       toast.error("Please log in to like this job.");
       return;
     }
-  
+
     try {
       const response = await fetch("https://portal-lvi4.onrender.com/job/like", {
         method: "POST",
@@ -48,21 +61,21 @@ const Card = ({ data }) => {
           action: isLiked ? "unlike" : "like",
         }),
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok && data.success) {
         setIsLiked(!isLiked);
-  
+
         let likedJobs = JSON.parse(localStorage.getItem("likedJobs")) || [];
         if (isLiked) {
-          likedJobs = likedJobs.filter((id) => id !== _id); 
-          toast.success("Job unliked ! Successfully"); 
+          likedJobs = likedJobs.filter((id) => id !== _id);
+          toast.success("Job unliked ! Successfully");
         } else {
           likedJobs.push(_id);
-          toast.success("Job liked ! Successfully"); 
+          toast.success("Job liked ! Successfully");
         }
-        localStorage.setItem("likedJobs", JSON.stringify(likedJobs)); 
+        localStorage.setItem("likedJobs", JSON.stringify(likedJobs));
       } else {
         console.error("Error:", data.message || "Failed to like/unlike the job.");
       }
@@ -70,7 +83,7 @@ const Card = ({ data }) => {
       console.error("Error liking/unliking job:", error);
     }
   };
-  
+
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -142,7 +155,7 @@ const Card = ({ data }) => {
             </div>
           </Link>
         </div>
-        <Toaster/>
+        <Toaster />
       </section>
     </motion.div>
   );

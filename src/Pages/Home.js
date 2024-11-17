@@ -24,7 +24,6 @@ const Home = () => {
       .then(data => {
         data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setJobs(data);
-        // console.log(data[0].superAdminEmail,"admin")
         setTotaljobs(data?.length)
         setIsloading(false);
       });

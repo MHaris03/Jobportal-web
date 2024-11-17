@@ -155,7 +155,7 @@ export const MyJobs = () => {
     // };
 
     return (
-        <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4 h-[100vh]">
+        <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4 ">
             <div className='my-jobs-container'>
                 <h1 className='text-sky-500 font-sans text-2xl text-bold text-center   mb-10'> All Jobs </h1>
                 <hr className="border-gray-300 my-4" />

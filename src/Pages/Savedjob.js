@@ -4,7 +4,7 @@ import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi"
 import Arrow from "../components/Arrow"
 import { motion } from "framer-motion";
 
-const Companyjobs = () => {
+const Savedjob = () => {
   const { companyId } = useParams();
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -57,7 +57,7 @@ const Companyjobs = () => {
       whileInView="visible"
       viewport={{ once: false }}
     >
-      <div className="flex justify-center mt-28">
+      <div className="flex justify-center mt-28 h-[100vh]">
         <div className="w-[80%]">
           <div>
             <h3 className="text-lg font-bold mb-2 ml-6">{jobs?.length} Jobs in {companyId} </h3>
@@ -92,4 +92,4 @@ const Companyjobs = () => {
   );
 };
 
-export default Companyjobs;
+export default Savedjob;

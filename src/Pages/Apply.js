@@ -1,9 +1,11 @@
 import React, { useRef, useState } from "react";
 import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 
 const Apply = ({ setIsApplyOpen, companyInfo }) => {
     const contentRef = useRef(null);
     const token = localStorage.getItem('userToken');
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
         coverLetter: '',
@@ -63,6 +65,7 @@ const Apply = ({ setIsApplyOpen, companyInfo }) => {
                 cvFile: null,
             });
             setIsApplyOpen(false);
+            navigate('/user-applied-jobs');
 
         } catch (error) {
             Swal.fire({
