@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Jobs = ({ result, Totaljobs }) => {
+const Jobs = ({ Totaljobs }) => {
 
     return (
         <>
@@ -8,9 +8,9 @@ const Jobs = ({ result, Totaljobs }) => {
             <div>
                 <h3 className="text-lg font-bold mb-2">{Totaljobs} Jobs</h3>
             </div>
-            <section>
+            {/* <section>
                 {result}
-            </section>
+            </section> */}
         </>
     )
 }
