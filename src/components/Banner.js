@@ -11,8 +11,6 @@ import Mobileslide from "../Bgimg/bgslide1.jpeg"
 const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocation, handleCategories, selectedCategory }) => {
   const [isCityOpen, setIsCityOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const images = [Slider3, Slider4, Slider2];
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
   const handleCityFocus = () => {
@@ -30,30 +28,19 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
   const handleCategoryBlur = () => {
     setIsCategoryOpen(false);
   };
-  
+
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 768); 
+      setIsMobile(window.innerWidth < 768);
     };
 
-    checkScreenSize(); 
-    window.addEventListener("resize", checkScreenSize); 
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
 
     return () => {
-      window.removeEventListener("resize", checkScreenSize); 
+      window.removeEventListener("resize", checkScreenSize);
     };
   }, []);
-
-  useEffect(() => {
-    if (!isMobile) {
-      const interval = setInterval(() => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-      }, 10000); 
-      return () => clearInterval(interval); 
-    }
-  }, [images.length, isMobile]);
-
-
 
   return (
     <div className="relative h-[100vh] w-full bg-cover bg-center">
@@ -64,16 +51,16 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
       <div
         className="xl:px-24 px-10 py-14 h-[100vh] flex justify-center items-center bg-cover bg-center mt-20 bg-no-repeat"
         style={{
-          backgroundImage: `url(${isMobile ? Mobileslide : images[currentImageIndex]})`,
+          backgroundImage: `url(${isMobile ? Mobileslide : Slider3})`,
         }}
       >
         <div className="relative w-full md:w-[80%] flex flex-col items-center justify-center z-20">
           <TypewriterText text="Find Your New Job Today." />
           <div className="text-center">
-            <p className="text-lg text-white font-bold hidden sm:block drop-shadow-lg">
+            <p className="text-lg text-white font-bold  drop-shadow-lg">
               We Can Help You Succeed
             </p>
-            <p className="text-xl text-white mb-8 hidden sm:block font-bold drop-shadow-lg">
+            <p className="text-xl text-white mb-8  font-bold drop-shadow-lg">
               Browse Thousands Of Jobs From Top Companies
             </p>
           </div>
