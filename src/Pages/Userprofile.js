@@ -16,7 +16,7 @@ const UserProfile = () => {
   const fetchUserInfo = async () => {
     const loggedInUserEmail = localStorage.getItem('userEmail');
     if (!loggedInUserEmail) {
-      console.error('User email not found in localStorage');
+      // console.error('User email not found in localStorage');
       setIsLoading(false);
       return;
     }

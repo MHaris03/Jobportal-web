@@ -100,7 +100,7 @@ const router = createBrowserRouter([
         element : <AppliedJobs/>,
       },
       {
-        path :"user-saved-jobs",
+        path :"saved-jobs",
         element : <Savedjob/>,
       }
 

@@ -18,7 +18,7 @@ const JobDetails = () => {
                 const response = await fetch(`https://portal-lvi4.onrender.com/jobdetails/${id}`);
                 if (response.ok) {
                     const jobData = await response.json();
-                    console.log(jobData)
+                    // console.log(jobData)
                     setJob(jobData);
                 } else {
                     console.error('Error fetching job details:', response.status);

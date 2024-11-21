@@ -79,6 +79,7 @@ const Navbar = () => {
         });
         setIsMenuOpen(false);
         navigate('/');
+        window.location.reload();
       }
     });
   };
@@ -205,8 +206,8 @@ const Navbar = () => {
                     Applied Jobs
                     <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </NavLink>
-                  {/* <NavLink
-                    to="/user-saved-jobs"
+                  <NavLink
+                    to="/saved-jobs"
                     onClick={handleSelectProfile}
                     className={({ isActive }) =>
                       isActive
@@ -216,7 +217,7 @@ const Navbar = () => {
                   >
                     Saved Jobs
                     <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                  </NavLink> */}
+                  </NavLink>
                   {/* Add more links here if needed */}
                 </div>
               )}

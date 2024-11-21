@@ -71,7 +71,7 @@ const Categories = () => {
             viewport={{ once: false }}
         >
             <div className="flex justify-center mt-28">
-                <div className="w-[80vw] min-h-[80vh] ">
+                <div className="w-[80vw] min-h-[80vh]">
                     <div>
                         <h3 className="text-lg font-bold mb-2 ml-6">{jobs.length} {category} Jobs</h3>
                     </div>

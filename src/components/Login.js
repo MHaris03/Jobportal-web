@@ -47,6 +47,7 @@ const Login = ({ setLoginOpen, setsignupOpen, setUserName }) => {
                 setPassword("");
                 setLoginOpen(false);
                 setUserName(data?.name);
+                window.location.reload();
 
             } else {
                 Swal.fire({

@@ -70,10 +70,10 @@ const Card = ({ data }) => {
         let likedJobs = JSON.parse(localStorage.getItem("likedJobs")) || [];
         if (isLiked) {
           likedJobs = likedJobs.filter((id) => id !== _id);
-          toast.success("Job unliked ! Successfully");
+          toast.success('Job remove from saved history successfully!');
         } else {
           likedJobs.push(_id);
-          toast.success("Job liked ! Successfully");
+          toast.success("Job saved ! Successfully");
         }
         localStorage.setItem("likedJobs", JSON.stringify(likedJobs));
       } else {
