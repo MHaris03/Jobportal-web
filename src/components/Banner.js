@@ -3,9 +3,7 @@ import { FiMapPin, FiSearch } from "react-icons/fi";
 import { TbCategory } from "react-icons/tb";
 import TypewriterText from "../Pages/TypewriterText";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
-import Slider3 from "../Bgimg/slider3.jpg"
-import Slider4 from "../Bgimg/slider4.jpg"
-import Slider2 from "../Bgimg/sldier2.jpg"
+import Slider3 from "../Bgimg/bgslide3.jpg"
 import Mobileslide from "../Bgimg/bgslide1.jpeg"
 
 const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocation, handleCategories, selectedCategory }) => {
@@ -45,8 +43,7 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
   return (
     <div className="relative h-[100vh] w-full bg-cover bg-center">
       <div
-        className={`absolute inset-0 bg-black bg-opacity-50 z-10 h-[100vh] ${isMobile ? "block" : "hidden"
-          }`}
+        className="absolute inset-0 bg-black bg-opacity-50 h-[100vh]"
       ></div>
       <div
         className="xl:px-24 px-10 py-14 h-[100vh] flex justify-center items-center bg-cover bg-center mt-20 bg-no-repeat"

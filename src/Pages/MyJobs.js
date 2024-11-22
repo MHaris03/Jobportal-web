@@ -11,7 +11,6 @@ export const MyJobs = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [userEmail, setUserEmail] = useState("");
     const [currentPage, setCurrentPage] = useState(0);
-    
     const itemsPerPage = 20;
 
     useEffect(() => {
@@ -34,7 +33,7 @@ export const MyJobs = () => {
                 }
                 const data = await response.json();
                 const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                setJobs(sortedData); 
+                setJobs(sortedData);
             } catch (error) {
                 console.error('Error fetching jobs:', error);
             } finally {
@@ -248,26 +247,28 @@ export const MyJobs = () => {
                     </div>
                 </div>
                 {/* Pagination */}
-                <div className='flex justify-end'>
-                    <ReactPaginate
-                        previousLabel={<GrPrevious size={20} />}
-                        nextLabel={<GrNext size={20} />}
-                        breakLabel={<HiDotsHorizontal size={20} />}
-                        breakClassName={"pagination__break"}
-                        pageCount={pageCount}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={2}
-                        onPageChange={handlePageChange}
-                        containerClassName={"pagination"}
-                        pageClassName={"pagination__page"}
-                        pageLinkClassName={"pagination__link"}
-                        previousClassName={"pagination__previous"}
-                        nextClassName={"pagination__next"}
-                        activeLinkClassName={"pagination__link--active"}
-                        disabledClassName={"pagination__link--disabled"}
-                        breakLinkClassName={"pagination__break"}
-                    />
-                </div>
+                {jobs && jobs.length > 0 ? (
+                    <div className='flex justify-end'>
+                        <ReactPaginate
+                            previousLabel={<GrPrevious size={20} />}
+                            nextLabel={<GrNext size={20} />}
+                            breakLabel={<HiDotsHorizontal size={20} />}
+                            breakClassName={"pagination__break"}
+                            pageCount={pageCount}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={2}
+                            onPageChange={handlePageChange}
+                            containerClassName={"pagination"}
+                            pageClassName={"pagination__page"}
+                            pageLinkClassName={"pagination__link"}
+                            previousClassName={"pagination__previous"}
+                            nextClassName={"pagination__next"}
+                            activeLinkClassName={"pagination__link--active"}
+                            disabledClassName={"pagination__link--disabled"}
+                            breakLinkClassName={"pagination__break"}
+                        />
+                    </div>
+                ) : (null)}
             </section>
             <Arrow />
         </div>
