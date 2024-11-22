@@ -139,13 +139,14 @@ const CreateJob = () => {
           <div className="create-job-flex">
             <div className="lg:w-1/2 w-full">
               <label className="block mb-2 text-lg">Salary Type</label>
-              <select {...register('salaryType', { required: true })} className="create-job-input">
+              <select {...register('salaryType')} className="create-job-input">
                 <option value="">Choose your salary</option>
                 <option value="Hourly">Hourly</option>
                 <option value="Monthly">Monthly</option>
                 <option value="Yearly">Yearly</option>
+                <option value="Weekly">Weekly</option>
               </select>
-              {errors.salaryType && <p className="text-red-500">Salary type is required</p>}
+              {/* {errors.salaryType && <p className="text-red-500">Salary type is required</p>} */}
             </div>
             <div className="lg:w-1/2 w-full">
               <label className="block mb-2 text-lg">Job Location</label>

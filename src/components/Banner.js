@@ -46,7 +46,7 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
         className="absolute inset-0 bg-black bg-opacity-50 h-[100vh]"
       ></div>
       <div
-        className="xl:px-24 px-10 py-14 h-[100vh] flex justify-center items-center bg-cover bg-center mt-20 bg-no-repeat"
+        className="xl:px-24 px-10 py-14 h-[100vh] flex justify-center items-center bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url(${isMobile ? Mobileslide : Slider3})`,
         }}

@@ -11,6 +11,7 @@ const Salary = ({ handleChange, handleClick }) => {
         <Button onclickHandler={handleClick} value="hourly" title="Hourly" />
         <Button onclickHandler={handleClick} value="Monthly" title="Monthly" />
         <Button onclickHandler={handleClick} value="Yearly" title="Yearly" />
+        <Button onclickHandler={handleClick} value="Weekly" title="Weekly" />
       </div>
       <div>
         <label className='sidebar-label-container'>

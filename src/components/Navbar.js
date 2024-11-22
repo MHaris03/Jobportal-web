@@ -13,6 +13,8 @@ const Navbar = () => {
   const [SignupOpen, setSignupOpen] = useState(false);
   const [userName, setUserName] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -89,6 +91,8 @@ const Navbar = () => {
     { path: "/post-job", title: "Post Job" },
     ...(userName ? [{ path: "/my-job", title: "My Jobs" }] : []),
     { path: "/browsejobs", title: "Browse Jobs" },
+    { path: "/companyinfo", title: "FAQ's" },
+    { path: "/contact", title: "Contact Us" },
   ];
   const handlePostJobClick = () => {
     if (!userName) {
@@ -115,19 +119,39 @@ const Navbar = () => {
   const handleNavLinkClick = () => {
     setIsMenuOpen(false);
   };
+
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsMenuOpen(false);
-      }
+      setIsMobile(window.innerWidth < 768);
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 50);
+      };
+
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [location.pathname]);
+
+
   return (
-    <header className="fixed top-0 z-50 shadow-md bg-white max-w-screen-2xl container mx-auto xl:px-24 px-4">
-      {/* <header className="fixed top-0 w-full z-50 bg-white shadow-md max-w-screen-2xl container mx-auto xl:px-24 px-4"> */}
+    <header
+      className={`fixed top-0 z-50 max-w-screen-2xl container mx-auto xl:px-24 px-4 transition-all duration-300 ${location.pathname === '/'
+        ? isMobile
+          ? 'bg-white shadow-md'
+          : isScrolled
+            ? 'bg-white shadow-md'
+            : 'bg-transparent'
+        : 'bg-white shadow-md'
+        }`}
+    >
       <nav className="flex justify-between items-center py-6">
         <Link to="/" className="flex items-center gap-2 text-2xl text-black">
           <img
@@ -136,10 +160,15 @@ const Navbar = () => {
             className="h-auto max-h-12 w-auto max-w-xs object-contain"
           />
         </Link>
-        {/* Nav items for large devices */}
         <ul className="hidden md:flex gap-12" id="navbar">
           {navItems.map(({ path, title }) => (
-            <li key={path} className="text-base text-primary">
+            <li
+              key={path}
+              className={`${location.pathname === '/'
+                ? (isScrolled ? 'text-base text-primary' : 'text-white font-bold')
+                : 'text-primary'
+                }`}
+            >
               {path === '/post-job' ? (
                 <button
                   onClick={() => handlePostJobClick(path)}
@@ -164,8 +193,8 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-        {/* Conditional rendering based on user's name */}
-        <div className="text-base text-primary font-medium space-x-5 hidden lg:block">
+        <div
+          className={`text-base text-primary font-medium space-x-5 hidden lg:block ${location.pathname === '/' ? (isScrolled ? 'text-base text-primary' : 'text-white font-bold') : 'text-primary'}`}        >
           {userName ? (
             <div className="relative inline-block">
               <button
@@ -181,14 +210,21 @@ const Navbar = () => {
               </button>
 
               {dropdownVisible && (
-                <div className="absolute bg-white border rounded mt-1 py-2 w-40 z-30 justify-center text-center flex flex-col">
+                <div
+                  // className="absolute bg-white border rounded mt-1 py-2 w-40 z-30 justify-center text-center flex flex-col"
+                  className={`absolute border rounded mt-1 py-2 w-40 z-30 justify-center text-center flex flex-col ${location.pathname === '/' && !isScrolled ? 'bg-transparent' : 'bg-white shadow-md'
+                    }`}
+                >
                   <NavLink
                     to="/userprofile"
                     onClick={handleSelectProfile}
                     className={({ isActive }) =>
-                      isActive
-                        ? "active relative border-b-2 border-blue p-1"
-                        : "relative group p-1"
+                      `relative group p-1 ${location.pathname === '/'
+                        ? isScrolled
+                          ? 'text-primary'
+                          : 'text-white font-bold'
+                        : 'text-black'
+                      } ${isActive ? 'border-b-2 border-blue' : ''}`
                     }
                   >
                     Show Profile
@@ -198,9 +234,12 @@ const Navbar = () => {
                     to="/user-applied-jobs"
                     onClick={handleSelectProfile}
                     className={({ isActive }) =>
-                      isActive
-                        ? "active relative border-b-2 border-blue p-1"
-                        : "relative group p-1"
+                      `relative group p-1 ${location.pathname === '/'
+                        ? isScrolled
+                          ? 'text-primary'
+                          : 'text-white font-bold'
+                        : 'text-black'
+                      } ${isActive ? 'border-b-2 border-blue' : ''}`
                     }
                   >
                     Applied Jobs
@@ -210,15 +249,17 @@ const Navbar = () => {
                     to="/saved-jobs"
                     onClick={handleSelectProfile}
                     className={({ isActive }) =>
-                      isActive
-                        ? "active relative border-b-2 border-blue p-1"
-                        : "relative group p-1"
+                      `relative group p-1 ${location.pathname === '/'
+                        ? isScrolled
+                          ? 'text-primary'
+                          : 'text-white font-bold'
+                        : 'text-black'
+                      } ${isActive ? 'border-b-2 border-blue' : ''}`
                     }
                   >
                     Saved Jobs
                     <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </NavLink>
-                  {/* Add more links here if needed */}
                 </div>
               )}
             </div>
@@ -244,7 +285,6 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Mobile menu toggle button */}
         <div className="md:hidden">
           <button
             onClick={handleMenuToggler}
@@ -257,12 +297,10 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Nav items for mobile */}
       <div
         className={`fixed inset-0 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'
           } transition-transform duration-200 ease-in-out bg-white z-30 md:hidden`}
       >
-        {/* Overlay to close the menu when clicking outside */}
         {isMenuOpen && (
           <div
             className="absolute inset-0  opacity-50"
@@ -271,9 +309,7 @@ const Navbar = () => {
           ></div>
         )}
 
-        {/* Mobile Menu Content */}
         <div className="relative flex flex-col h-full bg-white p-4">
-          {/* Mobile Menu Header */}
           <div className="flex items-center justify-between mb-8">
             <Link to="/" onClick={handlePathClick} className="flex items-center gap-2 text-2xl text-black">
               <img
@@ -291,7 +327,6 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Items */}
           <ul className="flex flex-col space-y-4">
             {navItems.map(({ path, title }) => (
               <li key={path} className="text-base text-primary">
@@ -321,12 +356,10 @@ const Navbar = () => {
             ))}
           </ul>
 
-          {/* User Authentication Buttons */}
           <div className="w-40">
             {userName ? (
               <div className="flex flex-col space-y-4">
                 <div className="mt-4 space-y-4 flex flex-col w-28">
-                  {/* Show Profile Link */}
                   <NavLink
                     to="/userprofile"
                     onClick={() => {
@@ -357,8 +390,22 @@ const Navbar = () => {
                     Applied Jobs
                     <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                   </NavLink>
+                  <NavLink
+                    to="/saved-jobs"
+                    onClick={() => {
+                      handleSelectProfile();
+                      handlePathClick();
+                    }}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "active relative border-b-2 border-blue p-1"
+                        : "relative group p-1"
+                    }
+                  >
+                    Saved Jobs
+                    <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                  </NavLink>
                 </div>
-                {/* Logout Button */}
                 <button
                   onClick={handleLogout}
                   className="py-2 px-4 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900 transition-colors duration-300 w-full"
@@ -368,7 +415,6 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex flex-col space-y-2 mt-3">
-                {/* Log In Button */}
                 <button
                   onClick={handleLoginModal}
                   className="py-2 px-4 border rounded hover:bg-gray-100 focus:outline-none w-full"
@@ -376,7 +422,6 @@ const Navbar = () => {
                   Log In
                 </button>
 
-                {/* Sign Up Button */}
                 <button
                   onClick={handleSignupModal}
                   className="py-2 px-4 border rounded bg-sky-500 text-white hover:bg-white hover:text-gray-900 transition-colors duration-300 w-full"
@@ -389,8 +434,6 @@ const Navbar = () => {
 
         </div>
       </div>
-
-      {/* Login Modal */}
       {isLoginOpen && (
         <Login
           setLoginOpen={setIsLoginOpen}

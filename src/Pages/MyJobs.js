@@ -55,7 +55,6 @@ export const MyJobs = () => {
 
 
     const handleDelete = (id) => {
-        // Show confirmation dialog
         Swal.fire({
             title: 'Are you sure?',
             text: 'You will not be able to recover this job!',
@@ -67,26 +66,22 @@ export const MyJobs = () => {
             cancelButtonText: 'No'
         }).then((result) => {
             if (result.isConfirmed) {
-                // If user confirms deletion, send delete request
                 fetch(`https://portal-lvi4.onrender.com/job/${id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())
                     .then(data => {
                         if (data.acknowledged === true) {
-                            // Show success message
                             Swal.fire(
                                 'Deleted!',
                                 'Job has been deleted.',
                                 'success'
                             );
-                            // After successful deletion, update jobs state to remove the deleted job
                             setJobs(prevJobs => prevJobs.filter(job => job?._id !== id));
                         }
                     })
                     .catch(error => {
                         console.error('Error deleting job:', error);
-                        // Handle error here
                     });
             }
         });
@@ -154,9 +149,9 @@ export const MyJobs = () => {
     // };
 
     return (
-        <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4 min-h-[80vh]">
+        <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4 min-h-[80vh] mt-28">
             <div className='my-jobs-container'>
-                <h1 className='text-sky-500 font-sans text-2xl text-bold text-center   mb-10'> All Jobs </h1>
+                <h1 className='text-sky-500 font-sans text-2xl text-bold text-center mb-10'> All Jobs </h1>
                 <hr className="border-gray-300 my-4" />
             </div>
             <section className="py-1 bg-blueGray-50">
