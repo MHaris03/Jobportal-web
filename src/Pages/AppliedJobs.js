@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
+import { BASE_URL } from '../utils/BASE_URL';
 import Arrow from "../components/Arrow";
 import { motion } from "framer-motion";
 import ReactPaginate from 'react-paginate';
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { HiDotsHorizontal } from "react-icons/hi";
+import toast, { Toaster } from 'react-hot-toast';
 
 const AppliedJobs = () => {
     const [jobs, setJobs] = useState([]);
@@ -19,7 +21,7 @@ const AppliedJobs = () => {
             try {
                 const token = localStorage.getItem('userToken');
 
-                const response = await fetch(`https://portal-lvi4.onrender.com/user-applied-jobs`, {
+                const response = await fetch(`${BASE_URL}/user-applied-jobs`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
@@ -30,10 +32,10 @@ const AppliedJobs = () => {
                     const jobData = await response.json();
                     setJobs(jobData);
                 } else {
-                    console.error('Error fetching job details:', response.status);
+                    toast.error('Error fetching job details:', response.status);
                 }
             } catch (error) {
-                console.error('Error fetching job details:', error);
+                toast.error('Error fetching job details:', error);
             } finally {
                 setLoading(false);
             }
@@ -91,14 +93,14 @@ const AppliedJobs = () => {
                                             <div>
                                                 <h4 className='text-primary mb-1 text-base sm:text-sm lg:text-xl'>{job?.companyName}</h4>
                                                 <h3 className='sm:text-sm lg:text-xl font-semibold'>{job?.jobTitle}</h3>
-                                                <h6 className='sm:text-sm lg:text-xl font-semibold'>{job?.skills && job?.skills.join(', ')}</h6>
                                                 <div className='text-primary/70 text-sm sm:text-base flex flex-wrap sm:flex-row flex-row gap-1 font-bold'>
                                                     <span className='flex items-center gap-1'><FiMapPin /> {job?.jobLocation}</span>
                                                     <span className='flex items-center gap-1'><FiClock /> {job?.employmentType}</span>
                                                     <span className='flex items-center gap-1'>£ {job?.minPrice}-{job?.maxPrice} {job?.salaryType}</span>
                                                     <span className='flex items-center gap-1'><FiCalendar /> {job?.jobPosting}</span>
                                                 </div>
-                                                <p className='text-sm sm:text-base text-primary/70 hidden sm:block'>{job?.description?.slice(0, 100)}</p>
+                                                <h6 className='sm:text-sm lg:text-xl font-semibold'>{job?.skills && job?.skills.join(', ')}</h6>
+                                                {/* <p className='text-sm sm:text-base text-primary/70 hidden sm:block'>{job?.description?.slice(0, 150)}</p> */}
                                             </div>
                                         </div>
                                     </Link>
@@ -135,6 +137,7 @@ const AppliedJobs = () => {
                     </div>
                 ) : (null)}
                 <Arrow />
+                <Toaster />
             </div>
         </motion.div>
     );

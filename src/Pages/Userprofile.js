@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { BASE_URL } from '../utils/BASE_URL';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const UserProfile = () => {
@@ -16,21 +18,20 @@ const UserProfile = () => {
   const fetchUserInfo = async () => {
     const loggedInUserEmail = localStorage.getItem('userEmail');
     if (!loggedInUserEmail) {
-      // console.error('User email not found in localStorage');
+      toast.error('User email not found ');
       setIsLoading(false);
       return;
     }
     try {
-      const response = await fetch(`https://portal-lvi4.onrender.com/user-info/${loggedInUserEmail}`);
+      const response = await fetch(`${BASE_URL}/user-info/${loggedInUserEmail}`);
       if (!response.ok) {
         throw new Error('Failed to fetch user info');
       }
 
       const data = await response.json();
-      console.log("🚀 ~ fetchUserInfo ~ data:", data);
       setUser(data);
     } catch (error) {
-      console.error('Error fetching user info:', error);
+      toast.error('Error fetching user info:', error);
     } finally {
       setIsLoading(false);
     }
@@ -91,6 +92,7 @@ const UserProfile = () => {
             onChange={handleInputChange}
           />
         </div>
+        <Toaster/>
       </div>
     </div>
   );

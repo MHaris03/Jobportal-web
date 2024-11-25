@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable';
+import { BASE_URL } from '../utils/BASE_URL';
 import toast, { Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
@@ -61,7 +62,7 @@ const CreateJob = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch('https://portal-lvi4.onrender.com/post-job', {
+      const response = await fetch(`${BASE_URL}/post-job`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data }),

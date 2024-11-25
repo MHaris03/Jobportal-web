@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { BASE_URL } from "../utils/BASE_URL";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Swal from 'sweetalert2';
 
@@ -21,7 +22,7 @@ const Login = ({ setLoginOpen, setsignupOpen, setUserName }) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://portal-lvi4.onrender.com/login', {
+            const response = await fetch(`${BASE_URL}/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

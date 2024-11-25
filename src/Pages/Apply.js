@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from "../utils/BASE_URL"
 
 const Apply = ({ setIsApplyOpen, companyInfo }) => {
     const contentRef = useRef(null);
@@ -39,7 +40,7 @@ const Apply = ({ setIsApplyOpen, companyInfo }) => {
         form.append('jobId', companyInfo?._id);
 
         try {
-            const response = await fetch('https://portal-lvi4.onrender.com/apply', {
+            const response = await fetch(`${BASE_URL}/apply`, {
                 method: 'POST',
                 body: form,
                 headers: {

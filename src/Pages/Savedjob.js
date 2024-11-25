@@ -4,6 +4,7 @@ import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
 import Arrow from "../components/Arrow";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { BASE_URL } from '../utils/BASE_URL';
 import toast, { Toaster } from "react-hot-toast";
 import ReactPaginate from 'react-paginate';
 import { GrNext, GrPrevious } from "react-icons/gr";
@@ -25,7 +26,7 @@ const Savedjob = () => {
     }
 
     try {
-      const response = await fetch(`https://portal-lvi4.onrender.com/user-info/${loggedInUserEmail}`);
+      const response = await fetch(`${BASE_URL}/user-info/${loggedInUserEmail}`);
       if (!response.ok) throw new Error('Failed to fetch user info');
 
       const data = await response.json();
@@ -34,7 +35,7 @@ const Savedjob = () => {
       if (data?.likedJobs?.length > 0) {
         const jobResponses = await Promise.all(
           data.likedJobs.map(jobId =>
-            fetch(`https://portal-lvi4.onrender.com/jobdetails/${jobId}`)
+            fetch(`${BASE_URL}/jobdetails/${jobId}`)
               .then(res => res.ok ? res.json() : null)
           )
         );
@@ -61,7 +62,7 @@ const Savedjob = () => {
     }
 
     try {
-      const response = await fetch('https://portal-lvi4.onrender.com/job/like', {
+      const response = await fetch(`${BASE_URL}/job/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +89,7 @@ const Savedjob = () => {
           setSavedJobs(updatedSavedJobs);
           localStorage.setItem('likedJobs', JSON.stringify(updatedSavedJobs));
 
-          const newJobDetails = await fetch(`https://portal-lvi4.onrender.com/jobdetails/${jobId}`).then((res) =>
+          const newJobDetails = await fetch(`${BASE_URL}/jobdetails/${jobId}`).then((res) =>
             res.json()
           );
           setJobDetails((prev) => [...prev, newJobDetails]);
@@ -109,7 +110,7 @@ const Savedjob = () => {
   const offset = currentPage * itemsPerPage;
   const Savedjobuser = savedJobs.slice(offset, offset + itemsPerPage);
   const pageCount = Math.ceil(savedJobs?.length / itemsPerPage);
-  
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center mt-28">

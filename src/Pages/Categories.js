@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
+import { BASE_URL } from '../utils/BASE_URL';
 import { motion } from "framer-motion";
 import Arrow from "../components/Arrow";
 import ReactPaginate from 'react-paginate';
 import { HiDotsHorizontal } from "react-icons/hi";
 import { GrNext, GrPrevious } from "react-icons/gr";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Categories = () => {
     const { category } = useParams();
@@ -17,15 +19,15 @@ const Categories = () => {
     useEffect(() => {
         const fetchCompanyDetails = async () => {
             try {
-                const response = await fetch(`https://portal-lvi4.onrender.com/categories/${category}`);
+                const response = await fetch(`${BASE_URL}/categories/${category}`);
                 if (response.ok) {
                     const jobData = await response.json();
                     setJobs(jobData);
                 } else {
-                    console.error('Error fetching job details:', response.status);
+                    toast.error('Error fetching job details:', response.status);
                 }
             } catch (error) {
-                console.error('Error fetching job details:', error);
+                toast.error('Error fetching job details:', error);
             } finally {
                 setLoading(false);
             }
@@ -59,7 +61,7 @@ const Categories = () => {
     };
 
     const offset = currentPage * jobsPerPage;
-    const paginatedJobs = jobs.slice(offset, offset + jobsPerPage); 
+    const paginatedJobs = jobs.slice(offset, offset + jobsPerPage);
     const pageCount = Math.ceil(jobs.length / jobsPerPage);
 
     return (
@@ -121,6 +123,7 @@ const Categories = () => {
                     </div>
                 </div>
                 <Arrow />
+                <Toaster />
             </div>
         </motion.div>
     );

@@ -5,6 +5,7 @@ import Arrow from "../components/Arrow"
 import ReactPaginate from 'react-paginate';
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { HiDotsHorizontal } from "react-icons/hi";
+import { BASE_URL } from '../utils/BASE_URL';
 
 export const MyJobs = () => {
     const [jobs, setJobs] = useState([]);
@@ -27,7 +28,7 @@ export const MyJobs = () => {
 
                 if (!userEmail) return;
 
-                const response = await fetch(`https://portal-lvi4.onrender.com/myJobs/${userEmail}`);
+                const response = await fetch(`${BASE_URL}/myJobs/${userEmail}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch jobs');
                 }
@@ -66,7 +67,7 @@ export const MyJobs = () => {
             cancelButtonText: 'No'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://portal-lvi4.onrender.com/job/${id}`, {
+                fetch(`${BASE_URL}/job/${id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())

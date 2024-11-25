@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { BASE_URL } from '../utils/BASE_URL';
 
 
 const LocationBrowse = () => {
@@ -8,7 +9,7 @@ const LocationBrowse = () => {
 
 
     useEffect(() => {
-        fetch("https://portal-lvi4.onrender.com/all-jobs")
+        fetch(`${BASE_URL}/all-jobs`)
             .then(response => response?.json())
             .then(data => {
                 setJobsData(data);

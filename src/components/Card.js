@@ -4,6 +4,7 @@ import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
+import { BASE_URL } from "../utils/BASE_URL"
 
 const Card = ({ data }) => {
   const {
@@ -49,7 +50,7 @@ const Card = ({ data }) => {
     }
 
     try {
-      const response = await fetch("https://portal-lvi4.onrender.com/job/like", {
+      const response = await fetch(`${BASE_URL}/job/like`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

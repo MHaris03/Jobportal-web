@@ -4,8 +4,10 @@ import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
 import { motion } from "framer-motion";
 import ReactPaginate from 'react-paginate';
 import Arrow from '../components/Arrow';
+import { BASE_URL } from '../utils/BASE_URL';
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { HiDotsHorizontal } from "react-icons/hi";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Jobloction = () => {
     const { jobLocation } = useParams();
@@ -17,16 +19,16 @@ const Jobloction = () => {
     useEffect(() => {
         const CompanyDetails = async () => {
             try {
-                const response = await fetch(`https://portal-lvi4.onrender.com/location-jobs/${jobLocation}`);
+                const response = await fetch(`${BASE_URL}/location-jobs/${jobLocation}`);
 
                 if (response.ok) {
                     const jobData = await response.json();
                     setJobs(jobData);
                 } else {
-                    console.error('Error fetching job details:', response.status);
+                    toast.error('Error fetching job details:', response.status);
                 }
             } catch (error) {
-                console.error('Error fetching job details:', error);
+                toast.error('Error fetching job details:', error);
             } finally {
                 setLoading(false);
             }
@@ -128,6 +130,7 @@ const Jobloction = () => {
                     </div>
                 </div>
                 <Arrow />
+                <Toaster />
             </div>
         </motion.div>
     );

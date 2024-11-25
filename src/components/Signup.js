@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { BASE_URL } from "../utils/BASE_URL";
 import toast, { Toaster } from "react-hot-toast";
 
 const SignUp = ({ setsignupOpen, setLoginOpen }) => {
@@ -26,7 +27,7 @@ const SignUp = ({ setsignupOpen, setLoginOpen }) => {
 
     const handleSignUp = async () => {
         try {
-            const response = await fetch('https://portal-lvi4.onrender.com/signup', {
+            const response = await fetch(`${BASE_URL}/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Banner from "../components/Banner";
 import Card from "../components/Card";
 import Jobs from "./Jobs";
+import { BASE_URL } from "../utils/BASE_URL";
 import Sidebar from "../sidebard/Sidebar";
 import Newsletter from "../components/Newsletter";
 import Arrow from "../components/Arrow";
@@ -18,7 +19,7 @@ const Home = () => {
 
   useEffect(() => {
     setIsloading(true);
-    fetch("https://portal-lvi4.onrender.com/all-jobs")
+    fetch(`${BASE_URL}/all-jobs`)
       .then(res => res.json())
       .then(data => {
         data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -26,6 +27,7 @@ const Home = () => {
         setIsloading(false);
       });
   }, []);
+  
   const [query, setQuery] = useState("");
 
   const handleInputChange = (event) => {
