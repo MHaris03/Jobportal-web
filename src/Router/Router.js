@@ -97,12 +97,12 @@ const router = createBrowserRouter([
         loader: ({ params }) => fetch(`${BASE_URL}/categories/${params.category}`)
       },
       {
-        path :"user-applied-jobs",
-        element : <AppliedJobs/>,
+        path: "user-applied-jobs",
+        element: <AppliedJobs />,
       },
       {
-        path :"saved-jobs",
-        element : <Savedjob/>,
+        path: "saved-jobs",
+        element: <Savedjob />,
       }
 
 

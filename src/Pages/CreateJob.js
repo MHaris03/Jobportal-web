@@ -16,7 +16,7 @@ const CreateJob = () => {
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     if (!file) {
-      toast.error('Please select an image file');
+      toast.error('Please select an image');
       return;
     }
 
@@ -203,7 +203,9 @@ const CreateJob = () => {
                 <option value="Sales-Marketing">Sales and Marketing</option>
                 <option value="Hospitality-Catering">Hospitality and Catering</option>
                 <option value="Construction-Trades">Construction and Trades</option>
+                <option value="Construction-Facilities">Construction and Facilities</option>
                 <option value="Retail">Retail</option>
+                <option value="Administration">Administration</option>
                 <option value="Creative-Design">Creative and Design</option>
                 <option value="AccountingFinance">Accounting / Finance</option>
                 <option value="DistributionLogistics">Distribution/Logistics</option>
@@ -211,12 +213,14 @@ const CreateJob = () => {
                 <option value="Legal-Compliance">Legal and Compliance</option>
                 <option value="OilGas">Oil & Gas</option>
                 <option value="Social-Care">Social Care</option>
+                <option value="Supply-Chain-Operations">Supply Chain Operations</option>
                 <option value="LegalProfessionalServices">Legal & Professional Services</option>
                 <option value="SalesBusinessDevelopment">Sales/Business Development</option>
                 <option value="HealthcareMedical">Healthcare & Medical</option>
                 <option value="HumanResource">Human Resource</option>
                 <option value="Manufacturing">Manufacturing</option>
                 <option value="Telecommunications">Telecommunications</option>
+                <option value="Telecome">Telecome</option>
                 <option value="Media-Communications">Media and Communications</option>
                 <option value="Science-Research">Science and Research</option>
                 <option value="DesignMultimedia">Design & Multimedia</option>
@@ -224,7 +228,9 @@ const CreateJob = () => {
                 <option value="Public-Sector">Public Sector</option>
                 <option value="Real-Estate">Real Estate</option>
                 <option value="Property-Management">Property Management</option>
+                <option value="Procurement-Sourcing">Procurement-Sourcing</option>
                 <option value="Engineering">Engineering</option>
+                <option value="Web-Developer">Web-Developer</option>
               </select>
               {errors.category && <p className="text-red-500">Category is required</p>}
             </div>

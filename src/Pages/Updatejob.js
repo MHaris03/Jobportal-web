@@ -11,13 +11,15 @@ const Updatejob = () => {
 
   const { id } = useParams();
   const { jobTitle, companyName, minPrice, maxPrice, salaryType, jobLocation, jobPosting, experienceLevel, image, employmentType
-    , description, postedBy, skills } = useLoaderData();
+    , description, postedBy, skills, category } = useLoaderData();
 
   const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState(null);
+
   useEffect(() => {
     setSelectedOptions(skills.map(skill => ({ value: skill, label: skill })));
   }, [skills]);
+
   const {
     register,
     handleSubmit, reset,
@@ -129,6 +131,51 @@ const Updatejob = () => {
                 <option value="Highly-Experienced">Highly Experienced</option>
                 <option value="Internship">Internship</option>
               </select>
+            </div>
+          </div>
+          <div className="create-job-flex">
+            <div className="lg:w-1/2 w-full">
+              <label className="block mb-2 text-lg">Category</label>
+              <select defaultValue={category} {...register('category', { required: true })} className="create-job-input">
+                <option value="">Choose category</option>
+                <option value="InformationTechnology">Information Technology</option>
+                <option value="Healthcare-Nursing">Healthcare and Nursing</option>
+                <option value="Engineering-Technical">Engineering and Technical</option>
+                <option value="LifeSciencesHealthcare">Life Sciences & Healthcare</option>
+                <option value="Education-Teaching">Education and Teaching</option>
+                <option value="Sales-Marketing">Sales and Marketing</option>
+                <option value="Hospitality-Catering">Hospitality and Catering</option>
+                <option value="Construction-Trades">Construction and Trades</option>
+                <option value="Construction-Facilities">Construction and Facilities</option>
+                <option value="Retail">Retail</option>
+                <option value="Administration">Administration</option>
+                <option value="Creative-Design">Creative and Design</option>
+                <option value="AccountingFinance">Accounting / Finance</option>
+                <option value="DistributionLogistics">Distribution/Logistics</option>
+                <option value="Transport-Logistics">Transport and Logistics</option>
+                <option value="Legal-Compliance">Legal and Compliance</option>
+                <option value="OilGas">Oil & Gas</option>
+                <option value="Social-Care">Social Care</option>
+                <option value="Supply-Chain-Operations">Supply Chain Operations</option>
+                <option value="LegalProfessionalServices">Legal & Professional Services</option>
+                <option value="SalesBusinessDevelopment">Sales/Business Development</option>
+                <option value="HealthcareMedical">Healthcare & Medical</option>
+                <option value="HumanResource">Human Resource</option>
+                <option value="Manufacturing">Manufacturing</option>
+                <option value="Telecommunications">Telecommunications</option>
+                <option value="Telecome">Telecome</option>
+                <option value="Media-Communications">Media and Communications</option>
+                <option value="Science-Research">Science and Research</option>
+                <option value="DesignMultimedia">Design & Multimedia</option>
+                <option value="Government">Government</option>
+                <option value="Public-Sector">Public Sector</option>
+                <option value="Real-Estate">Real Estate</option>
+                <option value="Property-Management">Property Management</option>
+                <option value="Procurement-Sourcing">Procurement-Sourcing</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Web-Developer">Web-Developer</option>
+              </select>
+              {errors.category && <p className="text-red-500">Category is required</p>}
             </div>
           </div>
 

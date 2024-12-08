@@ -8,6 +8,7 @@ import { BASE_URL } from '../utils/BASE_URL';
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { HiDotsHorizontal } from "react-icons/hi";
 import toast, { Toaster } from 'react-hot-toast';
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const Jobloction = () => {
     const { jobLocation } = useParams();
@@ -93,46 +94,62 @@ const Jobloction = () => {
     const pageCount = Math.ceil(jobs?.length / jobsPerPage);
 
     return (
-        <motion.div
-            className="flex flex-col w-full cursor-pointer"
-            variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false }}
-        >
-            <div className="flex justify-center mt-28">
-                <div className="w-[80vw] min-h-[80vh]">
-                    <div>
-                        <h3 className="text-lg font-bold mb-2 ml-6">{jobs?.length} Jobs in {jobLocation}</h3>
+        <>
+            <HelmetProvider>
+                <Helmet>
+                    <title>
+                        Jobs in  {jobLocation || "Job"} - Full-Time, Part-Time, Remote & Freelance Roles | Aidifys.com
+                    </title>
+                    <meta
+                        name="description"
+                        content={`Browse the latest job vacancies in ${jobLocation || "various industries"},  Find full-time, 
+                        part-time, remote, freelance jobs in industries like IT, marketing, finance, healthcare, and more at Aidifys.com.`}
+                    />
+                </Helmet>
+                <motion.div
+                    className="flex flex-col w-full cursor-pointer"
+                    variants={cardVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false }}
+                >
+                    <div className="flex justify-center mt-28">
+                        <div className="w-[80vw] min-h-[80vh]">
+                            <div>
+                                <h3 className="text-lg font-bold mb-2 ml-6">{jobs?.length} Jobs in {jobLocation}</h3>
+                            </div>
+                            {currentJobs.map(job => (
+                                <JobCard key={job?._id} job={job} />
+                            ))}
+                            {jobs && jobs.length > 0 ? (
+                                <div className='flex justify-end'>
+                                    <ReactPaginate
+                                        previousLabel={<GrPrevious size={20} />}
+                                        nextLabel={<GrNext size={20} />}
+                                        breakLabel={<HiDotsHorizontal size={20} />}
+                                        breakClassName={"pagination__break"}
+                                        pageCount={pageCount}
+                                        marginPagesDisplayed={2}
+                                        pageRangeDisplayed={2}
+                                        onPageChange={handlePageChange}
+                                        containerClassName={"pagination"}
+                                        pageClassName={"pagination__page"}
+                                        pageLinkClassName={"pagination__link"}
+                                        previousClassName={"pagination__previous"}
+                                        nextClassName={"pagination__next"}
+                                        activeLinkClassName={"pagination__link--active"}
+                                        disabledClassName={"pagination__link--disabled"}
+                                        breakLinkClassName={"pagination__break"}
+                                    />
+                                </div>
+                            ) : (null)}
+                        </div>
+                        <Arrow />
+                        <Toaster />
                     </div>
-                    {currentJobs.map(job => (
-                        <JobCard key={job?._id} job={job} />
-                    ))}
-                    <div className='flex justify-end'>
-                        <ReactPaginate
-                            previousLabel={<GrPrevious size={20} />}
-                            nextLabel={<GrNext size={20} />}
-                            breakLabel={<HiDotsHorizontal size={20} />}
-                            breakClassName={"pagination__break"}
-                            pageCount={pageCount}
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={2}
-                            onPageChange={handlePageChange}
-                            containerClassName={"pagination"}
-                            pageClassName={"pagination__page"}
-                            pageLinkClassName={"pagination__link"}
-                            previousClassName={"pagination__previous"}
-                            nextClassName={"pagination__next"}
-                            activeLinkClassName={"pagination__link--active"}
-                            disabledClassName={"pagination__link--disabled"}
-                            breakLinkClassName={"pagination__break"}
-                        />
-                    </div>
-                </div>
-                <Arrow />
-                <Toaster />
-            </div>
-        </motion.div>
+                </motion.div>
+            </HelmetProvider>
+        </>
     );
 };
 

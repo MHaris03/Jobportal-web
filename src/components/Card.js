@@ -45,7 +45,7 @@ const Card = ({ data }) => {
     const userId = localStorage.getItem("UserId");
 
     if (!userId || !token) {
-      toast.error("Please log in to like this job.");
+      toast.error("Please log in to save this job.");
       return;
     }
 

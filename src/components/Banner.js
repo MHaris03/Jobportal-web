@@ -5,6 +5,7 @@ import TypewriterText from "../Pages/TypewriterText";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import Slider3 from "../Bgimg/bgslide3.jpg"
 import Mobileslide from "../Bgimg/bgslide1.jpeg"
+import { IoPricetags } from "react-icons/io5";
 
 const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocation, handleCategories, selectedCategory }) => {
   const [isCityOpen, setIsCityOpen] = useState(false);
@@ -161,6 +162,11 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
               </div>
             </div>
           </form>
+          <div className="text-center">
+            <p className="text-lg text-white font-bold flex drop-shadow-lg mt-4 gap-3">
+              <IoPricetags size={20}/> UK jobs , Jobs in the UK , Jobs in London , Best IT jobs in London
+            </p>
+          </div>
         </div>
       </div>
     </div>

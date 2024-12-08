@@ -143,13 +143,14 @@ const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 z-50 max-w-screen-2xl container mx-auto xl:px-24 px-4 transition-all duration-300 ${location.pathname === '/'
-        ? isMobile
-          ? 'bg-white shadow-md'
-          : isScrolled
+      className={`fixed top-0 z-50 max-w-screen-2xl container mx-auto xl:px-18 px-4 transition-all duration-300 
+        ${location.pathname === '/'
+          ? isMobile
             ? 'bg-white shadow-md'
-            : 'bg-transparent'
-        : 'bg-white shadow-md'
+            : isScrolled
+              ? 'bg-white shadow-md'
+              : 'bg-transparent'
+          : 'bg-white shadow-md'
         }`}
     >
       <nav className="flex justify-between items-center py-6">
