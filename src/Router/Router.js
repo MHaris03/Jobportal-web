@@ -19,6 +19,10 @@ import PrivateRouter from "./PrivateRouter"
 import AppliedJobs from "../Pages/AppliedJobs";
 import Savedjob from "../Pages/Savedjob";
 import { BASE_URL } from "../utils/BASE_URL";
+import ResertPass from "../Pages/ResertPass";
+import Blog from "../Pages/Blog";
+import Addblog from "../Pages/Addblog";
+import Blogdetail from "../Pages/Blogdetail";
 
 const router = createBrowserRouter([
   {
@@ -103,8 +107,23 @@ const router = createBrowserRouter([
       {
         path: "saved-jobs",
         element: <Savedjob />,
-      }
-
+      },
+      {
+        path: "reset-password",
+        element: <ResertPass />,
+      },
+      {
+        path: "blog",
+        element: <Blog />
+      },
+      {
+        path: "add-blog",
+        element: <Addblog />
+      },
+      {
+        path: "blog-detail/:id",
+        element: <Blogdetail />,
+      },
 
     ]
 

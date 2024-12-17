@@ -93,6 +93,7 @@ const Navbar = () => {
     { path: "/browsejobs", title: "Browse Jobs" },
     { path: "/companyinfo", title: "FAQ's" },
     { path: "/contact", title: "Contact Us" },
+    { path: "/blog", title: "Blogs" },
   ];
   const handlePostJobClick = () => {
     if (!userName) {

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable';
 import { BASE_URL } from '../utils/BASE_URL';
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 import toast, { Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
@@ -271,8 +273,21 @@ const CreateJob = () => {
               {errors.employmentType && <p className="text-red-500">Employment type is required</p>}
             </div>
           </div>
-
           <div className="w-full">
+            <label className="block mb-2 text-lg">Job Posted By</label>
+            <input type="email" placeholder="Your Email" {...register('postedBy', { required: true })} className="create-job-input" />
+            {errors.postedBy && <p className="text-red-500">Email is required</p>}
+          </div>
+          {/* <div className="w-full">
+            <label className="block mb-2 text-lg">Job Description</label>
+            <ReactQuill
+              className="w-full pl-3 py-1.5 focus:outline-none placeholder:text-gray-700 h-72"
+              placeholder="Describe the job responsibilities, requirements, etc."
+              {...register('description', { required: true })}
+            />
+            {errors.description && <p className="text-red-500">Job description is required</p>}
+          </div> */}
+           <div className="w-full">
             <label className="block mb-2 text-lg">Job Description</label>
             <textarea
               className="w-full pl-3 py-1.5 focus:outline-none placeholder:text-gray-700"
@@ -282,15 +297,9 @@ const CreateJob = () => {
             />
             {errors.description && <p className="text-red-500">Job description is required</p>}
           </div>
-
-          <div className="w-full">
-            <label className="block mb-2 text-lg">Job Posted By</label>
-            <input type="email" placeholder="Your Email" {...register('postedBy', { required: true })} className="create-job-input" />
-            {errors.postedBy && <p className="text-red-500">Email is required</p>}
-          </div>
-
-          <input type="submit" disabled={isLoading} className="block mt-12 bg-sky-600 text-white font-semibold px-10 py-2 rounded-sm cursor-pointer" value={isLoading ? 'Submitting...' : 'Submit'} />
+        <input type="submit" disabled={isLoading} className="block mt-12 bg-sky-600 text-white font-semibold px-10 py-2 rounded-sm cursor-pointer" value={isLoading ? 'Submitting...' : 'Submit'} />
         </form>
+
       </div>
     </div>
   );

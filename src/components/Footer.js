@@ -9,7 +9,7 @@ import { FaPhone } from "react-icons/fa6";
 
 export default function App() {
   return (
-    <footer className="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900 lg:text-left">
+    <footer className="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900 lg:text-left ">
       <div className="mx-6 py-8 text-center md:text-left">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand Section */}
@@ -84,7 +84,7 @@ export default function App() {
 
       {/* Footer Bottom */}
       <div className="py-4 text-center bg-gray-800">
-        <p className="text-white">©2024 Aidifys.com All Rights Reserved.</p>
+        <p className="text-white">&copy; {new Date().getFullYear()} Aidifys.com All Rights Reserved.</p>
       </div>
     </footer>
   );
