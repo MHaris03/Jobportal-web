@@ -6,7 +6,7 @@ import { MyJobs } from "../Pages/MyJobs";
 import Updatejob from "../Pages/Updatejob";
 import Contact from "../Pages/Contact";
 import CvBuilder from "../Pages/CvBuilder";
-import TermsConditions from "../Pages/TermsConditions";
+import TermsConditions from "../Pages/Term";
 import Privacy from "../Pages/Privacy";
 import Browsejobs from "../Pages/Browsejobs";
 import JobDetails from "../Pages/Jobdetails";
@@ -23,6 +23,9 @@ import ResertPass from "../Pages/ResertPass";
 import Blog from "../Pages/Blog";
 import Addblog from "../Pages/Addblog";
 import Blogdetail from "../Pages/Blogdetail";
+import About from "../Pages/Aboutus";
+import Sitemap from "../Pages/Sitemap";
+import NotFound from "../Pages/Notfound";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +53,7 @@ const router = createBrowserRouter([
         loader: ({ params }) => fetch(`${BASE_URL}/all-jobs/${params.id}`)
       },
       {
-        path: "companyinfo",
+        path: "faq",
         element: <Companydetails />
       },
       {
@@ -62,9 +65,8 @@ const router = createBrowserRouter([
         path: "cvbuilder",
         element: <CvBuilder />
       },
-
       {
-        path: "termsconditions",
+        path: "terms-conditions",
         element: <TermsConditions />
       },
 
@@ -124,7 +126,18 @@ const router = createBrowserRouter([
         path: "blog-detail/:id",
         element: <Blogdetail />,
       },
-
+      {
+        path: "about-us",
+        element: <About />
+      },
+      {
+        path: "sitemap",
+        element: <Sitemap />
+      },
+      {
+        path: "*",
+        element: <NotFound />
+      }
     ]
 
   },

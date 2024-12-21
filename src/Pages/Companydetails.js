@@ -32,7 +32,7 @@ const Companydetails = () => {
       <div className="px-[5%] md:px-[14%] pt-[5%]">
         <div>
           <h1 className='text-sky-500 font-sans text-2xl text-bold text-center mb-10'>
-            Do You Have Any Questions?
+            Frequently Asked Questions
           </h1>
         </div>
         <p className="text-md text-secondary">
@@ -40,7 +40,7 @@ const Companydetails = () => {
           topics you are interested in or sort by category. If you still can&apos;t find the answer you&apos;re looking for, just <Link to="/contact" className="text-blue font-semibold"> Contact us!</Link>
         </p>
         <div className="py-4 md:p-8 my-10 flex flex-col gap-4 lg:gap-0 lg:flex-row">
-          <div className="relative border-s border-blue w-full lg:w-[40%] h-[140px]">
+          <div className="relative w-full lg:w-[40%]">
             <ol className="h-full">
               {faqs.map((item) => (
                 <li className="ms-4 mt-4" key={item.id}>
@@ -85,7 +85,7 @@ const Companydetails = () => {
           </div>
         </div>
       </div>
-      <Arrow/>
+      <Arrow />
     </div>
   );
 };

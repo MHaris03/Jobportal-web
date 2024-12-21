@@ -15,7 +15,7 @@ export default function App() {
           {/* Brand Section */}
           <div className="text-white space-y-4">
             <h6 className="flex items-center justify-center font-bold uppercase text-xl mb-4 md:justify-start">
-              <Link to={`/`} className="hover:text-blue">Aidifys.com</Link>
+              <Link to={`/`} className="hover:text-sky-500">Aidifys.com</Link>
             </h6>
             <p className="text-sm">
               Job Portal is a platform created by professionals for professionals, connecting talent with opportunities to drive career growth.
@@ -26,9 +26,9 @@ export default function App() {
           <div className="text-white space-y-4">
             <h6 className="mb-4 font-bold uppercase text-lg">Quick Links</h6>
             <ul className="space-y-2">
-              <li><Link to={`/browsejobs`} className="hover:text-blue">Browse Jobs</Link></li>
-              <li><Link to={`/my-job`} className="hover:text-blue">My Jobs</Link></li>
-              <li><Link to={`/post-job`} className="hover:text-blue">Post Job</Link></li>
+              <li><Link to={`/browsejobs`} className="hover:text-sky-500">Browse Jobs</Link></li>
+              <li><Link to={`/my-job`} className="hover:text-sky-500">My Jobs</Link></li>
+              <li><Link to={`/post-job`} className="hover:text-sky-500">Post Job</Link></li>
             </ul>
           </div>
 
@@ -36,8 +36,12 @@ export default function App() {
           <div className="text-white space-y-4">
             <h6 className="mb-4 font-bold uppercase text-lg">Company</h6>
             <ul className="space-y-2">
-              <li><Link to={`/companyinfo`} className="hover:text-blue">Company Information</Link></li>
-              <li><Link to={`/contact`} className="hover:text-blue">Contact Us</Link></li>
+              <li><Link to={`/faq`} className="hover:text-sky-500">FAQ's</Link></li>
+              <li><Link to={`/contact`} className="hover:text-sky-500">Contact Us</Link></li>
+              <li><Link to={`/about-us`} className="hover:text-sky-500">About Us</Link></li>
+              <li><Link to={`/terms-conditions`} className="hover:text-sky-500">Terms & Conditions</Link></li>
+              <li><Link to={`/privacy`} className="hover:text-sky-500">Privacy</Link></li>
+              <li><Link to={`/sitemap`} className="hover:text-sky-500">Sitemap</Link></li>
             </ul>
           </div>
 
@@ -64,18 +68,18 @@ export default function App() {
 
       {/* Social Icons */}
       <div className="py-4 flex justify-center">
-        <a href="https://facebook.com" className="mx-2 text-white hover:text-blue transition-transform duration-300">
+        <a href="https://facebook.com" className="mx-2 text-white hover:text-sky-500 transition-transform duration-300">
           <RiFacebookCircleLine size={30} />
         </a>
         <a href="https://www.instagram.com/aidifys.hiring?igsh=MTM3ZjNmbmVtNmR0Yg=="
-          className="mx-2 text-white hover:text-blue transition-transform duration-300"
+          className="mx-2 text-white hover:text-sky-500 transition-transform duration-300"
           target='blank'
         >
           <RiInstagramLine size={30} />
         </a>
         <a
           href="https://www.linkedin.com/company/aidifys/"
-          className="mx-2 text-white hover:text-blue transition-transform duration-300"
+          className="mx-2 text-white hover:text-sky-500 transition-transform duration-300"
           target='blank'
         >
           <RiLinkedinLine size={30} />

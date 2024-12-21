@@ -15,8 +15,6 @@ const Faq = () => {
       <h4 className='flex container px-20 font-bold'>How to apply for jobs in European region on Aidifys.com ?</h4>
 
       <p className='flex container px-20 mb-4'>It is very simple and easy. You can apply for jobs on our platform in just few steps. Just create an account on talentedgulf.me or you can login with your Google account, search for your desired job role, upload your resume, and hit apply button. That's it! you have successfully applied for the job.</p>
-
-
       <h4 className='flex container px-20 font-bold'>How do I place an job ad?</h4>
       <p className='px-20 mb-4'>It's very easy to place an ad: click on the button "Post free Ads" above right.</p>
 

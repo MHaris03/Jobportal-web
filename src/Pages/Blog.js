@@ -6,6 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import ReactPaginate from 'react-paginate';
 import { GrPrevious, GrNext } from 'react-icons/gr';
 import { HiDotsHorizontal } from 'react-icons/hi';
+import Blogimg from "../Bgimg/blogbg.jpg"
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -32,8 +33,9 @@ const Blog = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setBlogs(data.blogs);
-        setTotalPages(data.totalPages);
+        const sortedBlogs = data.blogs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setBlogs(sortedBlogs);
+        setTotalPages(data?.totalPages);
         setError(null);
       } else {
         setError(data.message || "Failed to load blogs");
@@ -59,8 +61,7 @@ const Blog = () => {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage:
-              "url('https://t3.ftcdn.net/jpg/02/55/22/68/360_F_255226859_Rhqr5hflr2esVXHQE1sS1bWxmZxs0gWI.jpg')",
+            backgroundImage:`url(${Blogimg})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             opacity: 0.7,
@@ -74,17 +75,17 @@ const Blog = () => {
             <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl uppercase font-heading md:leading-[70px]">
               OUR BLOG
             </h1>
-           { userEmail === "usama.mang0901@gmail.com" && (
-            <button
-              onClick={() => navigate("/add-blog")}
-              className="bg-sky-500 font-semibold text-white px-4 py-2 rounded hover:bg-sky-700 mt-3"
-            >
-              Add Blog
-            </button>
+            {userEmail === "usama.mang0901@gmail.com" && (
+              <button
+                onClick={() => navigate("/add-blog")}
+                className="bg-sky-500 font-semibold text-white px-4 py-2 rounded hover:bg-sky-700 mt-3"
+              >
+                Add Blog
+              </button>
             )}
           </div>
         </div>
-        <div className="absolute inset-y-0 right-0 w-full bg-black bg-opacity-60"></div>
+        <div className="absolute inset-y-0 right-0 w-full bg-black bg-opacity-50"></div>
       </div>
       <div className="pt-28 pb-20 bg-tertiary mb-28">
         {loading ? (
