@@ -120,6 +120,7 @@ const SignUp = ({ setsignupOpen, setLoginOpen }) => {
         }
     };
     const handleResendOtp = async () => {
+        setOtp(["", "", "", "", "", ""])
         setResendEnabled(false);
         setTimeout(() => setResendEnabled(true), 30000);
         try {
