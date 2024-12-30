@@ -11,7 +11,9 @@ export const MyJobs = () => {
     const [jobs, setJobs] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [userEmail, setUserEmail] = useState("");
+    const [jobCount, setJobCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
+    const [pageCount, setPageCount] = useState(0);
     const itemsPerPage = 20;
 
     useEffect(() => {
@@ -28,32 +30,34 @@ export const MyJobs = () => {
 
                 if (!userEmail) return;
 
-                const response = await fetch(`${BASE_URL}/myJobs/${userEmail}`);
+                const response = await fetch(
+                    `${BASE_URL}/myJobs/${userEmail}?page=${currentPage + 1}&limit=${itemsPerPage}`
+                );
+
                 if (!response.ok) {
-                    throw new Error('Failed to fetch jobs');
+                    throw new Error("Failed to fetch jobs");
                 }
-                const data = await response.json();
-                const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                setJobs(sortedData);
+
+                const { jobs: fetchedJobs, totalPages, totalJobs } = await response.json();
+
+                setJobs(fetchedJobs);
+                setJobCount(totalJobs);
+                setPageCount(totalPages);
             } catch (error) {
-                console.error('Error fetching jobs:', error);
+                console.error("Error fetching jobs:", error);
             } finally {
                 setIsLoading(false);
             }
         };
 
         fetchJobs();
-    }, [userEmail]);
+    }, [userEmail, currentPage]);
+
 
 
     const handlePageChange = ({ selected }) => {
         setCurrentPage(selected);
     };
-
-    const offset = currentPage * itemsPerPage;
-    const currentJobs = jobs.slice(offset, offset + itemsPerPage);
-    const pageCount = Math.ceil(jobs?.length / itemsPerPage);
-
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -88,67 +92,6 @@ export const MyJobs = () => {
         });
     }
 
-    // const extractPublicIdFromUrl = (url) => {
-    //     // Extract the public_id from the Cloudinary URL
-    //     const parts = url.split('/');
-    //     const fileName = parts[parts.length - 1].split('.')[0]; // "logo512_zo4kdn"
-    //     const folder = parts[parts.length - 2]; // "image"
-    //     return `${folder}/${fileName}`;
-    // };
-
-    // const handleDelete = async (jobId, imageUrl) => {
-    //     // Extract the public_id from the image URL
-    //     const publicId = extractPublicIdFromUrl(imageUrl);
-
-    //     Swal.fire({
-    //         title: 'Are you sure?',
-    //         text: 'This action will delete the job and its associated image!',
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes',
-    //         cancelButtonText: 'No'
-    //     }).then(async (result) => {
-    //         if (result.isConfirmed) {
-    //             try {
-    //                 // 1. Delete the job from the server
-    //                 const jobResponse = await fetch(`https://portal-lvi4.onrender.com/job/${jobId}`, {
-    //                     method: 'DELETE',
-    //                 });
-
-    //                 const jobData = await jobResponse.json();
-
-    //                 if (jobData.acknowledged === true) {
-    //                     Swal.fire('Deleted!', 'Job has been deleted.', 'success');
-
-    //                     // 2. Delete the image from Cloudinary if job deletion was successful
-    //                     const imageResponse = await fetch(`https://api.cloudinary.com/v1_1/di8dn3esb/image/destroy`, {
-    //                         method: 'POST',
-    //                         headers: { 'Content-Type': 'application/json' },
-    //                         body: JSON.stringify({ public_id: publicId }),
-    //                     });
-
-    //                     const imageData = await imageResponse.json();
-    //                     if (imageData.result === 'ok') {
-    //                         Swal.fire('Deleted!', 'Job image has been deleted from Cloudinary.', 'success');
-    //                     } else {
-    //                         Swal.fire('Error', 'Failed to delete the image from Cloudinary.', 'error');
-    //                     }
-
-    //                     // 3. Update the job state to remove the deleted job from UI
-    //                     setJobs((prevJobs) => prevJobs.filter((job) => job?._id !== jobId));
-    //                 } else {
-    //                     Swal.fire('Error', 'Failed to delete the job.', 'error');
-    //                 }
-    //             } catch (error) {
-    //                 console.error('Error deleting job or image:', error);
-    //                 Swal.fire('Error', 'An error occurred while deleting.', 'error');
-    //             }
-    //         }
-    //     });
-    // };
-
     return (
         <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4 min-h-[80vh] mt-28">
             <div className='my-jobs-container'>
@@ -161,7 +104,7 @@ export const MyJobs = () => {
                         <div className="rounded-t mb-0 px-4 py-3 border-0">
                             <div className="flex flex-wrap items-center">
                                 <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                                    <h3 className="font-semibold text-base text-blueGray-700">All Jobs : {jobs?.length}</h3>
+                                    <h3 className="font-semibold text-base text-blueGray-700">All Jobs : {jobCount || 0}</h3>
                                 </div>
                                 <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                                     <Link to="/post-job">
@@ -204,25 +147,31 @@ export const MyJobs = () => {
                                     </tbody>
                                 ) : (
                                     <tbody>
-                                        {currentJobs?.length === 0 ? (
+                                        {jobs?.length === 0 ? (
                                             <tr>
                                                 <td colSpan="6" className="text-center p-3 font-semibold">No data found</td>
                                             </tr>
                                         ) : (
-                                            currentJobs.map((job, index) => (
+                                            jobs.map((job, index) => (
                                                 <tr key={index}>
                                                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
                                                         {index + 1}
                                                     </th>
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        {job?.jobTitle}
+                                                        {job?.jobTitle ? job.jobTitle : "No Job Title"}
                                                     </td>
                                                     <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        {job?.companyName}
+                                                        {job?.companyName ? job?.companyName : "No Company Name"}
                                                     </td>
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                        <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>
-                                                        £ {job?.minPrice} - £ {job?.maxPrice}
+                                                        {job?.minPrice && job?.maxPrice ? (
+                                                            <>
+                                                                <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>
+                                                                £ {job?.minPrice} - £ {job?.maxPrice}
+                                                            </>
+                                                        ) : (
+                                                            "No Salary Info"
+                                                        )}
                                                     </td>
                                                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                         <Link to={`/edit-job/${job?._id}`}>
@@ -262,6 +211,7 @@ export const MyJobs = () => {
                             activeLinkClassName={"pagination__link--active"}
                             disabledClassName={"pagination__link--disabled"}
                             breakLinkClassName={"pagination__break"}
+                            forcePage={currentPage}
                         />
                     </div>
                 ) : (null)}

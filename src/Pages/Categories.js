@@ -15,15 +15,20 @@ const Categories = () => {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(0);
+    const [pageCount, setPageCount] = useState(0);
+    const [jobCount, setJobCount] = useState(0);
     const jobsPerPage = 10;
 
     useEffect(() => {
         const fetchCompanyDetails = async () => {
+            setLoading(true);
             try {
-                const response = await fetch(`${BASE_URL}/categories/${category}`);
+                const response = await fetch(`${BASE_URL}/categories/${category}?page=${currentPage + 1}&limit=${jobsPerPage}`);
                 if (response.ok) {
-                    const jobData = await response.json();
-                    setJobs(jobData);
+                    const { jobs: fetchedJobs, totalPages, totalJobs } = await response.json();
+                    setJobs(fetchedJobs);
+                    setJobCount(totalJobs);
+                    setPageCount(totalPages);
                 } else {
                     toast.error('Error fetching job details:', response.status);
                 }
@@ -35,7 +40,7 @@ const Categories = () => {
         };
 
         fetchCompanyDetails();
-    }, [category]);
+    }, [category, currentPage]);
 
     if (loading) {
         return (
@@ -61,10 +66,6 @@ const Categories = () => {
         setCurrentPage(selected);
     };
 
-    const offset = currentPage * jobsPerPage;
-    const paginatedJobs = jobs.slice(offset, offset + jobsPerPage);
-    const pageCount = Math.ceil(jobs.length / jobsPerPage);
-
     return (
         <>
             <HelmetProvider>
@@ -89,9 +90,9 @@ const Categories = () => {
                     <div className="flex justify-center mt-28">
                         <div className="w-[80vw] min-h-[80vh]">
                             <div>
-                                <h3 className="text-lg font-bold mb-2 ml-6">{jobs?.length} {category} Jobs</h3>
+                                <h3 className="text-lg font-bold mb-2 ml-6">{jobCount} Jobs in {category} </h3>
                             </div>
-                            {paginatedJobs.map(job => (
+                            {jobs.map(job => (
                                 <section key={job._id} className='card border border-gray-300 rounded p-3 mb-4 hover:shadow-lg'>
                                     <Link to={`/jobdetails/${job._id}`} className='flex flex-row sm:flex-row items-start gap-4 p-1 sm:p-2 lg:p-3'>
                                         <div className='w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 flex-shrink-0'>
@@ -115,7 +116,7 @@ const Categories = () => {
                                     </Link>
                                 </section>
                             ))}
-                            {paginatedJobs && paginatedJobs.length > 0 ? (
+                            {jobs && jobs.length > 0 ? (
                                 <div className='flex justify-end'>
                                     <ReactPaginate
                                         previousLabel={<GrPrevious size={20} />}
@@ -134,6 +135,7 @@ const Categories = () => {
                                         activeLinkClassName={"pagination__link--active"}
                                         disabledClassName={"pagination__link--disabled"}
                                         breakLinkClassName={"pagination__break"}
+                                        forcePage={currentPage}
                                     />
                                 </div>
                             ) : (null)}

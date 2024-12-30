@@ -49,14 +49,16 @@ const BlogCard = ({ article, onDelete }) => {
   };
 
   return (
-    <div className="bg-white shadow-lg overflow-hidden flex flex-col h-full">
+    <div className="bg-white shadow-lg overflow-hidden flex flex-col h-full rounded-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
       <img
         src={article?.imageUrl}
-        alt={article?.title}
-        className="w-full h-48 object-cover"
+        alt={article?.alttag}
+        className="w-full h-48 object-cover rounded-t-lg"
       />
       <div className="p-6 py-8 flex flex-col flex-grow">
-        <h3 className="text-xl font-semibold mb-4 font-heading text-left ">{article?.title}</h3>
+      <Link to={`/blog-detail/${article?.slug}`}>
+        <h3 className="text-xl font-semibold mb-4 font-heading text-left cursor-pointer">{article?.title}</h3>
+      </Link>
         {article?.content && (
           <p className="text-sm text-black flex mb-6">
             <div
@@ -68,7 +70,7 @@ const BlogCard = ({ article, onDelete }) => {
           </p>
         )}
         <div className="flex justify-between items-center mt-auto">
-          <Link to={`/blog-detail/${article?._id}`}>
+          <Link to={`/blog-detail/${article?.slug}`}>
             <button className="text-white px-4 py-2 rounded bg-sky-500 font-semibold hover:bg-sky-600">
               Read more
             </button>
@@ -84,6 +86,7 @@ const BlogCard = ({ article, onDelete }) => {
         </div>
       </div>
     </div>
+
   );
 };
 

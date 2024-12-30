@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
+import { FiCalendar, FiClock, FiMapPin, FiType } from "react-icons/fi";
 import { motion } from "framer-motion";
 import ReactPaginate from 'react-paginate';
 import Arrow from '../components/Arrow';
@@ -14,29 +14,37 @@ const Jobloction = () => {
     const { jobLocation } = useParams();
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [jobCount, setJobCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
+    const [pageCount, setPageCount] = useState(0);
     const jobsPerPage = 10;
 
     useEffect(() => {
-        const CompanyDetails = async () => {
+        const fetchJobs = async () => {
+            setLoading(true);
             try {
-                const response = await fetch(`${BASE_URL}/location-jobs/${jobLocation}`);
+                const response = await fetch(
+                    `${BASE_URL}/location-jobs/${jobLocation}?page=${currentPage + 1}&limit=${jobsPerPage}`
+                );
 
                 if (response.ok) {
-                    const jobData = await response.json();
-                    setJobs(jobData);
+                    const { jobs: fetchedJobs, totalPages, totalJobs } = await response.json();
+                    setJobs(fetchedJobs);
+                    setJobCount(totalJobs);
+                    setPageCount(totalPages);
                 } else {
-                    toast.error('Error fetching job details:', response.status);
+                    toast.error(`Error fetching job details: ${response.status}`);
                 }
             } catch (error) {
-                toast.error('Error fetching job details:', error);
+                toast.error(`Error fetching job details: ${error.message}`);
             } finally {
                 setLoading(false);
             }
         };
 
-        CompanyDetails();
-    }, [jobLocation]);
+        fetchJobs();
+    }, [jobLocation, currentPage]);
+
 
     if (loading) {
         return (
@@ -73,8 +81,22 @@ const Jobloction = () => {
                         <div className='text-primary/70 text-sm sm:text-base flex flex-wrap sm:flex-row flex-row gap-1 font-bold'>
                             <span className='flex items-center gap-1'><FiMapPin /> {job?.jobLocation}</span>
                             <span className='flex items-center gap-1'><FiClock /> {job?.employmentType}</span>
-                            <span className='flex items-center gap-1'>£ {job?.minPrice}-{job?.maxPrice} {job?.salaryType}</span>
-                            <span className='flex items-center gap-1'><FiCalendar /> {job?.jobPosting}</span>
+                            {job?.minPrice && job?.maxPrice && job?.salaryType ? (
+                                <span className="flex items-center gap-1">
+                                    £ {job?.minPrice}-{job?.maxPrice} {job?.salaryType}
+                                </span>
+                            ) : job?.salaryType && (
+                                <span className="flex items-center gap-1">
+                                    <FiType /> {job?.salaryType}
+                                </span>
+                            )}
+                            <span className='flex items-center gap-1'><FiCalendar />
+                                {new Date(job?.jobPosting).toLocaleDateString('en-GB', {
+                                    day: '2-digit',
+                                    month: 'long',
+                                    year: 'numeric',
+                                })}
+                            </span>
                         </div>
                         <p className='text-sm sm:text-base text-primary/70 hidden sm:block'>
                             {Description}
@@ -89,9 +111,6 @@ const Jobloction = () => {
         setCurrentPage(selected);
     };
 
-    const offset = currentPage * jobsPerPage;
-    const currentJobs = jobs.slice(offset, offset + jobsPerPage);
-    const pageCount = Math.ceil(jobs?.length / jobsPerPage);
 
     return (
         <>
@@ -116,9 +135,9 @@ const Jobloction = () => {
                     <div className="flex justify-center mt-28">
                         <div className="w-[80vw] min-h-[80vh]">
                             <div>
-                                <h3 className="text-lg font-bold mb-2 ml-6">{jobs?.length} Jobs in {jobLocation}</h3>
+                                <h3 className="text-lg font-bold mb-2 ml-6">{jobCount} Jobs in {jobLocation}</h3>
                             </div>
-                            {currentJobs.map(job => (
+                            {jobs.map(job => (
                                 <JobCard key={job?._id} job={job} />
                             ))}
                             {jobs && jobs.length > 0 ? (
@@ -140,6 +159,7 @@ const Jobloction = () => {
                                         activeLinkClassName={"pagination__link--active"}
                                         disabledClassName={"pagination__link--disabled"}
                                         breakLinkClassName={"pagination__break"}
+                                        forcePage={currentPage}
                                     />
                                 </div>
                             ) : (null)}

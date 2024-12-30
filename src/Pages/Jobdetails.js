@@ -132,7 +132,18 @@ const JobDetails = () => {
                             <p className="text-gray-700 mr-4"><b>Experience Level:</b> {job?.experienceLevel}</p>
                         </div>
                         <div className="flex items-center">
-                            <p className="text-gray-700 mr-4"><b>Salary Range:</b> £ {job?.minPrice} - {job?.maxPrice} {job?.salaryType}</p>
+                            {job?.minPrice && job?.maxPrice && (
+                                <p className="text-gray-700 mr-4">
+                                    <b>Salary Range: </b> £ {job?.minPrice} - {job?.maxPrice}
+                                </p>
+                            )}
+                        </div>
+                        <div className="flex items-center">
+                            {job?.salaryType && (
+                                <p className="text-gray-700 mr-4 ">
+                                    <b>Salary Type:</b> {job?.salaryType}
+                                </p>
+                            )}
                         </div>
                         {/* <div className="flex items-center">
                     <p className="text-gray-700 mr-4"><b>Company Email:</b> {job?.postedBy}</p>

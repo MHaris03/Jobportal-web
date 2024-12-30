@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { BASE_URL } from "../utils/BASE_URL";
 
 const Blogdetail = () => {
-    const { id } = useParams();
+    const { slug } = useParams();
     const [blogData, setBlogData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ const Blogdetail = () => {
     useEffect(() => {
         const fetchBlogData = async () => {
             try {
-                const response = await fetch(`${BASE_URL}/blog-detail/${id}`);
+                const response = await fetch(`${BASE_URL}/blog-detail/${slug}`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch blog data");
                 }
@@ -25,7 +25,7 @@ const Blogdetail = () => {
         };
 
         fetchBlogData();
-    }, [id]);
+    }, [slug]);
 
     if (loading) return <div className="flex justify-center items-center mt-28">
         <img src="/images/loader.gif" alt="Loading..." style={{ height: "100px" }} />
@@ -34,7 +34,7 @@ const Blogdetail = () => {
     if (!blogData) return <div className="text-center py-20 mt-16 min-h-screen">No blog data found.</div>;
 
     return (
-        <div className="mt-16 md:mt-24 mb-10">
+        <div className="mt-16 md:mt-32 mb-10">
             <div className="relative mb-32 md:mb-48">
                 <div className="absolute inset-0 bg-[#EDEEF4] pt-12 pb-8 md:pb-16"></div>
                 <div className="relative z-10 max-w-[95%] lg:max-w-6xl 2xl:max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-end h-full pb-8 md:pb-12">
@@ -43,24 +43,23 @@ const Blogdetail = () => {
                         <div className="mb-4 flex items-center">
                             <h2 className="text-lg md:text-xl font-bold uppercase text-gray-600">BLOG</h2>
                         </div>
-                        <h1 className="text-2xl md:text-2xl lg:text-3xl font-extrabold text-black uppercase leading-tight md:leading-[40px] lg:leading-[50px]">
-                            {blogData?.title}
-                        </h1>
+
                     </div>
                     {/* Blog Image */}
                     <div className="md:absolute right-0 -bottom-28 2xl:-bottom-40 z-50 -mb-36 md:-mb-0">
                         <img
                             src={blogData?.imageUrl}
-                            alt="blog"
+                            alt={blogData?.alttag}
                             className="ml-auto w-full max-w-[600px] md:max-w-[760px] h-auto shadow-lg object-cover"
-                            width={760}
-                            height={450}
                         />
                     </div>
                 </div>
             </div>
             {/* Blog Content */}
             <div className="max-w-[95%] lg:max-w-6xl 2xl:max-w-7xl mx-auto px-4 md:px-8 lg:px-0">
+                <h1 className="text-2xl md:text-2xl lg:text-3xl font-extrabold text-black uppercase leading-tight md:leading-[40px] lg:leading-[50px]">
+                    {blogData?.title}
+                </h1>
                 <div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl max-w-none text-justify">
                     <div dangerouslySetInnerHTML={{ __html: blogData?.content }} />
                 </div>

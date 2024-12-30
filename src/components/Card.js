@@ -130,24 +130,37 @@ const Card = ({ data }) => {
             <div className="flex flex-col justify-between w-full">
               <div>
                 <h4 className="text-primary mb-1 text-base sm:text-sm lg:text-xl">
-                  {companyName}
+                  {companyName && companyName}
                 </h4>
                 <h3 className="sm:text-sm lg:text-xl font-semibold">
-                  {jobTitle}
+                  {jobTitle && jobTitle}
                 </h3>
                 <div className="text-primary/70 text-sm sm:text-base flex flex-wrap sm:flex-row flex-row gap-1 font-bold">
-                  <span className="flex items-center gap-1">
-                    <FiMapPin /> {jobLocation}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <FiClock /> {employmentType}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    £ {minPrice}-{maxPrice}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <FiCalendar /> {jobPosting}
-                  </span>
+                  {jobLocation && (
+                    <span className="flex items-center gap-1">
+                      <FiMapPin /> {jobLocation}
+                    </span>
+                  )}
+                  {employmentType && (
+                    <span className="flex items-center gap-1">
+                      <FiClock /> {employmentType}
+                    </span>
+                  )}
+                  {minPrice && maxPrice && (
+                    <span className="flex items-center gap-1">
+                      £ {minPrice} - £ {maxPrice}
+                    </span>
+                  )}
+                  {jobPosting && (
+                    <span className="flex items-center gap-1 font-bold">
+                      <FiCalendar />
+                      {new Date(jobPosting).toLocaleDateString('en-GB', {
+                        day: '2-digit',
+                        month: 'long',
+                        year: 'numeric',
+                      })}
+                    </span>
+                  )}
                 </div>
                 <p className="text-sm sm:text-base text-primary/70 hidden sm:block">
                   {description?.slice(0, 120)}
