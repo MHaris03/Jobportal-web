@@ -18,7 +18,9 @@ export default function App() {
               <Link to={`/`} className="hover:text-sky-500">Aidifys.com</Link>
             </h6>
             <p className="text-sm">
-              Job Portal is a platform created by professionals for professionals, connecting talent with opportunities to drive career growth.
+              Discover top UK jobs across IT, healthcare, finance, engineering & more at
+              Aidifys.com. Browse full-time, part-time, remote & freelance job opportunities in major cities like London,
+              Manchester & Birmingham. Start your job search today!
             </p>
           </div>
 

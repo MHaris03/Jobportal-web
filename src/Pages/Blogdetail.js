@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { BASE_URL } from "../utils/BASE_URL";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import Latestblog from "./Latestblog";
 
 const Blogdetail = () => {
     const { slug } = useParams();
@@ -34,38 +36,49 @@ const Blogdetail = () => {
     if (!blogData) return <div className="text-center py-20 mt-16 min-h-screen">No blog data found.</div>;
 
     return (
-        <div className="mt-16 md:mt-32 mb-10">
-            <div className="relative mb-32 md:mb-48">
-                <div className="absolute inset-0 bg-[#EDEEF4] pt-12 pb-8 md:pb-16"></div>
-                <div className="relative z-10 max-w-[95%] lg:max-w-6xl 2xl:max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-end h-full pb-8 md:pb-12">
-                    {/* Blog Title Section */}
-                    <div className="mt-12 md:mt-20 pb-6 md:pb-10 w-full md:w-[60%]">
-                        <div className="mb-4 flex items-center">
-                            <h2 className="text-lg md:text-xl font-bold uppercase text-gray-600">BLOG</h2>
+        <>
+            <HelmetProvider>
+                <Helmet>
+                    <title>{blogData?.title}</title>
+                    <meta name="description" content={blogData?.description} />
+                    <meta property="og:title" content="Blog" />
+                    <meta property="og:description" content={blogData?.description} />
+                    <meta property="og:image" content="https://www.aidifys.com/Aidifys-hiring.jpg" />
+                    <meta property="og:url" content="https://www.aidifys.com/blog" />
+                </Helmet>
+                <div className="mt-16 md:mt-32 mb-10">
+                    <div className="relative mb-32 md:mb-48">
+                        <div className="absolute inset-0 bg-[#EDEEF4] pt-12 pb-8 md:pb-16"></div>
+                        <div className="relative z-10 max-w-[95%] lg:max-w-6xl 2xl:max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-end h-full pb-8 md:pb-12">
+                            {/* Blog Title Section */}
+                            <div className="mt-12 md:mt-20 pb-6 md:pb-10 w-full md:w-[60%]">
+                                <div className="mb-4 flex items-center">
+                                    <h2 className="text-lg md:text-xl font-bold uppercase text-gray-600">BLOG</h2>
+                                </div>
+                            </div>
+                            {/* Blog Image */}
+                            <div className="md:absolute right-0 -bottom-28 2xl:-bottom-40 z-50 -mb-36 md:-mb-0">
+                                <img
+                                    src={blogData?.imageUrl}
+                                    alt={blogData?.alttag}
+                                    className="ml-auto w-full max-w-[600px] md:max-w-[760px] h-auto shadow-lg object-cover"
+                                />
+                            </div>
                         </div>
-
                     </div>
-                    {/* Blog Image */}
-                    <div className="md:absolute right-0 -bottom-28 2xl:-bottom-40 z-50 -mb-36 md:-mb-0">
-                        <img
-                            src={blogData?.imageUrl}
-                            alt={blogData?.alttag}
-                            className="ml-auto w-full max-w-[600px] md:max-w-[760px] h-auto shadow-lg object-cover"
-                        />
+                    {/* Blog Content */}
+                    <div className="max-w-[95%] lg:max-w-6xl 2xl:max-w-7xl mx-auto px-4 md:px-8 lg:px-0">
+                        <h1 className="text-2xl md:text-2xl lg:text-3xl font-extrabold text-black uppercase leading-tight md:leading-[40px] lg:leading-[50px]">
+                            {blogData?.title}
+                        </h1>
+                        <div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl max-w-none text-justify">
+                            <div dangerouslySetInnerHTML={{ __html: blogData?.content }} />
+                        </div>
                     </div>
                 </div>
-            </div>
-            {/* Blog Content */}
-            <div className="max-w-[95%] lg:max-w-6xl 2xl:max-w-7xl mx-auto px-4 md:px-8 lg:px-0">
-                <h1 className="text-2xl md:text-2xl lg:text-3xl font-extrabold text-black uppercase leading-tight md:leading-[40px] lg:leading-[50px]">
-                    {blogData?.title}
-                </h1>
-                <div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl max-w-none text-justify">
-                    <div dangerouslySetInnerHTML={{ __html: blogData?.content }} />
-                </div>
-            </div>
-        </div>
-
+            </HelmetProvider>
+            {/* <Latestblog/> */}
+        </>
     );
 };
 
