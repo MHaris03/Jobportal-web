@@ -11,7 +11,7 @@ import SignUp from '../components/Signup';
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const JobDetails = () => {
-    const { id } = useParams();
+    const { slug } = useParams();
     const [job, setJob] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isApplyOpen, setIsApplyOpen] = useState(false);
@@ -23,7 +23,7 @@ const JobDetails = () => {
     useEffect(() => {
         const fetchJobDetails = async () => {
             try {
-                const response = await fetch(`${BASE_URL}/jobdetails/${id}`);
+                const response = await fetch(`${BASE_URL}/job/${slug}`);
                 if (response.ok) {
                     const jobData = await response.json();
                     // console.log(jobData)
@@ -39,7 +39,7 @@ const JobDetails = () => {
         };
 
         fetchJobDetails();
-    }, [id]);
+    }, [slug]);
 
     useEffect(() => {
         const storedUserName = localStorage.getItem('userName');

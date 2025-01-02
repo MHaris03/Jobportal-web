@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
+import { FiCalendar, FiClock, FiMapPin, FiType } from "react-icons/fi";
 import { BASE_URL } from '../utils/BASE_URL';
 import { motion } from "framer-motion";
 import Arrow from "../components/Arrow";
@@ -94,20 +94,28 @@ const Categories = () => {
                             </div>
                             {jobs.map(job => (
                                 <section key={job._id} className='card border border-gray-300 rounded p-3 mb-4 hover:shadow-lg'>
-                                    <Link to={`/jobdetails/${job._id}`} className='flex flex-row sm:flex-row items-start gap-4 p-1 sm:p-2 lg:p-3'>
+                                    <Link to={`/job/${job?.slug}`} className='flex flex-row sm:flex-row items-start gap-4 p-1 sm:p-2 lg:p-3'>
                                         <div className='w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 flex-shrink-0'>
-                                            <img src={job.image} alt={job.companyName} className="w-full h-full object-cover" />
+                                            <img src={job?.image} alt={job?.companyName} className="w-full h-full object-cover" />
                                         </div>
                                         <div>
-                                            <h4 className='text-primary mb-1 text-base sm:text-sm lg:text-xl'>{job.category}</h4>
-                                            <h4 className='sm:text-sm lg:text-xl font-semibold'>{job.companyName}</h4>
-                                            <h3 className='sm:text-sm lg:text-xl font-semibold'>{job.jobTitle}</h3>
-                                            <h6 className='sm:text-sm lg:text-xl font-semibold'>{job.skills && job.skills.join(', ')}</h6>
+                                            <h4 className='text-primary mb-1 text-base sm:text-sm lg:text-xl'>{job?.category}</h4>
+                                            <h4 className='sm:text-sm lg:text-xl font-semibold'>{job?.companyName}</h4>
+                                            <h3 className='sm:text-sm lg:text-xl font-semibold'>{job?.jobTitle}</h3>
+                                            <h6 className='sm:text-sm lg:text-xl font-semibold'>{job?.skills && job?.skills.join(', ')}</h6>
                                             <div className='text-primary/70 text-sm sm:text-base flex flex-wrap sm:flex-row flex-row gap-1 font-bold'>
-                                                <span className='flex items-center gap-1'><FiMapPin /> {job.jobLocation}</span>
-                                                <span className='flex items-center gap-1'><FiClock /> {job.employmentType}</span>
-                                                <span className='flex items-center gap-1'>£ {job.minPrice}-{job.maxPrice} {job.salaryType}</span>
-                                                <span className='flex items-center gap-1'><FiCalendar /> {job.jobPosting}</span>
+                                                <span className='flex items-center gap-1'><FiMapPin /> {job?.jobLocation}</span>
+                                                <span className='flex items-center gap-1'><FiClock /> {job?.employmentType}</span>
+                                                {job?.minPrice && job?.maxPrice && job?.salaryType ? (
+                                                    <span className="flex items-center gap-1">
+                                                        £ {job?.minPrice}-{job?.maxPrice} {job?.salaryType}
+                                                    </span>
+                                                ) : job?.salaryType && (
+                                                    <span className="flex items-center gap-1">
+                                                        <FiType /> {job?.salaryType}
+                                                    </span>
+                                                )}
+                                                <span className='flex items-center gap-1'><FiCalendar /> {job?.jobPosting}</span>
                                             </div>
                                             <p className='text-sm sm:text-base text-primary/70 hidden sm:block'>
                                                 {job.description?.slice(0, 100)}

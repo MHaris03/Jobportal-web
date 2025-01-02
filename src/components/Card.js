@@ -8,7 +8,6 @@ import { BASE_URL } from "../utils/BASE_URL"
 
 const Card = ({ data }) => {
   const {
-    _id,
     companyName,
     image,
     minPrice,
@@ -18,6 +17,7 @@ const Card = ({ data }) => {
     jobPosting,
     description,
     jobTitle,
+    slug,
   } = data;
 
   const [isLiked, setIsLiked] = useState(false);
@@ -28,7 +28,7 @@ const Card = ({ data }) => {
       const parsedLikedJobs = likedJobs ? JSON.parse(likedJobs) : [];
 
       if (Array.isArray(parsedLikedJobs)) {
-        setIsLiked(parsedLikedJobs.includes(_id));
+        setIsLiked(parsedLikedJobs.includes(slug));
       } else {
         setIsLiked(false);
         localStorage.setItem("likedJobs", JSON.stringify([]));
@@ -38,7 +38,7 @@ const Card = ({ data }) => {
       setIsLiked(false);
       localStorage.setItem("likedJobs", JSON.stringify([]));
     }
-  }, [_id, isLiked]);
+  }, [slug, isLiked]);
 
   const handleLike = async () => {
     const token = localStorage.getItem("userToken");
@@ -57,7 +57,7 @@ const Card = ({ data }) => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          jobId: _id,
+          slug: slug,
           userId: userId,
           action: isLiked ? "unlike" : "like",
         }),
@@ -70,10 +70,10 @@ const Card = ({ data }) => {
 
         let likedJobs = JSON.parse(localStorage.getItem("likedJobs")) || [];
         if (isLiked) {
-          likedJobs = likedJobs.filter((id) => id !== _id);
+          likedJobs = likedJobs.filter((slug) => slug !== slug);
           toast.success('Job remove from saved history successfully!');
         } else {
-          likedJobs.push(_id);
+          likedJobs.push(slug);
           toast.success("Job saved ! Successfully");
         }
         localStorage.setItem("likedJobs", JSON.stringify(likedJobs));
@@ -117,7 +117,7 @@ const Card = ({ data }) => {
         <div className="flex flex-row items-start gap-4 p-2">
           {/* Job Details */}
           <Link
-            to={`/jobdetails/${_id}`}
+            to={`/job/${slug}`}
             className="flex flex-row sm:flex-row items-start gap-4 w-full"
           >
             <div className="w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 flex-shrink-0">

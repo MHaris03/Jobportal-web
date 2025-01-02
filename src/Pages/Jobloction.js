@@ -68,7 +68,7 @@ const Jobloction = () => {
 
         return (
             <section key={job._id} className='card border border-gray-300 rounded mb-4 hover:shadow-lg p-3'>
-                <Link to={`/jobdetails/${job._id}`} className='flex flex-row sm:flex-row items-start gap-4 p-1 sm:p-2 lg:p-3'>
+                <Link to={`/job/${job?.slug}`} className='flex flex-row sm:flex-row items-start gap-4 p-1 sm:p-2 lg:p-3'>
                     <div className='w-20 h-20 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-44 lg:h-44 flex-shrink-0'>
                         <img src={job?.image} alt={job?.companyName} className="w-full h-full object-cover" />
                     </div>

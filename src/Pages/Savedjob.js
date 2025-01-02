@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiCalendar, FiClock, FiMapPin } from "react-icons/fi";
+import { FiCalendar, FiClock, FiMapPin, FiType } from "react-icons/fi";
 import Arrow from "../components/Arrow";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -15,7 +15,6 @@ const Savedjob = () => {
   const [jobDetails, setJobDetails] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
-
   const itemsPerPage = 10;
 
   const fetchUserInfo = async () => {
@@ -34,8 +33,8 @@ const Savedjob = () => {
 
       if (data?.likedJobs?.length > 0) {
         const jobResponses = await Promise.all(
-          data.likedJobs.map(jobId =>
-            fetch(`${BASE_URL}/jobdetails/${jobId}`)
+          data.likedJobs.map(slug =>
+            fetch(`${BASE_URL}/job/${slug}`)
               .then(res => res.ok ? res.json() : null)
           )
         );
@@ -52,7 +51,7 @@ const Savedjob = () => {
     fetchUserInfo();
   }, []);
 
-  const handleLike = async (jobId) => {
+  const handleLike = async (slug) => {
     const token = localStorage.getItem('userToken');
     const userId = localStorage.getItem('UserId');
 
@@ -69,27 +68,27 @@ const Savedjob = () => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          jobId: jobId,
+          slug: slug,
           userId: userId,
-          action: savedJobs.includes(jobId) ? 'unlike' : 'like',
+          action: savedJobs.includes(slug) ? 'unlike' : 'like',
         }),
       });
 
       const data = await response.json();
 
       if (response.ok && data.success) {
-        if (savedJobs.includes(jobId)) {
-          const updatedSavedJobs = savedJobs.filter((id) => id !== jobId);
+        if (savedJobs.includes(slug)) {
+          const updatedSavedJobs = savedJobs.filter((slug) => slug !== slug);
           setSavedJobs(updatedSavedJobs);
-          setJobDetails((prev) => prev.filter((job) => job._id !== jobId));
+          setJobDetails((prev) => prev.filter((job) => job.slug !== slug));
           localStorage.setItem('likedJobs', JSON.stringify(updatedSavedJobs));
           toast.success('Job removed from save history successfully!');
         } else {
-          const updatedSavedJobs = [...savedJobs, jobId];
+          const updatedSavedJobs = [...savedJobs, slug];
           setSavedJobs(updatedSavedJobs);
           localStorage.setItem('likedJobs', JSON.stringify(updatedSavedJobs));
 
-          const newJobDetails = await fetch(`${BASE_URL}/jobdetails/${jobId}`).then((res) =>
+          const newJobDetails = await fetch(`${BASE_URL}/job/${slug}`).then((res) =>
             res.json()
           );
           setJobDetails((prev) => [...prev, newJobDetails]);
@@ -146,39 +145,45 @@ const Savedjob = () => {
                   key={job._id}
                   className="card border border-gray-300 rounded mb-4 hover:shadow-lg p-3"
                 >
-                  <div className="text-gray-500 cursor-pointer mr-auto flex-1 flex justify-end" onClick={() => handleLike(job._id)}>
-                    {savedJobs.includes(job._id) ? (
+                  <div className="text-gray-500 cursor-pointer mr-auto flex-1 flex justify-end" onClick={() => handleLike(job?.slug)}>
+                    {savedJobs.includes(job?.slug) ? (
                       <FaHeart className="text-xl sm:text-2xl text-red-500" />
                     ) : (
                       <FaRegHeart className="text-xl sm:text-2xl" />
                     )}
                   </div>
                   <Link
-                    to={`/jobdetails/${job._id}`}
+                    to={`/job/${job?.slug}`}
                     className="flex flex-row sm:flex-row items-start gap-4"
                   >
                     <div className="w-20 h-20 sm:w-32 sm:h-32 flex-shrink-0">
                       <img
-                        src={job.image}
-                        alt={job.companyName}
+                        src={job?.image}
+                        alt={job?.companyName}
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div className="flex flex-col justify-between w-full">
                       <div>
-                        <h4 className="text-primary mb-1 text-base font-semibold">{job.companyName}</h4>
-                        <h3 className="text-xl font-bold">{job.jobTitle}</h3>
-                        <p className="text-sm text-gray-600">{job.skills?.join(', ')}</p>
+                        <h4 className="text-primary mb-1 text-base font-semibold">{job?.companyName}</h4>
+                        <h3 className="text-xl font-bold">{job?.jobTitle}</h3>
+                        <p className="text-sm text-gray-600">{job?.skills?.join(', ')}</p>
                         <div className="text-primary/70 text-sm flex flex-wrap gap-2 font-bold">
                           <span className="flex items-center gap-1">
-                            <FiMapPin /> {job.jobLocation}
+                            <FiMapPin /> {job?.jobLocation}
                           </span>
                           <span className="flex items-center gap-1">
-                            <FiClock /> {job.employmentType}
+                            <FiClock /> {job?.employmentType}
                           </span>
-                          <span className="flex items-center gap-1">
-                            £{job.minPrice}-{job.maxPrice} {job.salaryType}
-                          </span>
+                          {job?.minPrice && job?.maxPrice && job?.salaryType ? (
+                            <span className="flex items-center gap-1">
+                              £ {job?.minPrice}-{job?.maxPrice} {job?.salaryType}
+                            </span>
+                          ) : job?.salaryType && (
+                            <span className="flex items-center gap-1">
+                              <FiType /> {job?.salaryType}
+                            </span>
+                          )}
                           <span className="flex items-center gap-1">
                             <FiCalendar /> {job.jobPosting}
                           </span>

@@ -83,24 +83,20 @@ const router = createBrowserRouter([
         element: <UserProfile />
       },
       {
-        path: "jobdetails/:id",
+        path: "job/:slug",
         element: <JobDetails />,
-        // loader: ({ params }) => fetch(`${BASE_URL}/jobdetails/${params.id}`)
       },
       {
         path: "company-jobs/:companyId",
         element: <Companyjobs />,
-        // loader: ({ params }) => fetch(`${BASE_URL}/company-jobs/${params.companyId}`)
       },
       {
         path: "location-jobs/:jobLocation",
         element: <Jobloction />,
-        // loader: ({ params }) => fetch(`${BASE_URL}/location-jobs/${params.jobLocation}`)
       },
       {
         path: "categories/:category",
         element: <Categories />,
-        // loader: ({ params }) => fetch(`${BASE_URL}/categories/${params.category}`)
       },
       {
         path: "user-applied-jobs",

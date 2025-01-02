@@ -14,6 +14,7 @@ export const MyJobs = () => {
     const [jobCount, setJobCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
+    const [DateRange, setDateRange] = useState("all")
     const itemsPerPage = 20;
 
     useEffect(() => {
@@ -31,7 +32,7 @@ export const MyJobs = () => {
                 if (!userEmail) return;
 
                 const response = await fetch(
-                    `${BASE_URL}/myJobs/${userEmail}?page=${currentPage + 1}&limit=${itemsPerPage}`
+                    `${BASE_URL}/myJobs/${userEmail}?page=${currentPage + 1}&limit=${itemsPerPage}&dateRange=${DateRange}`
                 );
 
                 if (!response.ok) {
@@ -51,9 +52,7 @@ export const MyJobs = () => {
         };
 
         fetchJobs();
-    }, [userEmail, currentPage]);
-
-
+    }, [userEmail, currentPage, DateRange]);
 
     const handlePageChange = ({ selected }) => {
         setCurrentPage(selected);
@@ -101,14 +100,34 @@ export const MyJobs = () => {
             <section className="py-1 bg-blueGray-50">
                 <div className="w-full mb-12 xl:mb-0 px-4 mx-auto mt-5">
                     <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
-                        <div className="rounded-t mb-0 px-4 py-3 border-0">
-                            <div className="flex flex-wrap items-center">
-                                <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                                    <h3 className="font-semibold text-base text-blueGray-700">All Jobs : {jobCount || 0}</h3>
+                        <div className="rounded-t mb-0 px-4 py-3 border-0 bg-white shadow">
+                            <div className="flex flex-row justify-between items-center space-y-4">
+                                <div className="w-full sm:w-auto text-center sm:text-left">
+                                    <h3 className="font-semibold text-lg text-blueGray-700">
+                                        All Jobs: {jobCount || 0}
+                                    </h3>
                                 </div>
-                                <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                                <div className="w-full sm:w-auto flex flex-col sm:flex-row items-center justify-end space-y-2 sm:space-y-0 sm:space-x-2">
+                                    <select
+                                        value={DateRange}
+                                        onChange={(event) => setDateRange(event.target.value)}
+                                        className="bg-gray-200 text-base text-blueGray-700 rounded-md p-2 outline-none cursor-pointer w-auto"
+                                    >
+                                        <option value="all">All</option>
+                                        <option value="1-month">Last 1 Month</option>
+                                        <option value="2-months">Last 2 Months</option>
+                                        <option value="3-months">Last 3 Months</option>
+                                        <option value="4-months">Last 4 Months</option>
+                                        <option value="5-months">Last 5 Months</option>
+                                        <option value="6-months">Last 6 Months</option>
+                                    </select>
                                     <Link to="/post-job">
-                                        <button className="bg-sky-500 text-white  active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">Post A New Job</button>
+                                        <button
+                                            className="bg-sky-500 text-white active:bg-sky-600 text-sm font-bold uppercase p-3 rounded-md outline-none focus:outline-none w-auto ease-linear transition-all duration-150"
+                                            type="button"
+                                        >
+                                            Post A New Job
+                                        </button>
                                     </Link>
                                 </div>
                             </div>
