@@ -1,73 +1,68 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { BASE_URL } from "../utils/BASE_URL";
+import { Link } from "react-router-dom";
 
 const Latestblog = () => {
-  const blogData = [
-    {
-      imageUrl: 'https://via.placeholder.com/600x400',
-      alttag: 'Blog Image 1',
-      title: 'Blog Post 1',
-      slug: 'blog-post-1',
-    },
-    {
-      imageUrl: 'https://via.placeholder.com/600x400',
-      alttag: 'Blog Image 2',
-      title: 'Blog Post 2',
-      slug: 'blog-post-2',
-    },
-    {
-      imageUrl: 'https://via.placeholder.com/600x400',
-      alttag: 'Blog Image 3',
-      title: 'Blog Post 3',
-      slug: 'blog-post-3',
-    },
-    {
-      imageUrl: 'https://via.placeholder.com/600x400',
-      alttag: 'Blog Image 4',
-      title: 'Blog Post 4',
-      slug: 'blog-post-4',
-    },
-  ];
+  const [latestBlogs, setLatestBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const page = 1;
+  const limit = 5;
+
+  useEffect(() => {
+    const fetchLatestBlogs = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/blogs?page=${page}&limit=${limit}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch latest blogs");
+        }
+        const data = await response.json();
+        setLatestBlogs(data?.blogs);
+      } catch (err) {
+        setError(err?.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLatestBlogs();
+  }, [page, limit]);
+
+  if (loading) {
+    return <div className="flex justify-center items-center">
+      <img src="/images/loader.gif" alt="Loading..." style={{ height: "100px" }} />
+    </div>;
+  }
+
+  if (error) {
+    return <div className="text-red-500">Error: {error}</div>;
+  }
+
   return (
-    <div className="mb-10">
-      <div className="relative mb-32 md:mb-48">
-        <div className="absolute inset-0 bg-[#EDEEF4] pt-12 pb-8 md:pb-16"></div>
-        <div className="relative z-10 max-w-[95%] lg:max-w-6xl 2xl:max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-end h-full pb-8 md:pb-12">
-          {/* Blog Title Section */}
-          <div className="mt-12 md:mt-20 pb-6 md:pb-10 w-full md:w-[60%]">
-            <div className="mb-4 flex items-center">
-              <h2 className="text-lg md:text-xl font-bold uppercase text-gray-600">LATEST BLOGS</h2>
+    <div className="space-y-6">
+      {latestBlogs.map((blog, index) => (
+        <div
+          key={index}
+          className="flex items-start gap-4 border-b pb-4 last:border-none"
+        >
+          <div className="flex-grow">
+            <Link to={`/blog-detail/${blog?.slug}`}>
+              <h4 className="text-md font-semibold">{blog?.title}</h4>
+            </Link>
+            <div className="text-md text-gray-500 flex items-center gap-1">
+              <span className="text-sky-500 font-bold text-xl">•</span>
+              {new Intl.DateTimeFormat("en-US", {
+                month: "long",
+                day: "2-digit",
+                year: "numeric",
+              }).format(new Date(blog?.createdAt))}
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Latest Blogs Preview */}
-      <div className="max-w-[95%] lg:max-w-6xl 2xl:max-w-7xl mx-auto px-4 md:px-8 lg:px-0">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Loop over the first 4 blogs */}
-          {blogData?.slice(0, 4).map((article, index) => (
-            <div key={index} className="relative">
-              <div className="absolute inset-0 bg-[#EDEEF4] pt-12 pb-8 md:pb-16"></div>
-              <div className="relative z-10">
-                {/* Article Image */}
-                <div className="mb-4">
-                  <img
-                    src={article.imageUrl}
-                    alt={article.alttag}
-                    className="w-full max-w-[400px] h-auto shadow-lg object-cover"
-                  />
-                </div>
-                {/* Article Title */}
-                <h3 className="text-xl font-bold text-gray-800">{article.title}</h3>
-                {/* Link to Detailed View Page */}
-                <a href={`/blog/${article.slug}`} className="text-blue-600 mt-2 inline-block">Read more</a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default Latestblog
+export default Latestblog;

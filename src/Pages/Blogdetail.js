@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { BASE_URL } from "../utils/BASE_URL";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Latestblog from "./Latestblog";
+import { FiCalendar } from "react-icons/fi";
 
 const Blogdetail = () => {
     const { slug } = useParams();
@@ -46,40 +47,73 @@ const Blogdetail = () => {
                     <meta property="og:image" content="https://www.aidifys.com/Aidifys-hiring.jpg" />
                     <meta property="og:url" content="https://www.aidifys.com/blog" />
                 </Helmet>
-                <div className="mt-8 sm:mt-12 md:mt-24 lg:mt-24 mb-8">
-                    <div className="relative mb-20 sm:mb-28 md:mb-36">
-                        <div className="absolute inset-0 bg-[#EDEEF4] pt-8 sm:pt-10 md:pt-12 pb-6 sm:pb-10 md:pb-16"></div>
-                        <div className="relative z-10 max-w-[95%] lg:max-w-6xl 2xl:max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-end h-full pb-6 md:pb-12">
-                            {/* Blog Title Section */}
-                            <div className="mt-28 md:mt-56 pb-4 md:pb-8 w-full md:w-[60%]">
-                                <div className="mb-4 flex items-center">
-                                    <h2 className="text-base sm:text-lg md:text-xl font-bold uppercase text-gray-600">
-                                        BLOG
-                                    </h2>
-                                </div>
-                            </div>
-                            {/* Blog Image */}
-                            <div className="relative md:absolute right-0 -bottom-20 md:-bottom-28 2xl:-bottom-40 z-50 flex justify-end w-full md:w-auto">
-                                <img
-                                    src={blogData?.imageUrl}
-                                    alt={blogData?.alttag || "Blog Image"}
-                                    className="w-full max-w-[400px] sm:max-w-[500px] md:max-w-[600px] lg:max-w-[760px] h-auto rounded-lg shadow-lg object-cover"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    {/* Blog Content */}
-                    <div className="max-w-[95%] lg:max-w-6xl 2xl:max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-0">
-                        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-black uppercase leading-snug sm:leading-tight md:leading-[40px] lg:leading-[50px]">
+                <div className="max-w-7xl mx-auto px-4 lg:px-8 py-8 mt-28">
+                    <header className="mb-8">
+                        {/* ///// category title ///// */}
+                        {/* <div className="text-sm font-bold text-gray-500 uppercase mb-2">
+            Health And Nutrition
+        </div> */}
+                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4">
                             {blogData?.title}
                         </h1>
-                        <div className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl max-w-none text-justify mt-10">
-                            <div dangerouslySetInnerHTML={{ __html: blogData?.content }} />
+                        <div className="text-sm text-gray-500 flex items-center gap-2">
+                            <span>By Admin</span>
+                            <span> <FiCalendar /></span>
+                            <span>
+                                {blogData?.createdAt
+                                    ? new Intl.DateTimeFormat("en-US", {
+                                        weekday: "short",
+                                        day: "2-digit",
+                                        month: "short",
+                                        year: "numeric",
+                                    }).format(new Date(blogData?.createdAt))
+                                    : "N/A"}
+                            </span>
                         </div>
+                    </header>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                        {/* Blog Content */}
+                        <div className="lg:col-span-2">
+                            <div className="mb-6">
+                                <img
+                                    src={blogData?.imageUrl}
+                                    alt={blogData?.alttag}
+                                    title={blogData?.alttag}
+                                    className="w-full h-auto rounded-lg shadow-lg cursor-pointer"
+                                />
+                            </div>
+
+                            <article className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl max-w-none">
+                                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold uppercase leading-tight">
+                                    {blogData?.title}
+                                </h1>
+                                <p className="mt-10">
+                                    <div dangerouslySetInnerHTML={{ __html: blogData?.content }} />
+                                </p>
+                            </article>
+                        </div>
+                        {/* Sidebar */}
+                        <aside
+                            className="space-y-8 lg:sticky lg:top-28 lg:self-start"
+                            style={{ maxHeight: 'calc(100vh - 112px)', overflowY: 'auto' }}
+                        >
+                            <div className="">
+                                <h3 className="text-xl font-bold">Latest Blog</h3>
+                                <div className="w-16 h-[3px] bg-sky-500 mt-1"></div>
+                            </div>
+                            <div>
+                                <Latestblog />
+                            </div>
+                            <Link to={'/blog'}>
+                                <button className="w-full max-w-sm mx-auto bg-sky-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-sky-600 transition">
+                                    View More
+                                </button>
+                            </Link>
+                        </aside>
                     </div>
                 </div>
+
             </HelmetProvider>
-            {/* <Latestblog/> */}
         </>
     );
 };
