@@ -87,7 +87,7 @@ const Blogdetail = () => {
                                 <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold uppercase leading-tight">
                                     {blogData?.title}
                                 </h1>
-                                <p className="mt-10">
+                                <p className="mt-10 text-lg">
                                     <div dangerouslySetInnerHTML={{ __html: blogData?.content }} />
                                 </p>
                             </article>

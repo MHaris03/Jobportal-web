@@ -58,8 +58,8 @@ const LocationBrowse = () => {
                                     {name}
                                 </h3>
 
-                                <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer">
-                                    {jobsData.length ? getJobCount(jobLocation) : 0}
+                                <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer font-bold">
+                                    {jobsData?.length ? getJobCount(jobLocation) : 0}
                                 </p>
 
                             </div>
@@ -81,8 +81,8 @@ const LocationBrowse = () => {
                                     {name}
                                 </h3>
 
-                                <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer">
-                                    {jobsData.length ? getJobCount(jobLocation) : 0}
+                                <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer font-bold">
+                                    {jobsData?.length ? getJobCount(jobLocation) : 0}
                                 </p>
 
                             </div>
@@ -104,8 +104,8 @@ const LocationBrowse = () => {
                                     {name}
                                 </h3>
 
-                                <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer">
-                                    {jobsData.length ? getJobCount(jobLocation) : 0}
+                                <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer font-bold">
+                                    {jobsData?.length ? getJobCount(jobLocation) : 0}
                                 </p>
 
                             </div>

@@ -4,10 +4,55 @@ import { BASE_URL } from '../utils/BASE_URL';
 import { Link } from 'react-router-dom';
 import Arrow from "../components/Arrow"
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import {
+  FaLaptopCode, FaHospital, FaHardHat, FaChalkboardTeacher, FaClipboardList, FaBriefcaseMedical, FaStore,
+  FaSuitcase, FaGavel, FaBuilding, FaIndustry, FaPhoneAlt, FaUsers, FaTruck, FaMedkit, FaUniversity,
+  FaBriefcase, FaRegFileAlt, FaShieldAlt
+}
+  from 'react-icons/fa';
 
 const BrowseJobs = () => {
   const [jobsData, setJobsData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const categoryIcons = {
+    'Hospitality-Catering': <FaHospital />,
+    'Healthcare-Nursing': <FaBriefcaseMedical />,
+    'Sales-Marketing': <FaClipboardList />,
+    'Engineering': <FaHardHat />,
+    'OilGas': <FaIndustry />,
+    'Creative-Design': <FaChalkboardTeacher />,
+    'Administration': <FaRegFileAlt />,
+    'InformationTechnology': <FaLaptopCode />,
+    'Government': <FaGavel />,
+    'Public-Sector': <FaShieldAlt />,
+    'AccountingFinance': <FaBriefcase />,
+    'Telecommunications': <FaPhoneAlt />,
+    'Construction-Facilities': <FaBuilding />,
+    'Engineering-Technical': <FaHardHat />,
+    'Telecom': <FaPhoneAlt />,
+    'DesignMultimedia': <FaChalkboardTeacher />,
+    'HumanResource': <FaUsers />,
+    'Social-Care': <FaMedkit />,
+    'Consumer': <FaStore />,
+    'Manufacturing': <FaIndustry />,
+    'Retail': <FaStore />,
+    'Media-Communications': <FaUsers />,
+    'DistributionLogistics': <FaTruck />,
+    'Transport-Logistics': <FaTruck />,
+    'Supply-Chain-Operations': <FaClipboardList />,
+    'HealthcareMedical': <FaBriefcaseMedical />,
+    'Construction-Trades': <FaHardHat />,
+    'Education-Teaching': <FaUniversity />,
+    'Science-Research': <FaChalkboardTeacher />,
+    'Property-Management': <FaBuilding />,
+    'ProcurementSourcing': <FaClipboardList />,
+    'SalesBusinessDevelopment': <FaSuitcase />,
+    'LegalProfessionalServices': <FaGavel />,
+    'Legal-Compliance': <FaGavel />,
+    'LifeSciencesHealthcare': <FaMedkit />,
+    'Web-developer': <FaLaptopCode />
+  };
 
   useEffect(() => {
     fetch(`${BASE_URL}/all-jobs`)
@@ -73,16 +118,17 @@ const BrowseJobs = () => {
               { name: 'Accounting / Finance', category: 'AccountingFinance' },
               { name: 'Telecommunications', category: 'Telecommunications' }
             ].map(({ name, category }) => (
-              <Link to={`/categories/${category}`}>
-                <div key={category} className="bg-white py-3 px-3 rounded-lg mt-3 flex justify-between">
-                  <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4]">
-                    {name}
-                  </h3>
-
-                  <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer">
-                    {jobsData.length ? getJobCount(category) : 0}
+              <Link to={`/categories/${category}`} key={category}>
+                <div className="bg-white py-3 px-3 rounded-lg mt-3 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl font-semibold">{categoryIcons[category]}</span>
+                    <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4]">
+                      {name}
+                    </h3>
+                  </div>
+                  <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer font-bold">
+                    {jobsData?.length ? getJobCount(category) : 0}
                   </p>
-
                 </div>
               </Link>
             ))}
@@ -103,16 +149,17 @@ const BrowseJobs = () => {
               { name: ' Distribution/Logistics', category: 'DistributionLogistics' },
               { name: ' Transport and Logistics', category: 'Transport-Logistics' }
             ].map(({ name, category }) => (
-              <Link to={`/categories/${category}`}>
-                <div key={category} className="bg-white py-3 px-3 rounded-lg mt-3 flex justify-between">
-                  <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4]">
-                    {name}
-                  </h3>
-
-                  <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer">
-                    {jobsData.length ? getJobCount(category) : 0}
+              <Link to={`/categories/${category}`} key={category}>
+                <div className="bg-white py-3 px-3 rounded-lg mt-3 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl font-semibold">{categoryIcons[category]}</span>
+                    <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4]">
+                      {name}
+                    </h3>
+                  </div>
+                  <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer font-bold">
+                    {jobsData?.length ? getJobCount(category) : 0}
                   </p>
-
                 </div>
               </Link>
             ))}
@@ -133,16 +180,17 @@ const BrowseJobs = () => {
               { name: 'Life Sciences & Healthcare', category: 'LifeSciencesHealthcare' },
               { name: 'Web Developer', category: 'Web-developer' }
             ].map(({ name, category }) => (
-              <Link to={`/categories/${category}`}>
-                <div key={category} className="bg-white py-3 px-3 rounded-lg mt-3 flex justify-between">
-                  <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4]">
-                    {name}
-                  </h3>
-
-                  <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer">
-                    {jobsData.length ? getJobCount(category) : 0}
+              <Link to={`/categories/${category}`} key={category}>
+                <div className="bg-white py-3 px-3 rounded-lg mt-3 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl font-semibold">{categoryIcons[category]}</span>
+                    <h3 className="text-sm font-bold cursor-pointer hover:text-[#98d8f4]">
+                      {name}
+                    </h3>
+                  </div>
+                  <p className="bg-[#e7f8fd] text-gray-900 px-2 cursor-pointer font-bold">
+                    {jobsData?.length ? getJobCount(category) : 0}
                   </p>
-
                 </div>
               </Link>
             ))}
