@@ -7,7 +7,7 @@ import ReactPaginate from 'react-paginate';
 import { GrPrevious, GrNext } from 'react-icons/gr';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import Blogimg from "../Bgimg/blogbg.jpg"
-import { HelmetProvider , Helmet } from "react-helmet-async";
+import { HelmetProvider, Helmet } from "react-helmet-async";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -69,6 +69,8 @@ const Blog = () => {
           <meta property="og:description" content="Explore insightful articles on career tips, job search 
           strategies, and industry trends at Aidifys Blog. Stay updated with the latest hiring news, workplace
            advice, and professional growth ideas to boost your career journey!" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
           <meta property="og:image" content="https://www.aidifys.com/Aidifys-hiring.jpg" />
           <meta property="og:url" content="https://www.aidifys.com/blog" />
         </Helmet>

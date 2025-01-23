@@ -40,6 +40,8 @@ const Term = () => {
                     <meta property="og:description"
                         content="Understand the terms and conditions of using Aidifys. Explore the rules and 
                     regulations that ensure a secure and reliable platform for job seekers and employers." />
+                    <meta property="og:image:width" content="1200" />
+                    <meta property="og:image:height" content="630" />
                     <meta property="og:image" content="https://www.aidifys.com/Aidifys-hiring.jpg" />
                     <meta property="og:url" content="https://www.aidifys.com/terms-conditions" />
                 </Helmet>

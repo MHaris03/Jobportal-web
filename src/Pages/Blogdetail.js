@@ -44,6 +44,8 @@ const Blogdetail = () => {
                     <meta name="description" content={blogData?.description} />
                     <meta property="og:title" content="Blog" />
                     <meta property="og:description" content={blogData?.description} />
+                    <meta property="og:image:width" content="1200" />
+                    <meta property="og:image:height" content="630" />
                     <meta property="og:image" content="https://www.aidifys.com/Aidifys-hiring.jpg" />
                     <meta property="og:url" content="https://www.aidifys.com/blog" />
                 </Helmet>

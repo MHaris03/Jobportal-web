@@ -40,6 +40,8 @@ const Term = () => {
           <meta property="og:description"
             content="Read the privacy policy of Aidifys. Get details on how we handle and protect your personal
              data in accordance with our platform's terms." />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
           <meta property="og:image" content="https://www.aidifys.com/Aidifys-hiring.jpg" />
           <meta property="og:url" content="https://www.aidifys.com/privacy" />
         </Helmet>

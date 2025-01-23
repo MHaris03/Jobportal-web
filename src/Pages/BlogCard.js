@@ -62,6 +62,8 @@ const BlogCard = ({ article, onDelete }) => {
           <meta property="og:description" content="Explore insightful articles on career tips, job search 
           strategies, and industry trends at Aidifys Blog. Stay updated with the latest hiring news, workplace
            advice, and professional growth ideas to boost your career journey!" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
           <meta property="og:image" content="https://www.aidifys.com/Aidifys-hiring.jpg" />
           <meta property="og:url" content="https://www.aidifys.com/blog" />
         </Helmet>

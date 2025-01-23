@@ -114,6 +114,8 @@ const Home = () => {
           <meta property="og:description" content="Discover top UK jobs across IT, healthcare, finance, engineering & more at 
           Aidifys.com. Browse full-time, part-time, remote & freelance job opportunities in major cities like London,
           Manchester & Birmingham. Start your job search today!" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
           <meta property="og:image" content="https://www.aidifys.com/Aidifys-hiring.jpg" />
           <meta property="og:url" content="https://www.aidifys.com/" />
         </Helmet>

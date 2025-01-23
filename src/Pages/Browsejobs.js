@@ -92,6 +92,8 @@ const BrowseJobs = () => {
           <meta property="og:description" content="Explore job opportunities by categories and locations on Aidifys.com. Browse jobs across 
                  various industries like IT, healthcare, finance, and more, available in major UK cities including 
                  London, Manchester, and Birmingham. Find your next career move today!" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
           <meta property="og:image" content="https://www.aidifys.com/Aidifys-hiring.jpg" />
           <meta property="og:url" content="https://www.aidifys.com/browsejobs" />
         </Helmet>

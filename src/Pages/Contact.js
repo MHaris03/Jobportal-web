@@ -51,6 +51,8 @@ const Contactus = () => {
           <meta property="og:title" content="Contact Us - Aidifys" />
           <meta property="og:description" content="Reach out to Aidifys for assistance with job searches, 
           hiring, or general inquiries. We are here to help!" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
           <meta property="og:image" content="https://www.aidifys.com/Aidifys-hiring.jpg" />
           <meta property="og:url" content="https://www.aidifys.com/contact" />
         </Helmet>
