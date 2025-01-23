@@ -61,10 +61,10 @@ const router = createBrowserRouter([
         element: <Contact />
       },
 
-      {
-        path: "cvbuilder",
-        element: <CvBuilder />
-      },
+      // {
+      //   path: "cvbuilder",
+      //   element: <CvBuilder />
+      // },
       {
         path: "terms-conditions",
         element: <TermsConditions />
