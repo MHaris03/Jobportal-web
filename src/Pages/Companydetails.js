@@ -42,6 +42,8 @@ const Companydetails = () => {
             services, and how we assist job seekers and employers." />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:image" content="https://www.aidifys.com/Aidifys-hiring.jpg" />
           <meta property="og:image" content="https://www.aidifys.com/Aidifys-hiring.jpg" />
           <meta property="og:url" content="https://www.aidifys.com/faq" />
         </Helmet>
