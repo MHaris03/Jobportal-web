@@ -50,6 +50,7 @@ const LocationBrowse = () => {
                         { name: 'Birmingham', jobLocation: 'Birmingham' },
                         { name: 'Liverpool', jobLocation: 'Liverpool' },
                         { name: 'City of Westminster', jobLocation: 'CityofWestminster' },
+                        { name: 'Dubai', jobLocation: 'Dubai' },
 
                     ].map(({ name, jobLocation }) => (
                         <Link to={`/location-jobs/${jobLocation}`}>
@@ -73,6 +74,7 @@ const LocationBrowse = () => {
                         { name: 'Sheffeild', jobLocation: 'Sheffeild' },
                         { name: 'Oxford', jobLocation: 'Oxford' },
                         { name: 'Bristol', jobLocation: 'Bristol' },
+                        { name: 'United Arab Emirates', jobLocation: 'United-Arab-Emirates' },
 
                     ].map(({ name, jobLocation }) => (
                         <Link to={`/location-jobs/${jobLocation}`}>

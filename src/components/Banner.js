@@ -91,6 +91,8 @@ const Banner = ({ query, handleInputChange, handleLocationChange, selectedLocati
                 >
                   <option value="">Select a city</option>
                   <option value="">All</option>
+                  <option value="Dubai">Dubai</option>
+                  <option value="United-Arab-Emirates">United Arab Emirates</option>
                   <option value="London">London</option>
                   <option value="Manchester">Manchester</option>
                   <option value="Birmingham">Birmingham</option>
